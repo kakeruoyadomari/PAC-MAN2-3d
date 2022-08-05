@@ -1,10 +1,20 @@
 #include"DxLib.h"
+#include"SceneManager.h"
+#include"Title.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	ChangeWindowMode(TRUE);
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
 	{
 		return -1;			// エラーが起きたら直ちに終了
+	}
+
+	SceneManager scene(new Title());
+
+	while (scene.Update(scene.ControllerUpdate()) != nullptr)
+	{
+		scene.Draw();
 	}
 
 	DrawPixel(320, 240, GetColor(255, 255, 255));	// 点を打つ
