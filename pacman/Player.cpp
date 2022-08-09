@@ -7,5 +7,5 @@ void Player::UpData()
 
 void Player::Draw() const
 {
-	DrawFormatString(20, 20, 0xffffff, "%d", this->x);
+	DrawFormatString(20, 40, 0xffffff, "%d", this->x);
 }
