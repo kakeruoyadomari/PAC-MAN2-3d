@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-class Player :
+class Enemy :
     public Object
 {
 private:
@@ -9,6 +9,8 @@ private:
     int h = 0;
     int w = 0;
     int radius;
+
+    bool animeFlg = FALSE;
 
 public:
     void UpData() override;

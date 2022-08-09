@@ -5,11 +5,16 @@
 class Object
 {
 private:
-	int x=0;
+	int x = 0;
+	int y = 0;
+	int h = 0;
+	int w = 0;
+	int radius = 0;
 
 public:
-	virtual void UpData();
-	virtual void Draw() const;
+	virtual void UpData() = 0;
+	virtual void Animaition() = 0;
+	virtual void Draw() const = 0;
 
 };
 
