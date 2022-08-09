@@ -20,7 +20,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	while (scene.Update(scene.ControllerUpdate()) != nullptr)
 	{
 		ClearDrawScreen();		//‰æ–Ê‚Ì‰Šú‰»
-
 		scene.Draw();
 		ScreenFlip();				//— ‰æ–Ê‚Ì“à—e‚ğ•\‰æ–Ê‚É”½‰f
 
