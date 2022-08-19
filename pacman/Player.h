@@ -1,15 +1,8 @@
 #pragma once
 #include "Object.h"
-class Player :
-    public Object
+class Player : public Object
 {
-private:
-    int x = 0;
-    int y = 0;
-    int h = 0;
-    int w = 0;
-    int radius;
-
+    // 座標X,Yと半径はobjectクラスで定義済み
 public:
     void UpDate() override;
     void Animaition() override;
