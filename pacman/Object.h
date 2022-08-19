@@ -12,7 +12,7 @@ private:
 	int radius = 0;
 
 public:
-	virtual void UpData() = 0;
+	virtual void UpDate() = 0;
 	virtual void Animaition() = 0;
 	virtual void Draw() const = 0;
 

@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-void Enemy::UpData()
+void Enemy::UpDate()
 {
 
 }

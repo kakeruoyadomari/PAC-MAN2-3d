@@ -13,7 +13,7 @@ private:
     bool animeFlg = FALSE;
 
 public:
-    void UpData() override;
+    void UpDate() override;
     void Animaition() override;
     void Draw() const override;
 

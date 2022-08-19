@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::UpData()
+void Player::UpDate()
 {
 	this->x++;
 }

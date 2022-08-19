@@ -10,7 +10,7 @@ GameMain::GameMain()
 AbstractScene* GameMain::Update(XINPUT_STATE data)
 {
 
-    player->UpData();
+    player->UpDate();
 
     return this;
 }
