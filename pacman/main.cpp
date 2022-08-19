@@ -4,28 +4,29 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	ChangeWindowMode(TRUE);
-	SetGraphMode(1280, 720, 32);
+	SetGraphMode(1280, 720, 16);
+	SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
+	//SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_MAXIMUM);  
 
-	if (DxLib_Init() == -1)		// ‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
+
+	if (DxLib_Init() == -1)		// ï¿½cï¿½wï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
-		return -1;			// ƒGƒ‰[‚ª‹N‚«‚½‚ç’¼‚¿‚ÉI—¹
+		return -1;			// ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ç’¼ï¿½ï¿½ï¿½ÉIï¿½ï¿½
 	}
 
 	SetDrawScreen(DX_SCREEN_BACK);
+
 
 	SceneManager scene(new Title());
 
 	while (scene.Update(scene.ControllerUpdate()) != nullptr)
 	{
-		ClearDrawScreen();		//‰æ–Ê‚Ì‰Šú‰»
+		ClearDrawScreen();		//ï¿½ï¿½Ê‚Ìï¿½ï¿½ï¿½ï¿½ï¿½
 		scene.Draw();
-		ScreenFlip();				//— ‰æ–Ê‚Ì“à—e‚ğ•\‰æ–Ê‚É”½‰f
-
+		ScreenFlip();				//ï¿½ï¿½ï¿½ï¿½Ê‚Ì“ï¿½ï¿½eï¿½ï¿½\ï¿½ï¿½Ê‚É”ï¿½ï¿½f
 	}
 
+	DxLib_End();				// ï¿½cï¿½wï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½gï¿½pï¿½ÌIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	DxLib_End();				// ‚c‚wƒ‰ƒCƒuƒ‰ƒŠg—p‚ÌI—¹ˆ—
-
-	return 0;				// ƒ\ƒtƒg‚ÌI—¹ 
+	return 0;				// ï¿½\ï¿½tï¿½gï¿½ÌIï¿½ï¿½ 
 }
