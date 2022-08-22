@@ -4,8 +4,9 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	ChangeWindowMode(TRUE);
 	SetGraphMode(1280, 720, 16);
-	SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
+	//SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
 	//SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_MAXIMUM);  
 
 
