@@ -2,12 +2,15 @@
 #include"SceneManager.h"
 #include"Title.h"
 
+
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	SetGraphMode(1280, 720, 16);
+
+
 	SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
 	//SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_MAXIMUM);  
-
 
 	if (DxLib_Init() == -1)		// �c�w���C�u��������������
 	{

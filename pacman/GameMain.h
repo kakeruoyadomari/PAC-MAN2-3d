@@ -2,6 +2,7 @@
 #include "AbstractScene.h"
 #include"Object.h"
 #include"Player.h"
+#include"Stage.h"
 
 
 class GameMain :
@@ -10,6 +11,7 @@ class GameMain :
 private:
     Object* obj;
     Player* player;
+    Stage* stage;
 
 public:
 
