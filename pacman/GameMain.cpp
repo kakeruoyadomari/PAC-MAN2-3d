@@ -3,12 +3,12 @@
 #include"Player.h"
 #include"Esa.h"
 
-Esa* esa;
+Player* player;
 
 GameMain::GameMain()
 {
     player = new Player();
-    esa = new Esa();
+    esacontroll = new EsaControll();
 }
 
 AbstractScene* GameMain::Update(XINPUT_STATE data)
@@ -22,5 +22,5 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
 void GameMain::Draw() const
 {
     player->Draw();
-    esa->Draw();
+    esacontroll->DrawEsa();
 }

@@ -1,23 +1,25 @@
 #include "Esa.h"
-Esa::Esa()
-{
-	x = 100;
-	y = 100;
-	EsaImg = LoadGraph("images/è¨Ç≥Ç¢ã .png");
-	PowerEsaImg = LoadGraph("images/ÉfÉJÇ¢ã .png");
+ESA::ESA(int X, int Y)
+{		
+	x = X;
+	y = Y;
+	Esaflg = TRUE;
+	//EsaImg = 0;
 }
 
-void Esa::UpDate()
-{
-
-}
-
-void Esa::Animaition()
+void ESA::UpDate()
 {
 
 }
 
-void Esa::Draw() const
+void ESA::Animaition()
 {
+
+}
+
+void ESA::Draw() const
+{
+	
 	DrawGraph(x, y, EsaImg, TRUE);
 }
+
