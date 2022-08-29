@@ -4,6 +4,8 @@
 class Player : public Object
 {
 private:
+    int Pad;
+    int Move;
     int playerimg[3];   //プレイヤー画像用変数
     int PlayerDirection;    //プレイヤーの向き
     int playeranim;         //画像アニメーション用

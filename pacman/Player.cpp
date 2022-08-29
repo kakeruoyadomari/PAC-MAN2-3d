@@ -97,15 +97,13 @@ void Player::NotOverhang()
 void Player::MovePlayer()
 {
 	//int num = 3;
-	
 
 
-	if (control.Buttons[XINPUT_BUTTON_DPAD_UP]) PlayerDirection = 0;
-	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT]) PlayerDirection = 1;
-	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN]) PlayerDirection = 2;
-	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT]) PlayerDirection = 3;
-	
-	
+
+	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) PlayerDirection = 0;   //スティックと方向キー
+	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000) PlayerDirection = 1;   //スティックと方向キー
+	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) PlayerDirection = 2;   //スティックと方向キー
+	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) PlayerDirection = 3;   //スティックと方向キー
 	
 	////左右移動
 	//if (flg == TRUE)
