@@ -5,7 +5,7 @@ EsaControll::EsaControll()
 	EsaImage[0] = LoadGraph("images/è¨Ç≥Ç¢ã .png");
 	EsaImage[1] = LoadGraph("images/ÉfÉJÇ¢ã .png");
 
-	SetX = 10;
+	SetX = 100;
 	SetY = 100;
 
 	for (int i = 0; i < 244; i++)
@@ -18,18 +18,17 @@ EsaControll::EsaControll()
 		{
 			EsaType = 1;
 		}
-		//for (int j = 0; j < 10; j++)
-		//{
-			SetX += 5;
-		//	for ()
-		//	{
-		//		SetX = 100;
-		//		SetY += 50;
-		//		esa[i] = new ESA(SetX, SetY);
-		//	}
-		//}
+
 		esa[i] = new ESA(SetX, SetY);
 		esa[i]->SetImage(EsaImage[EsaType]);
+
+		SetX += 20;
+		if (SetX >= 300)
+		{
+			SetX = 100;
+			SetY += 20;
+		}
+
 	}
 }
 
