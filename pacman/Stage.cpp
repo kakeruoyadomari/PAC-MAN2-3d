@@ -1,10 +1,9 @@
 #include "DxLib.h"
 #include"Stage.h"
-#include <fstream>
 
 Stage stage;
 
-// グローバル変数>_<
+// グローバル変数
 int gPacman[10];			// パックマンのグラフィックハンドル
 int gMapChip[10];			// マップチップのハンドル
 int StagePixel[STAGE_WIDTH][STAGE_HEIGHT];
