@@ -2,7 +2,7 @@
 #include "AbstractScene.h"
 #include"Object.h"
 #include"Player.h"
-
+#include"Esa.h"
 
 class GameMain :
     public AbstractScene
@@ -10,6 +10,7 @@ class GameMain :
 private:
     Object* obj;
     Player* player;
+    EsaControll* esacontroll;
 
 public:
 
