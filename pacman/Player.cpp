@@ -11,6 +11,7 @@ Player::Player()
 	playerimg[0] = LoadGraph("images/pac1.png");   //プレイヤー画像用変数
 	playerimg[1] = LoadGraph("images/パックマン2.png");
 	playerimg[2] = LoadGraph("images/パックマン3.png");
+	playeranim = 0;
 
 	x = 100.0;
 	y = 100.0;      //座標x,y
@@ -40,18 +41,40 @@ void Player::PlayerDisplay()
 		switch (PlayerDirection)
 		{
 		case 0:
-			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[0], TRUE, FALSE);
-			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[1], TRUE, FALSE);
-			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[2], TRUE, FALSE);
+			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[playeranim / 3], TRUE, FALSE);
+			y -= 1;
+			playeranim++;
+			if (playeranim >= 9)
+			{
+				playeranim = 0;
+			}
 			break;
 		case 1:
-			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[1], TRUE, FALSE);
+			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[playeranim / 3], TRUE, FALSE);
+			x += 1;
+			playeranim++;
+			if (playeranim >= 9)
+			{
+				playeranim = 0;
+			}
 			break;
 		case 2:
-			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[1], TRUE, FALSE);
+			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[playeranim / 3], TRUE, FALSE);
+			y += 1;
+			playeranim++;
+			if (playeranim >= 9)
+			{
+				playeranim = 0;
+			}
 			break;
 		case 3:
-			DrawRotaGraph(x, y, 1.0, 0, playerimg[1], TRUE, FALSE);
+			DrawRotaGraph(x, y, 1.0, 0, playerimg[playeranim / 3], TRUE, FALSE);
+			x -= 1;
+			playeranim++;
+			if (playeranim > 9)
+			{
+				playeranim = 0;
+			}
 			break;
 		}
 	}
@@ -73,14 +96,16 @@ void Player::NotOverhang()
 }
 void Player::MovePlayer()
 {
-	int num = 3;
-	//メニューカーソル移動処理
+	//int num = 3;
+	
 
 
 	if (control.Buttons[XINPUT_BUTTON_DPAD_UP]) PlayerDirection = 0;
 	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT]) PlayerDirection = 1;
 	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN]) PlayerDirection = 2;
 	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT]) PlayerDirection = 3;
+	
+	
 	
 	////左右移動
 	//if (flg == TRUE)

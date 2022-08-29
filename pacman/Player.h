@@ -5,7 +5,8 @@ class Player : public Object
 {
 private:
     int playerimg[3];   //プレイヤー画像用変数
-    int PlayerDirection;
+    int PlayerDirection;    //プレイヤーの向き
+    int playeranim;         //画像アニメーション用
     /*int playerrun;
     int playerrun2;*/
     float speed;     //移動速度
