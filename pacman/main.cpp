@@ -1,6 +1,7 @@
 #include"DxLib.h"
 #include"SceneManager.h"
 #include"Title.h"
+#include"Stage.h"
 
 
 
@@ -8,6 +9,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 	SetGraphMode(1280, 720, 16);
 
+	if (stage.Init()) return -1;	// 初期化
+
+	stage.MainLoop();				// メインルーチン
 
 	SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
 	//SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_MAXIMUM);  
