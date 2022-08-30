@@ -97,13 +97,13 @@ int Stage::CheckWall(int cx, int cy, int mx, int my)
 {
 	int wall = 0;
 	static int dbgx = 0, dbgy = 0;
-	if (mx != 0) {
+	if (mx != 0) { //横移動処理
 		if (StagePixel[cy - 1][cx + mx * 2] >= 3) wall++;
 		if (StagePixel[cy][cx + mx * 2] >= 3) wall++;
 		if (StagePixel[cy + 1][cx + mx * 2] >= 3) wall++;
 		dbgx = mx; dbgy = my;
 	}
-	else if (my != 0) {
+	else if (my != 0) {//縦移動処理
 		if (StagePixel[cy + my * 2][cx - 1] >= 3) wall++;
 		if (StagePixel[cy + my * 2][cx] >= 3) wall++;
 		if (StagePixel[cy + my * 2][cx + 1] >= 3) wall++;
@@ -179,7 +179,7 @@ int Stage::PakuMove()
 	}
 	else {
 		// パックマン移動中（マス目の中間にいるとき）
-		mv -= 4;
+		mv -= 4;//パックマンの移動処理
 		if (mv <= 0) {
 			x += dx;
 			y += dy;
@@ -210,8 +210,8 @@ void Stage::MainLoop()
 		if (MapSet())return;
 		if (PakuMove()) return;
 
-		DrawFormatString(800, 0, RGB(255, 255, 255), "SCORE:");//スコア表示
-		DrawFormatString(830, 15, RGB(255, 255, 255), "%6d", gScore);
+		DrawFormatString(1050, 0, RGB(255, 255, 255), "SCORE:");//スコア表示
+		DrawFormatString(1080, 15, RGB(255, 255, 255), "%6d", gScore);
 
 		ScreenFlip();
 	}
