@@ -85,7 +85,7 @@ int Stage::MapSet()
 	for (sy = 0; sy < 464; sy++) {
 		for (sx = 0; sx < 512; sx++) {
 			st = StagePixel[sy][sx];
-			DrawGraph(sx * 4, sy * 3, gMapChip[st], TRUE);//マップの大きさ変更x横y縦
+			DrawGraph(sx * 4, sy * 3.1, gMapChip[st], TRUE);//マップの大きさ変更x横y縦
 			if (st == 1 || st == 2) dot++;
 		}
 	}
