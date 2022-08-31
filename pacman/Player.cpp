@@ -5,7 +5,7 @@ const int SCREEN_HEIGHT = 480;
 
 Player::Player()
 {
-	speed = 0;     //移動速度
+	speed = 40;     //移動速度
 	flg = true;      //プレイヤー表示フラグ
 	ismove = false;//false・・・止まる,true・・・動く
 	playerimg[0] = LoadGraph("images/pac1.png");   //プレイヤー画像用変数
@@ -42,7 +42,9 @@ void Player::PlayerDisplay()
 		{
 		case 0:
 			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[playeranim / 3], TRUE, FALSE);
-			y -= 1;
+			Speedflg();
+			y -= movepixel;
+			//fallspeed = 11;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -51,7 +53,9 @@ void Player::PlayerDisplay()
 			break;
 		case 1:
 			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[playeranim / 3], TRUE, FALSE);
-			x += 1;
+			Speedflg(); 
+			x += movepixel;
+			//fallspeed = 1;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -60,7 +64,9 @@ void Player::PlayerDisplay()
 			break;
 		case 2:
 			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[playeranim / 3], TRUE, FALSE);
-			y += 1;
+			Speedflg(); 
+			y += movepixel;
+			//fallspeed = 17;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -69,7 +75,8 @@ void Player::PlayerDisplay()
 			break;
 		case 3:
 			DrawRotaGraph(x, y, 1.0, 0, playerimg[playeranim / 3], TRUE, FALSE);
-			x -= 1;
+			Speedflg();
+			x -= movepixel;
 			playeranim++;
 			if (playeranim > 9)
 			{
@@ -79,21 +86,36 @@ void Player::PlayerDisplay()
 		}
 	}
 }
-void Player::NotOverhang()
+//void Player::NotOverhang()
+//{
+//	//画面をはみ出さないようにする
+//	if ((int)x < 37) {
+//		x = 37.0;
+//		speed = 0;
+//	}
+//
+//	if ((int)x > SCREEN_WIDTH - 180) {
+//		x = (float)(SCREEN_WIDTH - 180);
+//		speed = 0;
+//	}
+//
+//	//if (m_y > SCREEN_HEIGHT - m_y)m_y = SCREEN_HEIGHT - m_y;
+//}
+
+void Player::Speedflg()
 {
-	//画面をはみ出さないようにする
-	if ((int)x < 37) {
-		x = 37.0;
-		speed = 0;
-	}
+	int flamespeed = 16;
+	static int speedflg = 0;
+	movepixel = 0;
 
-	if ((int)x > SCREEN_WIDTH - 180) {
-		x = (float)(SCREEN_WIDTH - 180);
-		speed = 0;
+	speedflg = speed + speedflg;
+	while (speedflg > flamespeed)
+	{
+		speedflg = speedflg - flamespeed;
+		movepixel++;
 	}
-
-	//if (m_y > SCREEN_HEIGHT - m_y)m_y = SCREEN_HEIGHT - m_y;
 }
+
 void Player::MovePlayer()
 {
 	//int num = 3;
@@ -131,26 +153,26 @@ void Player::PlayerControl() {
 }
 void Player::StopMotion(void) {
 
-	if (speed >= 0) {			//プラス方向への加速時 右方向
-		if (speed != 0) {
-			speed -= ACCELERATION;
-			x += speed;
-			if (speed < 0)speed = 0;
-		}
-	}
-	else if (speed <= 0) {	//マイナス方向の加速時 左方向
-		if (speed != 0) {
-			speed += ACCELERATION;
-			x += speed;
-			if (speed > 0)speed = 0;
-		}
-	}
+	//if (speed >= 0) {			//プラス方向への加速時 右方向
+	//	if (speed != 0) {
+	//		speed -= ACCELERATION;
+	//		x += speed;
+	//		if (speed < 0)speed = 0;
+	//	}
+	//}
+	//else if (speed <= 0) {	//マイナス方向の加速時 左方向
+	//	if (speed != 0) {
+	//		speed += ACCELERATION;
+	//		x += speed;
+	//		if (speed > 0)speed = 0;
+	//	}
+	//}
 
 }
 void Player::Init(XINPUT_STATE data)
 {
 	control = data;
-
+	
 }
 void Player::UpDate()
 {

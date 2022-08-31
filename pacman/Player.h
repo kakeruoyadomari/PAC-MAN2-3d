@@ -9,9 +9,11 @@ private:
     int playerimg[3];   //プレイヤー画像用変数
     int PlayerDirection;    //プレイヤーの向き
     int playeranim;         //画像アニメーション用
+    int speed;
+    int movepixel;
     /*int playerrun;
     int playerrun2;*/
-    float speed;     //移動速度
+    float fallspeed=11;     //移動速度
     bool flg;
     bool ismove;
     XINPUT_STATE control;
@@ -33,6 +35,7 @@ public:
     void StopMotion(void);
     void Init(XINPUT_STATE data);
     void PlayerControl();
+    void Speedflg();
     
 };
 
