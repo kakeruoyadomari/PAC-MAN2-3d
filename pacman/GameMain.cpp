@@ -26,9 +26,9 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
     player->UpDate();
     for (int i = 0; i < 244; i++)
     {
-        if (CheckHitPlayer_Esa(player, esa[i]) == TRUE)
+        if (CheckHitPlayer_Esa(player, esa[i]) == true)
         {
-            delete esa[i];
+            esa[i]->ChangeFlg();
         }
     }
 
