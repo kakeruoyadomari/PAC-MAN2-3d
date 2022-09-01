@@ -1,9 +1,12 @@
 #include "Esa.h"
+#include "Player.h"
+#include "Object.h"
 ESA::ESA(int X, int Y)
 {		
 	x = X;
 	y = Y;
 	Esaflg = TRUE;
+	radius = 2;
 	//EsaImg = 0;
 }
 
@@ -19,7 +22,6 @@ void ESA::Animaition()
 
 void ESA::Draw() const
 {
-	
-	DrawGraph(x, y, EsaImg, TRUE);
+	DrawRotaGraph(x, y, 1, 0, EsaImg, TRUE);
 }
 

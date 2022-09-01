@@ -11,7 +11,7 @@ private:
     Object* obj;
     Player* player;
     EsaControll* esacontroll;
-
+    ESA** esa;
 public:
 
 

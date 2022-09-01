@@ -1,5 +1,5 @@
 #include"Esa.h"
-
+#include"Player.h"
 EsaControll::EsaControll()
 {
 	EsaImage[0] = LoadGraph("images/è¨Ç≥Ç¢ã .png");

@@ -5,7 +5,8 @@ const int SCREEN_HEIGHT = 480;
 
 Player::Player()
 {
-	speed = 0;     //移動速度
+	//PlayerDirection = 1;
+	speed = 1;     //移動速度
 	flg = true;      //プレイヤー表示フラグ
 	ismove = false;//false・・・止まる,true・・・動く
 	playerimg[0] = LoadGraph("images/pac1.png");   //プレイヤー画像用変数
@@ -13,8 +14,9 @@ Player::Player()
 	playerimg[2] = LoadGraph("images/パックマン3.png");
 	playeranim = 0;
 
-	x = 100.0;
+	x = 500.0;
 	y = 100.0;      //座標x,y
+	radius = 4;
 
 }
 

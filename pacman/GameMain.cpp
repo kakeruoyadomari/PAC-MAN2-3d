@@ -5,19 +5,27 @@
 
 Player* player;
 
-
-Player* player;
-
 GameMain::GameMain()
 {
     player = new Player();
     esacontroll = new EsaControll();
+    esa = esacontroll->Getesa();
 }
 
 AbstractScene* GameMain::Update(XINPUT_STATE data)
 {
+
     player->Init(data);
     player->UpDate();
+    for (int i = 0; i < 244; i++)
+    {
+        if (CheckHitPlayer_Esa(player, esa[i]) == TRUE)
+        {
+            delete esa[i];
+        }
+    }
+
+    
 
     return this;
 }

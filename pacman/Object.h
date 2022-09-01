@@ -18,3 +18,5 @@ public:
 	int GetRadius() const { return radius; }
 };
 
+//float absf(void* num);
+bool CheckHitPlayer_Esa(Object* player, Object* esa);
