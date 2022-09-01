@@ -15,5 +15,5 @@ AbstractScene* Title::Update(XINPUT_STATE data) {
 void Title::Draw() const {
 
     SetFontSize(50);
-    DrawFormatString(20, 20, 0xffffff, "title", true);
+    DrawFormatString(20, 20, 0xffffff, "PACMAN", true);
 }

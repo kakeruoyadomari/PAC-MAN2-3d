@@ -5,29 +5,29 @@ const int SCREEN_HEIGHT = 480;
 
 Player::Player()
 {
-	//PlayerDirection = 1;
-	speed = 1;     //ˆÚ“®‘¬“x
-	flg = true;      //ƒvƒŒƒCƒ„[•\¦ƒtƒ‰ƒO
-	ismove = false;//falseEEE~‚Ü‚é,trueEEE“®‚­
-	playerimg[0] = LoadGraph("images/pac1.png");   //ƒvƒŒƒCƒ„[‰æ‘œ—p•Ï”
-	playerimg[1] = LoadGraph("images/ƒpƒbƒNƒ}ƒ“2.png");
-	playerimg[2] = LoadGraph("images/ƒpƒbƒNƒ}ƒ“3.png");
+
+	speed = 40;     //ï¿½Ú“ï¿½ï¿½ï¿½ï¿½x
+	flg = true;      //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½\ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
+	ismove = false;//falseï¿½Eï¿½Eï¿½Eï¿½~ï¿½Ü‚ï¿½,trueï¿½Eï¿½Eï¿½Eï¿½ï¿½ï¿½ï¿½
+	playerimg[0] = LoadGraph("images/pac1.png");   //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½æ‘œï¿½pï¿½Ïï¿½
+	playerimg[1] = LoadGraph("images/ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½2.png");
+	playerimg[2] = LoadGraph("images/ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½3.png");
 	playeranim = 0;
 
 	x = 500.0;
-	y = 100.0;      //À•Wx,y
+	y = 100.0;      //ï¿½ï¿½ï¿½Wx,y
 	radius = 4;
 
 }
 
 void Player::PlayerDisplay()
 {
-	//	//ƒvƒŒƒCƒ„[‚Ì•\¦
+	//	//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì•\ï¿½ï¿½
 	//if (flg == true)
 	//{
 	//	if (speed < 0)
 	//	{
-	//		DrawRotaGraph((int)x, (int)y, 1.0f, 0, playerimg[1], true, TRUE);//TRUE‚É‚µ‚½‚ç‰æ‘œ”½“]ÅŒã‚ÌTRUE
+	//		DrawRotaGraph((int)x, (int)y, 1.0f, 0, playerimg[1], true, TRUE);//TRUEï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½æ‘œï¿½ï¿½ï¿½]ï¿½ÅŒï¿½ï¿½TRUE
 	//	}
 	//	else if (speed > 0)
 	//	{
@@ -44,7 +44,9 @@ void Player::PlayerDisplay()
 		{
 		case 0:
 			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[playeranim / 3], TRUE, FALSE);
-			y -= 1;
+			Speedflg();
+			y -= movepixel;
+			//fallspeed = 11;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -53,7 +55,9 @@ void Player::PlayerDisplay()
 			break;
 		case 1:
 			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[playeranim / 3], TRUE, FALSE);
-			x += 1;
+			Speedflg(); 
+			x += movepixel;
+			//fallspeed = 1;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -62,7 +66,9 @@ void Player::PlayerDisplay()
 			break;
 		case 2:
 			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[playeranim / 3], TRUE, FALSE);
-			y += 1;
+			Speedflg(); 
+			y += movepixel;
+			//fallspeed = 17;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -71,7 +77,8 @@ void Player::PlayerDisplay()
 			break;
 		case 3:
 			DrawRotaGraph(x, y, 1.0, 0, playerimg[playeranim / 3], TRUE, FALSE);
-			x -= 1;
+			Speedflg();
+			x -= movepixel;
 			playeranim++;
 			if (playeranim > 9)
 			{
@@ -81,44 +88,57 @@ void Player::PlayerDisplay()
 		}
 	}
 }
-void Player::NotOverhang()
+//void Player::NotOverhang()
+//{
+//	//ï¿½ï¿½Ê‚ï¿½ï¿½Í‚İoï¿½ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
+//	if ((int)x < 37) {
+//		x = 37.0;
+//		speed = 0;
+//	}
+//
+//	if ((int)x > SCREEN_WIDTH - 180) {
+//		x = (float)(SCREEN_WIDTH - 180);
+//		speed = 0;
+//	}
+//
+//	//if (m_y > SCREEN_HEIGHT - m_y)m_y = SCREEN_HEIGHT - m_y;
+//}
+
+void Player::Speedflg()
 {
-	//‰æ–Ê‚ğ‚Í‚İo‚³‚È‚¢‚æ‚¤‚É‚·‚é
-	if ((int)x < 37) {
-		x = 37.0;
-		speed = 0;
-	}
+	int flamespeed = 16;
+	static int speedflg = 0;
+	movepixel = 0;
 
-	if ((int)x > SCREEN_WIDTH - 180) {
-		x = (float)(SCREEN_WIDTH - 180);
-		speed = 0;
+	speedflg = speed + speedflg;
+	while (speedflg > flamespeed)
+	{
+		speedflg = speedflg - flamespeed;
+		movepixel++;
 	}
-
-	//if (m_y > SCREEN_HEIGHT - m_y)m_y = SCREEN_HEIGHT - m_y;
 }
+
 void Player::MovePlayer()
 {
 	//int num = 3;
-	
 
 
-	if (control.Buttons[XINPUT_BUTTON_DPAD_UP]) PlayerDirection = 0;
-	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT]) PlayerDirection = 1;
-	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN]) PlayerDirection = 2;
-	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT]) PlayerDirection = 3;
+
+	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) PlayerDirection = 0;   //ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Æ•ï¿½ï¿½ï¿½ï¿½Lï¿½[
+	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000) PlayerDirection = 1;   //ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Æ•ï¿½ï¿½ï¿½ï¿½Lï¿½[
+	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) PlayerDirection = 2;   //ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Æ•ï¿½ï¿½ï¿½ï¿½Lï¿½[
+	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) PlayerDirection = 3;   //ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½Æ•ï¿½ï¿½ï¿½ï¿½Lï¿½[
 	
-	
-	
-	////¶‰EˆÚ“®
+	////ï¿½ï¿½ï¿½Eï¿½Ú“ï¿½
 	//if (flg == TRUE)
 	//{
 	//	NotOverhang();
 	//	if (control.ThumbLX < -2000||control.Buttons[XINPUT_BUTTON_DPAD_LEFT]) {
-	//		//¶//g‚¦‚é
+	//		//ï¿½ï¿½//ï¿½gï¿½ï¿½ï¿½ï¿½
 	//		x += ;
 	//	}
 	//	else if (control.ThumbLX > 2000|| control.Buttons[XINPUT_BUTTON_DPAD_RIGHT]) {
-	//		//‰E//g‚¦‚é
+	//		//ï¿½E//ï¿½gï¿½ï¿½ï¿½ï¿½
 	//		x += ;
 	//	}
 	//	else {
@@ -135,26 +155,26 @@ void Player::PlayerControl() {
 }
 void Player::StopMotion(void) {
 
-	if (speed >= 0) {			//ƒvƒ‰ƒX•ûŒü‚Ö‚Ì‰Á‘¬ ‰E•ûŒü
-		if (speed != 0) {
-			speed -= ACCELERATION;
-			x += speed;
-			if (speed < 0)speed = 0;
-		}
-	}
-	else if (speed <= 0) {	//ƒ}ƒCƒiƒX•ûŒü‚Ì‰Á‘¬ ¶•ûŒü
-		if (speed != 0) {
-			speed += ACCELERATION;
-			x += speed;
-			if (speed > 0)speed = 0;
-		}
-	}
+	//if (speed >= 0) {			//ï¿½vï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½Ö‚Ì‰ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Eï¿½ï¿½ï¿½ï¿½
+	//	if (speed != 0) {
+	//		speed -= ACCELERATION;
+	//		x += speed;
+	//		if (speed < 0)speed = 0;
+	//	}
+	//}
+	//else if (speed <= 0) {	//ï¿½}ï¿½Cï¿½iï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½Ì‰ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//	if (speed != 0) {
+	//		speed += ACCELERATION;
+	//		x += speed;
+	//		if (speed > 0)speed = 0;
+	//	}
+	//}
 
 }
 void Player::Init(XINPUT_STATE data)
 {
 	control = data;
-
+	
 }
 void Player::UpDate()
 {
@@ -175,7 +195,7 @@ void Player::Draw() const
 int Player::Image()
 {
 	//if ((player = LoadGraph("images/pac1.png")) == -1)return -1;
-	//if ((playerrun = LoadGraph("images/ƒpƒbƒNƒ}ƒ“2.png")) == -1)return -1;
-	//if ((playerrun2 = LoadGraph("images/ƒpƒbƒNƒ}ƒ“3.png")) == -1)return -1;
+	//if ((playerrun = LoadGraph("images/ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½2.png")) == -1)return -1;
+	//if ((playerrun2 = LoadGraph("images/ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½3.png")) == -1)return -1;
 	return 0;
 }
