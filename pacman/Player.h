@@ -35,7 +35,7 @@ public:
     void StopMotion(void);
     void Init(XINPUT_STATE data);
     void PlayerControl();
-    void Speedflg();
+    void ChangeSpeed();
     
 };
 

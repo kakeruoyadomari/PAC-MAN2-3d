@@ -33,7 +33,6 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
 void GameMain::Draw() const
 {
     player->PlayerDisplay();
-    //player->Draw();
     player->Draw();
     esacontroll->DrawEsa();
 }

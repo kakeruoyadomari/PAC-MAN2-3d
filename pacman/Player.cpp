@@ -10,8 +10,8 @@ Player::Player()
 	flg = true;      //�v���C���[�\���t���O
 	ismove = false;//false�E�E�E�~�܂�,true�E�E�E����
 	playerimg[0] = LoadGraph("images/pac1.png");   //�v���C���[�摜�p�ϐ�
-	playerimg[1] = LoadGraph("images/�p�b�N�}��2.png");
-	playerimg[2] = LoadGraph("images/�p�b�N�}��3.png");
+	playerimg[1] = LoadGraph("images/pac2.png");
+	playerimg[2] = LoadGraph("images/pac3.png");
 	playeranim = 0;
 
 	x = 500.0;
@@ -44,7 +44,7 @@ void Player::PlayerDisplay()
 		{
 		case 0:
 			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[playeranim / 3], TRUE, FALSE);
-			Speedflg();
+			ChangeSpeed();
 			y -= movepixel;
 			//fallspeed = 11;
 			playeranim++;
@@ -55,7 +55,7 @@ void Player::PlayerDisplay()
 			break;
 		case 1:
 			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[playeranim / 3], TRUE, FALSE);
-			Speedflg(); 
+			ChangeSpeed();
 			x += movepixel;
 			//fallspeed = 1;
 			playeranim++;
@@ -66,7 +66,7 @@ void Player::PlayerDisplay()
 			break;
 		case 2:
 			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[playeranim / 3], TRUE, FALSE);
-			Speedflg(); 
+			ChangeSpeed(); 
 			y += movepixel;
 			//fallspeed = 17;
 			playeranim++;
@@ -77,10 +77,10 @@ void Player::PlayerDisplay()
 			break;
 		case 3:
 			DrawRotaGraph(x, y, 1.0, 0, playerimg[playeranim / 3], TRUE, FALSE);
-			Speedflg();
+			ChangeSpeed();
 			x -= movepixel;
 			playeranim++;
-			if (playeranim > 9)
+			if (playeranim >= 9)
 			{
 				playeranim = 0;
 			}
@@ -104,7 +104,7 @@ void Player::PlayerDisplay()
 //	//if (m_y > SCREEN_HEIGHT - m_y)m_y = SCREEN_HEIGHT - m_y;
 //}
 
-void Player::Speedflg()
+void Player::ChangeSpeed()
 {
 	int flamespeed = 16;
 	static int speedflg = 0;
