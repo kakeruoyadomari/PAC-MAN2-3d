@@ -33,7 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // マウスを表示状態にする
     SetMouseDispFlag(TRUE);
 
-    fopen_s(&fp, "dat/stagedata2.txt", "r");
+    fopen_s(&fp, "dat/stagedata.txt", "r");
 
     //ファイルロード
     for (int i = 0; i < STAGE_WIDTH; i++) {

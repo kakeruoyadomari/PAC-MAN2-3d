@@ -3,6 +3,8 @@
 #include"Object.h"
 #include"Player.h"
 #include"Esa.h"
+#include"Stage.h"
+
 
 class GameMain :
     public AbstractScene
@@ -12,18 +14,20 @@ private:
     Player* player;
     EsaControll* esacontroll;
     ESA** esa;
+    Stage* stage;
+
 public:
 
 
     GameMain();
 
-    // ƒfƒXƒgƒ‰ƒNƒ^
+    // ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     virtual ~GameMain() {};
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀ‘•‚·‚é
+    //ï¿½`ï¿½ï¿½ÈŠOï¿½ÌXï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     virtual AbstractScene* Update(XINPUT_STATE data);
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•‚·‚é
+    //ï¿½`ï¿½ï¿½ÉŠÖ‚ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     virtual void Draw() const;
 
 };
