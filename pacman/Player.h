@@ -30,7 +30,6 @@ public:
     void Animaition() override;
     void Draw() const override;
     int Image();
-    void NotOverhang();
     void MovePlayer();
     void StopMotion(void);
     void Init(XINPUT_STATE data);

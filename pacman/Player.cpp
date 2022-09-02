@@ -20,22 +20,7 @@ Player::Player()
 
 void Player::PlayerDisplay()
 {
-	//	//プレイヤーの表示
-	//if (flg == true)
-	//{
-	//	if (speed < 0)
-	//	{
-	//		DrawRotaGraph((int)x, (int)y, 1.0f, 0, playerimg[1], true, TRUE);//TRUEにしたら画像反転最後のTRUE
-	//	}
-	//	else if (speed > 0)
-	//	{
-	//		DrawRotaGraph((int)x, (int)y, 1.0f, 0, playerimg[2], true, FALSE);
-	//	}
-	//	else
-	//	{
-	//		DrawRotaGraph((int)x, (int)y, 1.0f, 0, playerimg[0], true, FALSE);
-	//	}
-	//}
+	
 	if (flg == true)
 	{
 		switch (PlayerDirection)
@@ -44,7 +29,6 @@ void Player::PlayerDisplay()
 			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[playeranim / 3], TRUE, FALSE);
 			Speedflg();
 			y -= movepixel;
-			//fallspeed = 11;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -55,7 +39,6 @@ void Player::PlayerDisplay()
 			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[playeranim / 3], TRUE, FALSE);
 			Speedflg(); 
 			x += movepixel;
-			//fallspeed = 1;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -66,7 +49,6 @@ void Player::PlayerDisplay()
 			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[playeranim / 3], TRUE, FALSE);
 			Speedflg(); 
 			y += movepixel;
-			//fallspeed = 17;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -86,21 +68,6 @@ void Player::PlayerDisplay()
 		}
 	}
 }
-//void Player::NotOverhang()
-//{
-//	//画面をはみ出さないようにする
-//	if ((int)x < 37) {
-//		x = 37.0;
-//		speed = 0;
-//	}
-//
-//	if ((int)x > SCREEN_WIDTH - 180) {
-//		x = (float)(SCREEN_WIDTH - 180);
-//		speed = 0;
-//	}
-//
-//	//if (m_y > SCREEN_HEIGHT - m_y)m_y = SCREEN_HEIGHT - m_y;
-//}
 
 void Player::Speedflg()
 {
@@ -127,23 +94,7 @@ void Player::MovePlayer()
 	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) PlayerDirection = 2;   //スティックと方向キー
 	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) PlayerDirection = 3;   //スティックと方向キー
 	
-	////左右移動
-	//if (flg == TRUE)
-	//{
-	//	NotOverhang();
-	//	if (control.ThumbLX < -2000||control.Buttons[XINPUT_BUTTON_DPAD_LEFT]) {
-	//		//左//使える
-	//		x += ;
-	//	}
-	//	else if (control.ThumbLX > 2000|| control.Buttons[XINPUT_BUTTON_DPAD_RIGHT]) {
-	//		//右//使える
-	//		x += ;
-	//	}
-	//	else {
-	//		StopMotion();
-	//	}
-	//}
-	////PLbox.PL_SetAreaVecter(x, y, ismove);
+	
 
 }
 void Player::PlayerControl() {
@@ -153,20 +104,6 @@ void Player::PlayerControl() {
 }
 void Player::StopMotion(void) {
 
-	//if (speed >= 0) {			//プラス方向への加速時 右方向
-	//	if (speed != 0) {
-	//		speed -= ACCELERATION;
-	//		x += speed;
-	//		if (speed < 0)speed = 0;
-	//	}
-	//}
-	//else if (speed <= 0) {	//マイナス方向の加速時 左方向
-	//	if (speed != 0) {
-	//		speed += ACCELERATION;
-	//		x += speed;
-	//		if (speed > 0)speed = 0;
-	//	}
-	//}
 
 }
 void Player::Init(XINPUT_STATE data)
@@ -192,8 +129,6 @@ void Player::Draw() const
 
 int Player::Image()
 {
-	//if ((player = LoadGraph("images/pac1.png")) == -1)return -1;
-	//if ((playerrun = LoadGraph("images/パックマン2.png")) == -1)return -1;
-	//if ((playerrun2 = LoadGraph("images/パックマン3.png")) == -1)return -1;
+	
 	return 0;
 }
