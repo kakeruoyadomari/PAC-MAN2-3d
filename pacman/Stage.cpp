@@ -6,7 +6,6 @@ Stage stage;
 // グローバル変数
 int gPacman[10];			// パックマンのグラフィックハンドル
 int gMapChip[10];			// マップチップのハンドル
-int StagePixel[STAGE_WIDTH][STAGE_HEIGHT];
 int gScore;					// 得点
 
 // 画像の読み込み
@@ -28,30 +27,67 @@ int Stage::LoadData()
 // マップの読み込み
 int Stage::MapInit()
 {
-	int FileHandle = FileRead_open("dat/stagedata0829.txt");		// ファイルのオープン
-	int FileSize = FileRead_size("dat/stagedata0829.txt");			// ファイルサイズを取得して
-	char* FileImage = new char[FileSize];					// その大きさだけ領域確保
-	FileRead_read(FileImage, FileSize, FileHandle);			// 一気読み
-	FileRead_close(FileHandle);								// ファイルを閉じて終了
+//	int FileHandle = FileRead_open("dat/stagedata0829.txt");		// ファイルのオープン
+//	int FileSize = FileRead_size("dat/stagedata0829.txt");			// ファイルサイズを取得して
+//	char* FileImage = new char[FileSize];					// その大きさだけ領域確保
+//	FileRead_read(FileImage, FileSize, FileHandle);			// 一気読み
+//	FileRead_close(FileHandle);								// ファイルを閉じて終了
+//
+//	const char* d = FileImage;
+//	int sx = 0, sy = 0;
+//	int o;
+//
+//	while (*d != '\0') { // NULL文字（終端）ではない間
+//		switch (*d) {
+//		case '0':	o = 0; break;
+//		case '1':	o = 3; break;
+//		case '=':	o = 4; break;
+//		case '\n':
+//			sy++;		// 一行下へ、左端へ
+//			sx = 0;		// throw down
+//		default:	o = 5; break;
+//		}
+//		d++;
+//		if (o != 5) {
+//			StagePixel[sy][sx] = o;	// マップ情報書き込み
+//			sx++;
+//		}
+//	}
+//
+//	return 0;
 
-	const char* d = FileImage;
-	int sx = 0, sy = 0;
-	int o;
+	fopen_s(&fp, "dat/StageTestCSV1.txt", "r");
 
-	while (*d != '\0') { // NULL文字（終端）ではない間
-		switch (*d) {
-		case '0':	o = 0; break;
-		case '1':	o = 3; break;
-		case '=':	o = 4; break;
-		case '\n':
-			sy++;		// 一行下へ、左端へ
-			sx = 0;		// throw down
-		default:	o = 5; break;
+	//ファイルロード
+	for (int i = 0; i < STAGE_HEIGHT; i++) {
+		for (int j = 0; j < STAGE_WIDTH; j++) {
+			fscanf(fp, "%d", &StagePixel[j][i]);
 		}
-		d++;
-		if (o != 5) {
-			StagePixel[sy][sx] = o;	// マップ情報書き込み
-			sx++;
+	}
+
+	//ファイルクローズ
+	fclose(fp);
+
+	fopen_s(&fp, "dat/StageTestCSV1.txt", "r");
+
+	for (int i = 0; i < STAGE_HEIGHT; i++) {
+		for (int j = 13; j >= 0; j--) {
+			fscanf(fp, "%d", &StageReverse[j][i]);
+		}
+	}
+
+	//ファイルクローズ
+	fclose(fp);
+
+	for (int i = 0; i < STAGE_WIDTH; i++) {
+		for (int j = 0; j < STAGE_HEIGHT; j++) {
+			StageTS[i][j] = StagePixel[i][j];
+		}
+	}
+
+	for (int i = 0; i < STAGE_WIDTH; i++) {
+		for (int j = 0; j < STAGE_HEIGHT; j++) {
+			StageTS[i + STAGE_WIDTH][j] = StageReverse[i][j];
 		}
 	}
 
@@ -61,15 +97,15 @@ int Stage::MapInit()
 // 初期化
 int Stage::Init()
 {
-	ChangeWindowMode(TRUE);
-	if (DxLib_Init() == -1) return -1;
-
-	SetDrawScreen(DX_SCREEN_BACK);		// 裏画面に書き込みますよ宣言
-
-	if (LoadData() == -1) {
-		DxLib_End();
-		return -1;
-	}
+//	ChangeWindowMode(TRUE);
+//	if (DxLib_Init() == -1) return -1;
+//
+//	SetDrawScreen(DX_SCREEN_BACK);		// 裏画面に書き込みますよ宣言
+//
+//	if (LoadData() == -1) {
+//		DxLib_End();
+//		return -1;
+//	}
 	MapInit();
 
 	// ゲームの設定
@@ -82,11 +118,14 @@ int Stage::MapSet()
 	int sx, sy, st;
 	int dot = 0;
 
-	for (sy = 0; sy < 464; sy++) {
-		for (sx = 0; sx < 512; sx++) {
-			st = StagePixel[sy][sx];
-			DrawGraph(sx * 4, sy * 3.1, gMapChip[st], TRUE);//マップの大きさ変更x横y縦
-			if (st == 1 || st == 2) dot++;
+	for (sy = 0; sy < STAGE_HEIGHT; sy++) {
+		for (sx = 0; sx < STAGE_WIDTH * 2; sx++) {
+			st = StageTS[sy][sx];
+			//DrawGraph(sx * 4, sy * 3.1,gMapChip[st], TRUE);//マップの大きさ変更x横y縦
+			if (StageTS[sx][sy] == 1) {
+				DrawBox(sx * DOT_SIZE, sy * DOT_SIZE, sx * DOT_SIZE + DOT_SIZE, sy * DOT_SIZE + DOT_SIZE, 0xff00ff, TRUE);
+			}
+			//if (st == 1 || st == 2) dot++;
 		}
 	}
 	return 0;
