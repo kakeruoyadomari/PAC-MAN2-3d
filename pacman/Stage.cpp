@@ -12,13 +12,14 @@ int gScore;					// 得点
 // 画像の読み込み
 int Stage::LoadData()
 {
-	// 画像の読み込み
-	if (LoadDivGraph("images/pacman2.png", 10, 10, 1, 24, 24, gPacman) == -1) {
-		MessageBox(NULL, "images/pacman2.png", "ReadError", MB_OK);
+	// パックマン
+	if (LoadDivGraph("images/pacman3.png", 10, 10, 1, 48, 48, gPacman) == -1) {
+		MessageBox(NULL, "images/pacman3.bmp", "ReadError", MB_OK);
 		return -1;
 	}
-	if (LoadDivGraph("images/mapchip2.png", 5, 5, 1, 8, 8, gMapChip) == -1) {
-		MessageBox(NULL, "images/mapchip2.png", "ReadError", MB_OK);
+	//マップチップ
+	if (LoadDivGraph("images/mapchip1.png", 5, 5, 1, 16, 16, gMapChip) == -1) {
+		MessageBox(NULL, "images/mapchip1.bmp", "ReadError", MB_OK);
 		return -1;
 	}
 
@@ -28,8 +29,8 @@ int Stage::LoadData()
 // マップの読み込み
 int Stage::MapInit()
 {
-	int FileHandle = FileRead_open("dat/stagedata0829.txt");		// ファイルのオープン
-	int FileSize = FileRead_size("dat/stagedata0829.txt");			// ファイルサイズを取得して
+	int FileHandle = FileRead_open("dat/StageData5.txt");		// ファイルのオープン
+	int FileSize = FileRead_size("dat/StageData5.txt");			// ファイルサイズを取得して
 	char* FileImage = new char[FileSize];					// その大きさだけ領域確保
 	FileRead_read(FileImage, FileSize, FileHandle);			// 一気読み
 	FileRead_close(FileHandle);								// ファイルを閉じて終了
@@ -40,21 +41,23 @@ int Stage::MapInit()
 
 	while (*d != '\0') { // NULL文字（終端）ではない間
 		switch (*d) {
-		case '0':	o = 0; break;
-		case '1':	o = 3; break;
-		case '=':	o = 4; break;
+		case ' ':	o = 0; break;//空白
+		case 'o':	o = 1; break;//餌
+		case '@':	o = 2; break;//パワー餌
+		case '#':	o = 3; break;//壁
+		case '=':	o = 4; break;//敵の門
+		case '^':	o = 5; break;
 		case '\n':
 			sy++;		// 一行下へ、左端へ
 			sx = 0;		// throw down
-		default:	o = 5; break;
+		default:	o = 6; break;
 		}
 		d++;
-		if (o != 5) {
+		if (o != 6) {
 			StagePixel[sy][sx] = o;	// マップ情報書き込み
 			sx++;
 		}
 	}
-
 	return 0;
 }
 
@@ -76,18 +79,24 @@ int Stage::Init()
 	gScore = 0;
 	return 0;
 }
+
 // マップ配置（毎フレーム描画）
 int Stage::MapSet()
 {
 	int sx, sy, st;
 	int dot = 0;
 
-	for (sy = 0; sy < 464; sy++) {
-		for (sx = 0; sx < 512; sx++) {
+	for (sy = 0; sy < STAGE_WIDTH; sy++) {
+		for (sx = 0; sx < STAGE_HEIGHT; sx++) {
 			st = StagePixel[sy][sx];
-			DrawGraph(sx * 4, sy * 3.1, gMapChip[st], TRUE);//マップの大きさ変更x横y縦
+			DrawGraph(sx * 23, sy * 23, gMapChip[st], TRUE);//マップの大きさ変更sx横sy縦
 			if (st == 1 || st == 2) dot++;
 		}
+	}
+	if (dot == 0) {		// 食べるものが残ってなければ終わり
+		if (MapInit()) // 餌を再配置
+			return -1;
+
 	}
 	return 0;
 }
@@ -97,13 +106,13 @@ int Stage::CheckWall(int cx, int cy, int mx, int my)
 {
 	int wall = 0;
 	static int dbgx = 0, dbgy = 0;
-	if (mx != 0) { //横移動処理
+	if (mx != 0) {
 		if (StagePixel[cy - 1][cx + mx * 2] >= 3) wall++;
 		if (StagePixel[cy][cx + mx * 2] >= 3) wall++;
 		if (StagePixel[cy + 1][cx + mx * 2] >= 3) wall++;
 		dbgx = mx; dbgy = my;
 	}
-	else if (my != 0) {//縦移動処理
+	else if (my != 0) {
 		if (StagePixel[cy + my * 2][cx - 1] >= 3) wall++;
 		if (StagePixel[cy + my * 2][cx] >= 3) wall++;
 		if (StagePixel[cy + my * 2][cx + 1] >= 3) wall++;
@@ -117,40 +126,31 @@ int Stage::PakuMove()
 {
 	static int key;
 	static int s = 0;			// パックマン表示用
-	static int x = 18, y = 21;		// マップ座標
+	static int x = 25, y = 19;	// マップ座標(パックマンの初期座標)
 	static int dx = 0, dy = 0;	// 初期方向は与えない
 	static float Angle = 0.0f;	// 初期　左向き
 	static int mv = 0;			// パックマン移動中
 	int mvx = 0, mvy = 0;
 
-	//key = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	//if (key & PAD_INPUT_START) return -1;		// PAD_INPUT_START  [ESC]Key
+	key = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	if (key & PAD_INPUT_START) return -1;		// PAD_INPUT_START  [ESC]Key
 
 	if (mv == 0) {
-		//if (mv == 0) {
-			//		// 足元判定
-			//		if (gMap[y][x] == 1) {
-			//			// Sound「ぱくっ！！」
-			//			gScore += 10;
-			//			gMap[y][x] = 0;
-			//		}
-			//		if (gMap[y][x] == 2) {
-			//			// パワー餌食べる
-			//			gScore += 50;
-			//			gMap[y][x] = 0;
-			//		}
 		// 足元判定
-		if (StagePixel[y][x] == 0) {
-			// Sound「ぱくっ！！」
+		if (StagePixel[y][x] == 1) {//普通の餌を食べたとき(スコア10up)
 			gScore += 10;
-			StagePixel[y][x] = 1;//餌で移動してるところをみてう
+			StagePixel[y][x] = 0;
+		}
+		if (StagePixel[y][x] == 2) {//パワー餌食べた時(スコア50up)
+			gScore += 50;
+			StagePixel[y][x] = 0;
 		}
 
 		// マス目にいるときだけキー入力判定
 		mv = 16;
 		if (key & PAD_INPUT_UP) {
 			if (!CheckWall(x, y, 0, -1)) {
-				dx = 0; dy = -1; Angle = PI / 2;
+				dx = 0; dy = -1; Angle = PI / 2;//dx,dyは歩く量
 			}
 		}
 		else if (key & PAD_INPUT_DOWN) {
@@ -179,7 +179,7 @@ int Stage::PakuMove()
 	}
 	else {
 		// パックマン移動中（マス目の中間にいるとき）
-		mv -= 4;//パックマンの移動処理
+		mv -= 4;
 		if (mv <= 0) {
 			x += dx;
 			y += dy;
@@ -196,7 +196,7 @@ int Stage::PakuMove()
 	}
 	if ((dx + dy) != 0) s = (++s) % 7; // 動いているときだけアニメーション
 
-	DrawRotaGraph((x - 1) * 16 + 24 + mvx, (y - 1) * 16 + 24 + mvy, 1, Angle, gPacman[s], TRUE);//パックマンの表示
+	DrawRotaGraph((x - 1) * 23 + 25 + mvx, (y - 1) * 23 + 25 + mvy, 1, Angle, gPacman[s], TRUE);//パックマンの表示
 
 	return 0;
 }
@@ -210,8 +210,8 @@ void Stage::MainLoop()
 		if (MapSet())return;
 		if (PakuMove()) return;
 
-		DrawFormatString(1050, 0, RGB(255, 255, 255), "SCORE:");//スコア表示
-		DrawFormatString(1080, 15, RGB(255, 255, 255), "%6d", gScore);
+		DrawFormatString(1000, 0, RGB(255, 255, 255), "SCORE:");//スコア表示
+		DrawFormatString(1000, 16, RGB(255, 255, 255), "%6d", gScore);
 
 		ScreenFlip();
 	}

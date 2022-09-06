@@ -1,8 +1,8 @@
 #pragma once
 #include "DxLib.h"
 
-#define STAGE_WIDTH 464
-#define STAGE_HEIGHT 512
+#define STAGE_WIDTH 40   //ïù
+#define STAGE_HEIGHT 42 //çÇÇ≥
 
 #define PI	3.1415926535897932384626433832795f
 
