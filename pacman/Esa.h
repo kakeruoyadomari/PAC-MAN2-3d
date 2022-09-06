@@ -5,10 +5,16 @@ class ESA :public Object
 {
 private:
     //do ƒGƒT‚Ìc‚è‚Ì”‚ğ“ü‚ê‚é•Ï”‚Æget’Ç‰Á
-    bool Esaflg;
+    bool Esaflg;    //flg iranai?
     int EsaImg;
+    int EsaScore;
+    static int ResidueEsa;
+    int Type;
+    int FruitsImg;
+    int FruitsScore;
 public:
-    ESA(int X, int Y);
+    ESA(int X, int Y, int EsaType);
+    ~ESA();
 
     //int SetEsaX();
     void SetImage(int i) { EsaImg = i; }
@@ -25,11 +31,11 @@ class EsaControll
 {
 private:
     Player* player;
-    ESA* esa[244];
+    ESA* esa[245];
     int EsaImage[2];
+    int FruitsImage[8];
     int EsaType;
     int EsaSE;
-    int ResidueEsa;
     int SetX;
     int SetY;
 

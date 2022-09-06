@@ -17,7 +17,7 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
 
     player->Init(data);
     player->UpDate();
-    for (int i = 0; i < 244; i++)
+    for (int i = 0; i < 245; i++)
     {
         if (CheckHitPlayer_Esa(player, esa[i]) == TRUE)
         {
