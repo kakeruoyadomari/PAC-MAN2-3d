@@ -6,7 +6,6 @@ Stage stage;
 // グローバル変数
 int gPacman[10];			// パックマンのグラフィックハンドル
 int gMapChip[10];			// マップチップのハンドル
-int StagePixel[STAGE_WIDTH][STAGE_HEIGHT];
 int gScore;					// 得点
 
 // 画像の読み込み
@@ -14,12 +13,12 @@ int Stage::LoadData()
 {
 	// パックマン
 	if (LoadDivGraph("images/pacman3.png", 10, 10, 1, 48, 48, gPacman) == -1) {
-		MessageBox(NULL, "images/pacman3.bmp", "ReadError", MB_OK);
+		MessageBox(NULL, "images/pacman3.png", "ReadError", MB_OK);
 		return -1;
 	}
 	//マップチップ
 	if (LoadDivGraph("images/mapchip1.png", 5, 5, 1, 16, 16, gMapChip) == -1) {
-		MessageBox(NULL, "images/mapchip1.bmp", "ReadError", MB_OK);
+		MessageBox(NULL, "images/mapchip1.png", "ReadError", MB_OK);
 		return -1;
 	}
 
@@ -49,7 +48,7 @@ int Stage::MapInit()
 		case '^':	o = 5; break;
 		case '\n':
 			sy++;		// 一行下へ、左端へ
-			sx = 0;		// throw down
+			sx = 0;
 		default:	o = 6; break;
 		}
 		d++;
@@ -67,13 +66,11 @@ int Stage::Init()
 	ChangeWindowMode(TRUE);
 	if (DxLib_Init() == -1) return -1;
 
-	SetDrawScreen(DX_SCREEN_BACK);		// 裏画面に書き込みますよ宣言
-
 	if (LoadData() == -1) {
 		DxLib_End();
 		return -1;
 	}
-	MapInit();
+     MapInit();
 
 	// ゲームの設定
 	gScore = 0;
@@ -94,7 +91,7 @@ int Stage::MapSet()
 		}
 	}
 	if (dot == 0) {		// 食べるものが残ってなければ終わり
-		if (MapInit()) // 餌を再配置
+		if (MapInit()) // 餌全部食べたら再配置されるが終わらない。
 			return -1;
 
 	}
@@ -175,15 +172,17 @@ int Stage::PakuMove()
 			else {
 				mv = 16;
 			}
+
 		}
+		
 	}
 	else {
 		// パックマン移動中（マス目の中間にいるとき）
-		mv -= 4;
+		mv -= 2;
 		if (mv <= 0) {
 			x += dx;
 			y += dy;
-			mv = 0;//dx=0;dy=0;
+			mv = 0;
 			if (CheckWall(x, y, dx, dy)) {
 				dx = 0; dy = 0;
 				mv = 0;
@@ -197,7 +196,6 @@ int Stage::PakuMove()
 	if ((dx + dy) != 0) s = (++s) % 7; // 動いているときだけアニメーション
 
 	DrawRotaGraph((x - 1) * 23 + 25 + mvx, (y - 1) * 23 + 25 + mvy, 1, Angle, gPacman[s], TRUE);//パックマンの表示
-
 	return 0;
 }
 // メインループ

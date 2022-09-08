@@ -1,30 +1,30 @@
           ############################### 
-          #                             # 
-          # ooooooooooooooooooooooooooo # 
-          # o      o           o      o # 
-          # o #### o ######### o #### o # 
-          # o #    o     #     o    # o # 
+          #              #              # 
+          # oooooooooooo # oooooooooooo # 
+          # o     o    o   o    o     o # 
+          # o ### o ## o o o ## o ### o # 
+          # o #   o    o   o    o   # o # 
           # @ # oooooooo # oooooooo # @ # 
           # o # o      o # o      o # o # 
           # o # o #### o # o #### o # o # 
           # o # o #             # o # o # 
           # o   o #             # o   o # 
           # ooooo #             # ooooo # 
-          #     o #   ##===##   # o     # 
-          ##### o #   #     #   # o ##### 
-          ^     o #   #     #   # o     ^
-          ^     o #   #     #   # o     ^
-          ^     o #   #     #   # o     ^ 
+          #     o     ##===##     o     # 
+          ##### o     #     #     o ##### 
+          =     o     #     #     o     =     
+          =     o #   #     #   # o     =     
+          =     o #   #     #   # o     =     
           ##### o #   #######   # o ##### 
           #     o                 o     # 
           # ooooooo             ooooooo # 
-          # o                         o # 
-          # o ##### o ####### o ##### o # 
-          # o #     o    #    o     # o # 
-          # @ # oooooooo # oooooooo # @ # 
-          # o # o      o # o      o # o # 
-          # o # o #### o # o #### o # o # 
-          # o   o      o   o      o   o # 
+          # o     o             o     o # 
+          # o ### o # o ### o # o ### o # 
+          # o #   o # o     o # o   # o # 
+          # @ # ooo # ooooooo # ooo # @ # 
+          # o # o   #    o    #   o # o # 
+          # o # o ###### o ###### o # o # 
+          # o   o        o        o   o # 
           # ooooooooooooooooooooooooooo # 
           #                             # 
           ############################### 

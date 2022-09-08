@@ -7,6 +7,10 @@
 #define PI	3.1415926535897932384626433832795f
 
 class Stage{
+private:
+    int StagePixel[STAGE_WIDTH][STAGE_HEIGHT];
+
+    FILE* fp;
 public:
     int MapInit();//datからマップ呼び出し
     int MapSet();//マップ読み込み
