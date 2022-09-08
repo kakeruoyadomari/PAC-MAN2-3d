@@ -21,7 +21,8 @@ ESA::ESA(int X, int Y, int EsaType, int FruitsType)
 {
 	x = X;
 	y = Y;
-	Esaflg = TRUE;
+	Esaflg = FALSE;
+	FruitsType = FruitsType;
 	EsaScore = 10;
 	Type = EsaType;
 	radius = 2;

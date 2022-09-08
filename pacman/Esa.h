@@ -10,6 +10,7 @@ private:
     int EsaScore;
 
     int Type;
+    int FruitsType;
     int FruitsImg;
     int FruitsScore;
 public:
@@ -20,8 +21,9 @@ public:
 
     //int SetEsaX();
     void SetImage(int i) { EsaImg = i; }
-    void ChangeFlg() { Esaflg = FALSE; }
+    void ChangeFlg() { Esaflg = !(Esaflg); }
     bool GetFlg() { return Esaflg; }
+    int GetType() { return Type; }
 
     void UpDate() override;
     void Animaition() override;
@@ -36,6 +38,7 @@ private:
     ESA* esa[245];
     int EsaImage[2];
     int FruitsImage[8];
+    int FruitsType;
     int CreatePieces;
     int EsaType;
     int EsaSE;

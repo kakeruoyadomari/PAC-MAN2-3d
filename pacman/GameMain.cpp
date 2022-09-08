@@ -22,11 +22,13 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
     {
         if (CheckHitPlayer_Esa(player, esa[i]) == TRUE)
         {
-            if (esa[i] != nullptr)
+            if (esa[i]->GetFlg() == TRUE)
             {
-                //flg‚ÅŠÇ—‚·‚é‚©H
-                delete esa[i];
-                esa[i] = nullptr;
+                esa[i]->ChangeFlg();
+                if (esa[i]->GetType() != 2)
+                {
+                    ESA::ResidueEsa--;
+                }
             }
         }
     }

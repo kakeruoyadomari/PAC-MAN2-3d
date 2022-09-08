@@ -15,22 +15,30 @@ EsaControll::EsaControll()
 	FruitsImage[7] = LoadGraph("images/Key.png");
 
 	CreatePieces = 2;
+	FruitsType = 0;
 
 	SetX = 100;
 	SetY = 100;
 
-	for (int i = 0; i < 244; i++)
+	for (int i = 0; i < 245; i++)
 	{
 		if (i < 240)
 		{
 			EsaType = 0;
+			esa[i] = new ESA(SetX, SetY, EsaType);
 		}
 		else if (i >= 240 && i < 244)
 		{
 			EsaType = 1;
+			esa[i] = new ESA(SetX, SetY, EsaType);
+		}
+		else
+		{
+			EsaType = 2;
+			esa[i] = new ESA(SetX, SetY, EsaType, FruitsType);
 		}
 
-		esa[i] = new ESA(SetX, SetY, EsaType);
+
 		esa[i]->SetImage(EsaImage[EsaType]);
 		//else
 		//{
@@ -59,24 +67,23 @@ void  EsaControll::CreateFruits()
 	//do 現在のステージ数持ってくる
 	if (CreatePieces == 2 && (ESA::ResidueEsa == /*174*/240))
 	{
-		esa[244] = new ESA(FruitsX, FruitsY, EsaType, FruitsType);
+		esa[244]->ChangeFlg();
 		esa[244]->SetImage(FruitsImage[FruitsType]);
 		CreatePieces--;
 	}
 	if (CreatePieces == 1 && (ESA::ResidueEsa == 74))
 	{
-		esa[244] = new ESA(FruitsX, FruitsY, EsaType, FruitsType);
+		esa[244]->ChangeFlg();
 		esa[244]->SetImage(FruitsImage[FruitsType]);
 		CreatePieces--;
 	}
-	if (esa[244] != nullptr)
+	if (esa[244]->GetFlg() == TRUE)
 	{
 		FruitsTimer++;
 		if (FruitsTimer > 600)
 		{
 			//flgで管理するか？
-			delete esa[244];
-			esa[244] = nullptr;
+			esa[244]->ChangeFlg();
 			FruitsTimer = 0;
 		}
 	}
@@ -93,11 +100,7 @@ void EsaControll::DrawEsa()
 {
 	for (int i = 0; i < 245; i++)
 	{
-		if (esa[i] == nullptr)
-		{
-			break;
-		}
-		else if (esa[i]->GetFlg() == TRUE)
+		if (esa[i]->GetFlg() == TRUE)
 		{
 			esa[i]->Draw();
 		}
