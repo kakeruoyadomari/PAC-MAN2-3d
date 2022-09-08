@@ -16,16 +16,17 @@ Player::Player()
 	x = 100.0;
 	y = 100.0;      //座標x,y
 
+	playerzanki = 3;
 }
 
 void Player::PlayerDisplay()
 {
-	
+	//to do きれいにする
 	if (flg == true)
 	{
 		switch (PlayerDirection)
 		{
-		case 0:
+		case 0://上
 			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[playeranim / 3], TRUE, FALSE);
 			Speedflg();
 			y -= movepixel;
@@ -35,7 +36,7 @@ void Player::PlayerDisplay()
 				playeranim = 0;
 			}
 			break;
-		case 1:
+		case 1://右
 			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[playeranim / 3], TRUE, FALSE);
 			Speedflg(); 
 			x += movepixel;
@@ -45,7 +46,7 @@ void Player::PlayerDisplay()
 				playeranim = 0;
 			}
 			break;
-		case 2:
+		case 2://下
 			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[playeranim / 3], TRUE, FALSE);
 			Speedflg(); 
 			y += movepixel;
@@ -55,7 +56,7 @@ void Player::PlayerDisplay()
 				playeranim = 0;
 			}
 			break;
-		case 3:
+		case 3://左
 			DrawRotaGraph(x, y, 1.0, 0, playerimg[playeranim / 3], TRUE, FALSE);
 			Speedflg();
 			x -= movepixel;
@@ -67,6 +68,7 @@ void Player::PlayerDisplay()
 			break;
 		}
 	}
+	
 }
 
 void Player::Speedflg()
@@ -85,7 +87,6 @@ void Player::Speedflg()
 
 void Player::MovePlayer()
 {
-	//int num = 3;
 
 
 
@@ -95,15 +96,6 @@ void Player::MovePlayer()
 	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) PlayerDirection = 3;   //スティックと方向キー
 	
 	
-
-}
-void Player::PlayerControl() {
-	if (flg == TRUE) {
-	
-	}
-}
-void Player::StopMotion(void) {
-
 
 }
 void Player::Init(XINPUT_STATE data)
@@ -120,15 +112,19 @@ void Player::UpDate()
 
 void Player::Animaition()
 {
+	
 }
 
 void Player::Draw() const
 {
 	DrawFormatString(20, 40, 0xffffff, "%d", this->x);
+	DrawFormatString(580, 450, 0xFFD700, "×%d",playerzanki);
+	DrawGraph(550, 460, playerimg[1], false);
+
+	
 }
 
 int Player::Image()
 {
-	
 	return 0;
 }
