@@ -4,7 +4,9 @@
 #include"Player.h"
 #include"Esa.h"
 #include"Stage.h"
+#include"Enemy_Red.h"
 
+#define D_ESA_MAX 244
 
 class GameMain :
     public AbstractScene
@@ -15,6 +17,8 @@ private:
     EsaControll* esacontroll;
     ESA** esa;
     Stage* stage;
+    Enemy_Red* enemy_red;
+
 
 public:
 

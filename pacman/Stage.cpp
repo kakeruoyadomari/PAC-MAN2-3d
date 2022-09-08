@@ -1,8 +1,6 @@
 #include "DxLib.h"
 #include"Stage.h"
 
-Stage stage;
-
 // グローバル変数
 int gPacman[10];			// パックマンのグラフィックハンドル
 int gMapChip[10];			// マップチップのハンドル
@@ -136,17 +134,19 @@ int Stage::CheckWall(int cx, int cy, int mx, int my)
 {
 	int wall = 0;
 	static int dbgx = 0, dbgy = 0;
+	
+
 	if (mx != 0) { //横移動処理
-		if (StagePixel[cy - 1][cx + mx * 2] >= 3) wall++;
-		if (StagePixel[cy][cx + mx * 2] >= 3) wall++;
-		if (StagePixel[cy + 1][cx + mx * 2] >= 3) wall++;
-		dbgx = mx; dbgy = my;
+		if (StageTS[cy - 1][cx + mx * 2] == 1) wall++;
+		if (StageTS[cy][cx + mx * 2] == 1) wall++;
+		if (StageTS[cy + 1][cx + mx * 2] == 1) wall++;
+		//dbgx = mx; dbgy = my;
 	}
 	else if (my != 0) {//縦移動処理
-		if (StagePixel[cy + my * 2][cx - 1] >= 3) wall++;
-		if (StagePixel[cy + my * 2][cx] >= 3) wall++;
-		if (StagePixel[cy + my * 2][cx + 1] >= 3) wall++;
-		dbgx = mx; dbgy = my;
+		if (StageTS[cy + my * 2][cx - 1] == 1) wall++;
+		if (StageTS[cy + my * 2][cx] == 1) wall++;
+		if (StageTS[cy + my * 2][cx + 1] == 1) wall++;
+		//dbgx = mx; dbgy = my;
 	}
 
 	return wall;

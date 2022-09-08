@@ -4,7 +4,7 @@
 
 #define STAGE_WIDTH 14
 #define STAGE_HEIGHT 31
-#define DOT_SIZE 23
+#define DOT_SIZE 22
 
 #define PI	3.1415926535897932384626433832795f
 
@@ -27,6 +27,7 @@ public:
     int CheckWall(int cx, int cy, int mx, int my);
     int PakuMove();
     void MainLoop();
+    int GetStageData(int i, int j) { return StageTS[i][j]; }
 };
 
 extern Stage stage;

@@ -4,22 +4,41 @@
 class Player : public Object
 {
 private:
-    int Pad;
-    int Move;
     int playerimg[3];   //プレイヤー画像用変数
-    int PlayerDirection;    //プレイヤーの向き
+    //int PlayerDirection;    //プレイヤーの向き
     int playeranim;         //画像アニメーション用
     int speed;
     int movepixel;
+    int nowdraw;
+    float nowdirect;
+    int moveX;
+    int moveY;
     /*int playerrun;
     int playerrun2;*/
-    float fallspeed=11;     //移動速度
-    bool flg;
-    bool ismove;
-    XINPUT_STATE control;
+    bool drawflg;       //描画するかのフラグ
+    bool ismove;        //現在移動できるかのフラグ
+    XINPUT_STATE control;       //コントローラー
     int playerflg;
-    int g_Nowkey;
     int time;
+
+    //プレイヤーの向き
+    enum Direction
+    {
+        PLAYER_NORMAL_UP,
+        PLAYER_NORMAL_RIGHT,
+        PLAYER_NORMAL_DOWN,
+        PLAYER_NORMAL_LEFT
+    };
+
+
+    struct PlyrDrct
+    {
+        int x_direction;
+        int y_direction;
+        int direction;
+    };
+
+    struct PlyrDrct plyrdrct;
   /*  float x;
     float y;*/
     // 座標X,Yと半径はobjectクラスで定義済み
@@ -30,12 +49,8 @@ public:
     void Animaition() override;
     void Draw() const override;
     int Image();
-    void NotOverhang();
     void MovePlayer();
-    void StopMotion(void);
     void Init(XINPUT_STATE data);
-    void PlayerControl();
-    void ChangeSpeed();
     
 };
 
