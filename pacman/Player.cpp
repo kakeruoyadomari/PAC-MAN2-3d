@@ -6,7 +6,7 @@ const int SCREEN_HEIGHT = 480;
 
 Stage stage;
 
-Player::Player()
+Player::Player(Stage* data)
 {
 
 	speed = 1;     //�ړ����x
@@ -17,12 +17,14 @@ Player::Player()
 	playerimg[2] = LoadGraph("images/pac3.png");
 	playeranim = 0;
 
-	x = 13;
-	y = 16;      //���Wx,y
+	x = 16;
+	y = 13;      //���Wx,y
 	radius = 4;
 
 	plyrdrct.x_direction = 0;
 	plyrdrct.y_direction = 0;
+
+	stage = data;
 }
 
 void Player::PlayerDisplay()
@@ -74,101 +76,121 @@ void Player::MovePlayer()
 
 		 //マス目にいるときだけキー入力判定
 		if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) {
-			if (stage.CheckWall(x, y, 0, -1)==0) {
+			if (CheckHitWall(x, y, 0) == false) {
 				plyrdrct.x_direction = 0;
 				plyrdrct.y_direction = -1;
 				plyrdrct.direction = PLAYER_NORMAL_UP;
-
+				speed = 11;
+			}
+			else
+			{
+				speed = 0;
 			}
 		}
 		else if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) {
-			if (!stage.CheckWall(x, y, 0, 1)==0) {
+			if (CheckHitWall(x,y,2)==false) {
 				plyrdrct.x_direction = 0;
 				plyrdrct.y_direction = 1;
 				plyrdrct.direction = PLAYER_NORMAL_DOWN;
+				speed = 11;
+			}
+			else
+			{
+				speed = 0;
 			}
 		}
 		else if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000){
-			if (!stage.CheckWall(x, y, 1, 0)==0) {
-				plyrdrct.x_direction = -1;
+			if (CheckHitWall(x, y, 1) == false) {
+				plyrdrct.x_direction = 1;
 				plyrdrct.y_direction = 0;
 				plyrdrct.direction = PLAYER_NORMAL_RIGHT;
+				speed = 11;
+			}
+			else
+			{
+				speed = 0;
 			}
 		}
 		else if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) {
-			if (!stage.CheckWall(x, y, -1, 0)==0) {
-				plyrdrct.x_direction = 1;
+			if (CheckHitWall(x, y, 3) == false) {
+				plyrdrct.x_direction = -1;
 				plyrdrct.y_direction = 0;
 				plyrdrct.direction = PLAYER_NORMAL_LEFT;
+				speed = 11;
+			}
+			else
+			{
+				speed = 0;
 			}
 		}
 		else {	// キー入力がなかったときも当たり判定
-			switch (plyrdrct.direction)
-			{
-			case PLAYER_NORMAL_UP:
-				if (stage.CheckWall(x, y, 0, -1)!=0) {
-					speed = 0;
-				}
-				else {
-					speed = 11;
-				}
-				break;
-			case PLAYER_NORMAL_RIGHT:
-				if (stage.CheckWall(x, y, 1, 0) != 0) {
-					speed = 0;
-				}
-				else {
-					speed = 11;
-				}
-				break;
-			case PLAYER_NORMAL_DOWN:
-				if (stage.CheckWall(x, y, 0, 1) != 0) {
-					speed = 0;
-				}
-				else {
-					speed = 11;
-				}
-				break;
-			case PLAYER_NORMAL_LEFT:
-				if (stage.CheckWall(x, y, -1, 0) != 0) {
-					speed = 0;
-				}
-				else {
-					speed = 11;
-				}
-				break;
-			default:
-				break;
+			if (CheckHitWall(x, y, plyrdrct.direction) == true) {
+				speed = 0;
 			}
-			
+			else {
+				speed = 11;
+			}
 		}
-	
+
+
+		moveX += plyrdrct.x_direction;
+
+		if (moveX % 22 == 0) {
+			x += plyrdrct.x_direction;
+		}
+
+
+
 	//if(speed!=0){
 	//	 //パックマン移動中（マス目の中間にいるとき）
 	//	speed -= 1;//パックマンの移動処理
 	//	
 	//}
-
-
-		if (stage.CheckWall(x, y, plyrdrct.x_direction, plyrdrct.y_direction) != 0) {
-			plyrdrct.x_direction = 0; plyrdrct.y_direction = 0;
-			speed = 0;
-		}
-		else {
-			x += plyrdrct.x_direction;
-			y += plyrdrct.y_direction;
-			speed = 0;//dx=0;dy=0;
-		}
-		speed--;
-
-		moveX = x  * 22 + (11 - speed)*2 * plyrdrct.x_direction;
-		moveY = y  * 22 + (11 - speed)*2 * plyrdrct.y_direction;
 }
 void Player::Init(XINPUT_STATE data)
 {
 	control = data;
 	
 }
+bool Player::CheckHitWall(int ex, int ey, int dir)
+{
+
+	int dx = 0;
+	int dy = 0;
+	int wall = 0;
+
+switch (dir)
+	{
+	case PLAYER_NORMAL_UP:
+		dx = 0; dy = -1;
+		break;
+	case PLAYER_NORMAL_RIGHT:
+		dx = 1; dy = 0;
+		break;
+	case PLAYER_NORMAL_DOWN:
+		dx = 0; dy = 1;
+		break;
+	case PLAYER_NORMAL_LEFT:
+		dx = -1; dy = 0;
+		break;
+	default:
+		dx = 0; dy = 0;
+		break;
+	}
+
+	if (x < STAGE_WIDTH * 2 && y < STAGE_HEIGHT) {
+		wall = stage->GetStageData(ex + dx, ey + dy);
+		//wall = stage->GetStageData(x , y);
+	}
+
+	if (wall == 1) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void Player::UpDate()
 {
 	MovePlayer();
@@ -193,7 +215,7 @@ void Player::Animaition()
 
 void Player::Draw() const
 {
-	DrawRotaGraph(moveX, moveY, 1.0, nowdirect, nowdraw, TRUE, FALSE);
+	DrawRotaGraph(x*DOT_SIZE+moveX, y*DOT_SIZE+11, 1, nowdirect, nowdraw, TRUE, FALSE);
 }
 
 int Player::Image()

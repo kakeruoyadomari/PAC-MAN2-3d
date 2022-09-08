@@ -7,12 +7,12 @@
 
 GameMain::GameMain()
 {
-    player = new Player();
 
     esacontroll = new EsaControll();
     esa = esacontroll->Getesa();
     stage = new Stage();
 
+    player = new Player(stage);
     enemy_red = new Enemy_Red(stage,player);
 
 

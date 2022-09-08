@@ -5,48 +5,6 @@
 
 bool Enemy::trackFlg=false;
 
-bool Enemy::CheckHitWall(int ex, int ey,int dir)
-{
-	int x = 0;
-	int y = 0;
-	int dx = 0;
-	int dy = 0;
-	int wall = 0;
-
-	switch (dir)
-	{
-	case ENEMY_NORMAL_UP:
-		dx = 0; dy = -1;
-		break;
-	case ENEMY_NORMAL_RIGHT:
-		dx = 1; dy = 0;
-		break;
-	case ENEMY_NORMAL_DOWN:
-		dx = 0; dy = 1;
-		break;
-	case ENEMY_NORMAL_LEFT:
-		dx = -1; dy = 0;
-		break;
-	default:
-		dx = 0; dy = 0;
-		break;
-	}
-
-	x = ex / DOT_SIZE;
-	y = ey / DOT_SIZE;
-
-	if (x < STAGE_WIDTH*2 || y < STAGE_HEIGHT) {
-		wall = stage->GetStageData(x + dx, y + dy);
-		//wall = stage->GetStageData(x , y);
-	}
-
-	if (wall == 1) {
-		return true;
-	}
-	else{
-		return false;
-	}
-}
 
 bool Enemy::CheckHitPlayer(int ex, int xy)
 {

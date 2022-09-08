@@ -17,7 +17,6 @@ protected:
     bool nowflg=false;      //現在のアニメーションの切り替わり
     bool HitFlg = false;        //Playerとの当たり判定
 
-    Stage* stage;
     Object* player;
 
     enum Direction
@@ -48,7 +47,6 @@ protected:
 
     bool ToggleFlg(bool flg) {flg = !(flg);return flg;}
 
-    bool CheckHitWall(int ex, int ey,int dir);
     bool CheckHitPlayer(int ex, int xy);
 
     void AStar(int ex,int ey,int px,int py);

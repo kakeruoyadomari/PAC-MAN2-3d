@@ -50,13 +50,13 @@ void Enemy_Red::UpDate()
 
 	Animaition();
 
-	if (CheckHitWall(x, y, nowway) == true) {
+	/*if (CheckHitWall(x, y, nowway) == true) {
 		nowdraw = medamaimage[0];
 		HitFlg = true;
 	}
 	else {
 		HitFlg = false;
-	}
+	}*/
 }
 
 void Enemy_Red::Animaition()
