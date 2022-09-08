@@ -46,8 +46,6 @@ bool Enemy::CheckHitWall(int ex, int ey,int dir)
 	else{
 		return false;
 	}
-
-	
 }
 
 bool Enemy::CheckHitPlayer(int ex, int xy)
