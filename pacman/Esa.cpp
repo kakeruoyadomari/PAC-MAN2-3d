@@ -12,12 +12,19 @@ ESA::ESA(int X, int Y, int EsaType)
 	Type = EsaType;
 	radius = 2;
 
-	if (Type != 2)
-	{
-		ResidueEsa++;
-	}
+	ResidueEsa++;
 	
 	//EsaImg = 0;
+}
+
+ESA::ESA(int X, int Y, int EsaType, int FruitsType)
+{
+	x = X;
+	y = Y;
+	Esaflg = TRUE;
+	EsaScore = 10;
+	Type = EsaType;
+	radius = 2;
 }
 
 ESA::~ESA()

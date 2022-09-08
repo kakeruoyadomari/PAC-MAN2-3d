@@ -44,7 +44,7 @@ void Player::PlayerDisplay()
 		{
 		case 0:
 			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[playeranim / 3], TRUE, FALSE);
-			y -= 1;
+			y -= 3;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -53,7 +53,7 @@ void Player::PlayerDisplay()
 			break;
 		case 1:
 			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[playeranim / 3], TRUE, FALSE);
-			x += 1;
+			x += 3;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -62,7 +62,7 @@ void Player::PlayerDisplay()
 			break;
 		case 2:
 			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[playeranim / 3], TRUE, FALSE);
-			y += 1;
+			y += 3;
 			playeranim++;
 			if (playeranim >= 9)
 			{
@@ -71,7 +71,7 @@ void Player::PlayerDisplay()
 			break;
 		case 3:
 			DrawRotaGraph(x, y, 1.0, 0, playerimg[playeranim / 3], TRUE, FALSE);
-			x -= 1;
+			x -= 3;
 			playeranim++;
 			if (playeranim > 9)
 			{

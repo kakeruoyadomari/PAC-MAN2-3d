@@ -8,13 +8,15 @@ private:
     bool Esaflg;    //flg iranai?
     int EsaImg;
     int EsaScore;
-    static int ResidueEsa;
+
     int Type;
     int FruitsImg;
     int FruitsScore;
 public:
     ESA(int X, int Y, int EsaType);
+    ESA(int X, int Y, int EsaType, int FruitsType);
     ~ESA();
+    static int ResidueEsa;
 
     //int SetEsaX();
     void SetImage(int i) { EsaImg = i; }
@@ -34,6 +36,7 @@ private:
     ESA* esa[245];
     int EsaImage[2];
     int FruitsImage[8];
+    int CreatePieces;
     int EsaType;
     int EsaSE;
     int SetX;
@@ -41,6 +44,7 @@ private:
 
 public:
     EsaControll();
+    void CreateFruits();
 
     ESA** Getesa() { return esa; }
     void SetEsa();
