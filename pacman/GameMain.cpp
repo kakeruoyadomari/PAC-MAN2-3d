@@ -34,7 +34,7 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
             {
                 esa[i]->ChangeFlg();
                 if (esa[i]->GetType() != 2)
-                {
+                {          
                     ESA::ResidueEsa--;
                 }
             }
@@ -42,10 +42,6 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
     }
     esacontroll->CreateFruits();
     
-            esa[i]->ChangeFlg();
-        }
-    }
-
     enemy_red->UpDate();
 
     return this;
