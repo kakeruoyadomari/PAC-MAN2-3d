@@ -1,181 +1,227 @@
 #include "Player.h"
+#include"Stage.h"
 #include "DxLib.h"
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-Player::Player()
+Stage stage;
+
+Player::Player(Stage* data)
 {
-	//PlayerDirection = 1;
-	speed = 1;     //ˆÚ“®‘¬“x
-	flg = true;      //ƒvƒŒƒCƒ„[•\¦ƒtƒ‰ƒO
-	ismove = false;//falseEEE~‚Ü‚é,trueEEE“®‚­
-	playerimg[0] = LoadGraph("images/pac1.png");   //ƒvƒŒƒCƒ„[‰æ‘œ—p•Ï”
-	playerimg[1] = LoadGraph("images/ƒpƒbƒNƒ}ƒ“2.png");
-	playerimg[2] = LoadGraph("images/ƒpƒbƒNƒ}ƒ“3.png");
+
+	speed = 1;     //ï¿½Ú“ï¿½ï¿½ï¿½ï¿½x
+	drawflg = true;      //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½\ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
+	ismove = true;//falseï¿½Eï¿½Eï¿½Eï¿½~ï¿½Ü‚ï¿½,trueï¿½Eï¿½Eï¿½Eï¿½ï¿½ï¿½ï¿½
+	playerimg[0] = LoadGraph("images/pac1.png");   //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½æ‘œï¿½pï¿½Ïï¿½
+	playerimg[1] = LoadGraph("images/pac2.png");
+	playerimg[2] = LoadGraph("images/pac3.png");
 	playeranim = 0;
 
-	x = 500.0;
-	y = 100.0;      //À•Wx,y
+	x = 16;
+	y = 13;      //ï¿½ï¿½ï¿½Wx,y
 	radius = 4;
 
+	plyrdrct.x_direction = 0;
+	plyrdrct.y_direction = 0;
+
+	stage = data;
 }
 
 void Player::PlayerDisplay()
 {
-	//	//ƒvƒŒƒCƒ„[‚Ì•\¦
-	//if (flg == true)
-	//{
-	//	if (speed < 0)
-	//	{
-	//		DrawRotaGraph((int)x, (int)y, 1.0f, 0, playerimg[1], true, TRUE);//TRUE‚É‚µ‚½‚ç‰æ‘œ”½“]ÅŒã‚ÌTRUE
-	//	}
-	//	else if (speed > 0)
-	//	{
-	//		DrawRotaGraph((int)x, (int)y, 1.0f, 0, playerimg[2], true, FALSE);
-	//	}
-	//	else
-	//	{
-	//		DrawRotaGraph((int)x, (int)y, 1.0f, 0, playerimg[0], true, FALSE);
-	//	}
-	//}
-	if (flg == true)
+	if (drawflg == true)
 	{
-		switch (PlayerDirection)
+		switch (plyrdrct.direction)
 		{
-		case 0:
-			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[playeranim / 3], TRUE, FALSE);
-			y -= 3;
-			playeranim++;
-			if (playeranim >= 9)
-			{
-				playeranim = 0;
-			}
+		case PLAYER_NORMAL_UP:
+			nowdirect = PI / 2;
 			break;
-		case 1:
-			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[playeranim / 3], TRUE, FALSE);
-			x += 3;
-			playeranim++;
-			if (playeranim >= 9)
-			{
-				playeranim = 0;
-			}
+		case PLAYER_NORMAL_RIGHT:
+			nowdirect = PI;
 			break;
-		case 2:
-			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[playeranim / 3], TRUE, FALSE);
-			y += 3;
-			playeranim++;
-			if (playeranim >= 9)
-			{
-				playeranim = 0;
-			}
+		case PLAYER_NORMAL_DOWN:
+			nowdirect = PI + PI / 2;
+
 			break;
-		case 3:
-			DrawRotaGraph(x, y, 1.0, 0, playerimg[playeranim / 3], TRUE, FALSE);
-			x -= 3;
-			playeranim++;
-			if (playeranim > 9)
-			{
-				playeranim = 0;
-			}
+		case PLAYER_NORMAL_LEFT:
+			nowdirect = 0;
 			break;
 		}
 	}
 }
-void Player::NotOverhang()
-{
-	//‰æ–Ê‚ğ‚Í‚İo‚³‚È‚¢‚æ‚¤‚É‚·‚é
-	if ((int)x < 37) {
-		x = 37.0;
-		speed = 0;
-	}
 
-	if ((int)x > SCREEN_WIDTH - 180) {
-		x = (float)(SCREEN_WIDTH - 180);
-		speed = 0;
-	}
 
-	//if (m_y > SCREEN_HEIGHT - m_y)m_y = SCREEN_HEIGHT - m_y;
-}
+
 void Player::MovePlayer()
 {
-	//int num = 3;
 	
+		//if (mv == 0) {
+		//			 //è¶³å…ƒåˆ¤å®š
+		//			if (gMap[y][x] == 1) {
+		//				 Soundã€Œã±ãã£ï¼ï¼ã€
+		//				gScore += 10;
+		//				gMap[y][x] = 0;
+		//			}
+		//			if (gMap[y][x] == 2) {
+		//				 ãƒ‘ãƒ¯ãƒ¼é¤Œé£Ÿã¹ã‚‹
+		//				gScore += 50;
+		//				gMap[y][x] = 0;
+		//			}
+		// //è¶³å…ƒåˆ¤å®š
+		//if (stage.GetStageData(y,x) == 0) {
+		//	 //Soundã€Œã±ãã£ï¼ï¼ã€
+		//	gScore += 10;
+		//	StagePixel[y][x] = 1;//é¤Œã§ç§»å‹•ã—ã¦ã‚‹ã¨ã“ã‚ã‚’ã¿ã¦ã†
+		//}
+
+		 //ãƒã‚¹ç›®ã«ã„ã‚‹ã¨ãã ã‘ã‚­ãƒ¼å…¥åŠ›åˆ¤å®š
+		if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) {
+			if (CheckHitWall(x, y, 0) == false) {
+				plyrdrct.x_direction = 0;
+				plyrdrct.y_direction = -1;
+				plyrdrct.direction = PLAYER_NORMAL_UP;
+				speed = 11;
+			}
+			else
+			{
+				speed = 0;
+			}
+		}
+		else if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) {
+			if (CheckHitWall(x,y,2)==false) {
+				plyrdrct.x_direction = 0;
+				plyrdrct.y_direction = 1;
+				plyrdrct.direction = PLAYER_NORMAL_DOWN;
+				speed = 11;
+			}
+			else
+			{
+				speed = 0;
+			}
+		}
+		else if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000){
+			if (CheckHitWall(x, y, 1) == false) {
+				plyrdrct.x_direction = 1;
+				plyrdrct.y_direction = 0;
+				plyrdrct.direction = PLAYER_NORMAL_RIGHT;
+				speed = 11;
+			}
+			else
+			{
+				speed = 0;
+			}
+		}
+		else if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) {
+			if (CheckHitWall(x, y, 3) == false) {
+				plyrdrct.x_direction = -1;
+				plyrdrct.y_direction = 0;
+				plyrdrct.direction = PLAYER_NORMAL_LEFT;
+				speed = 11;
+			}
+			else
+			{
+				speed = 0;
+			}
+		}
+		else {	// ã‚­ãƒ¼å…¥åŠ›ãŒãªã‹ã£ãŸã¨ãã‚‚å½“ãŸã‚Šåˆ¤å®š
+			if (CheckHitWall(x, y, plyrdrct.direction) == true) {
+				speed = 0;
+			}
+			else {
+				speed = 11;
+			}
+		}
 
 
-	if (control.Buttons[XINPUT_BUTTON_DPAD_UP]) PlayerDirection = 0;
-	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT]) PlayerDirection = 1;
-	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN]) PlayerDirection = 2;
-	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT]) PlayerDirection = 3;
-	
-	
-	
-	////¶‰EˆÚ“®
-	//if (flg == TRUE)
-	//{
-	//	NotOverhang();
-	//	if (control.ThumbLX < -2000||control.Buttons[XINPUT_BUTTON_DPAD_LEFT]) {
-	//		//¶//g‚¦‚é
-	//		x += ;
-	//	}
-	//	else if (control.ThumbLX > 2000|| control.Buttons[XINPUT_BUTTON_DPAD_RIGHT]) {
-	//		//‰E//g‚¦‚é
-	//		x += ;
-	//	}
-	//	else {
-	//		StopMotion();
-	//	}
+		moveX += plyrdrct.x_direction;
+
+		if (moveX % 22 == 0) {
+			x += plyrdrct.x_direction;
+		}
+
+
+
+	//if(speed!=0){
+	//	 //ãƒ‘ãƒƒã‚¯ãƒãƒ³ç§»å‹•ä¸­ï¼ˆãƒã‚¹ç›®ã®ä¸­é–“ã«ã„ã‚‹ã¨ãï¼‰
+	//	speed -= 1;//ãƒ‘ãƒƒã‚¯ãƒãƒ³ã®ç§»å‹•å‡¦ç†
+	//	
 	//}
-	////PLbox.PL_SetAreaVecter(x, y, ismove);
-
-}
-void Player::PlayerControl() {
-	if (flg == TRUE) {
-	
-	}
-}
-void Player::StopMotion(void) {
-
-	if (speed >= 0) {			//ƒvƒ‰ƒX•ûŒü‚Ö‚Ì‰Á‘¬ ‰E•ûŒü
-		if (speed != 0) {
-			speed -= ACCELERATION;
-			x += speed;
-			if (speed < 0)speed = 0;
-		}
-	}
-	else if (speed <= 0) {	//ƒ}ƒCƒiƒX•ûŒü‚Ì‰Á‘¬ ¶•ûŒü
-		if (speed != 0) {
-			speed += ACCELERATION;
-			x += speed;
-			if (speed > 0)speed = 0;
-		}
-	}
-
 }
 void Player::Init(XINPUT_STATE data)
 {
 	control = data;
-
+	
 }
+bool Player::CheckHitWall(int ex, int ey, int dir)
+{
+
+	int dx = 0;
+	int dy = 0;
+	int wall = 0;
+
+switch (dir)
+	{
+	case PLAYER_NORMAL_UP:
+		dx = 0; dy = -1;
+		break;
+	case PLAYER_NORMAL_RIGHT:
+		dx = 1; dy = 0;
+		break;
+	case PLAYER_NORMAL_DOWN:
+		dx = 0; dy = 1;
+		break;
+	case PLAYER_NORMAL_LEFT:
+		dx = -1; dy = 0;
+		break;
+	default:
+		dx = 0; dy = 0;
+		break;
+	}
+
+	if (x < STAGE_WIDTH * 2 && y < STAGE_HEIGHT) {
+		wall = stage->GetStageData(ex + dx, ey + dy);
+		//wall = stage->GetStageData(x , y);
+	}
+
+	if (wall == 1) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void Player::UpDate()
 {
 	MovePlayer();
+	Animaition();
+	PlayerDisplay();
 	/*this->x++;*/
 	
 }
 
 void Player::Animaition()
 {
+	playeranim++;
+	if (playeranim >= 9)
+	{
+		playeranim = 0;
+	}
+
+	nowdraw = playerimg[playeranim / 3];
+
+
 }
 
 void Player::Draw() const
 {
-	DrawFormatString(20, 40, 0xffffff, "%d", this->x);
+	DrawRotaGraph(x*DOT_SIZE+moveX, y*DOT_SIZE+11, 1, nowdirect, nowdraw, TRUE, FALSE);
 }
 
 int Player::Image()
 {
 	//if ((player = LoadGraph("images/pac1.png")) == -1)return -1;
-	//if ((playerrun = LoadGraph("images/ƒpƒbƒNƒ}ƒ“2.png")) == -1)return -1;
-	//if ((playerrun2 = LoadGraph("images/ƒpƒbƒNƒ}ƒ“3.png")) == -1)return -1;
+	//if ((playerrun = LoadGraph("images/ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½2.png")) == -1)return -1;
+	//if ((playerrun2 = LoadGraph("images/ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½3.png")) == -1)return -1;
 	return 0;
 }

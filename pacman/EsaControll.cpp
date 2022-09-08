@@ -17,7 +17,7 @@ EsaControll::EsaControll()
 	CreatePieces = 2;
 	FruitsType = 0;
 
-	SetX = 100;
+	SetX = 1050;
 	SetY = 100;
 
 	for (int i = 0; i < 245; i++)
@@ -47,9 +47,9 @@ EsaControll::EsaControll()
 		//}
 
 		SetX += 20;
-		if (SetX >= 300)
+		if (SetX >= 1250)
 		{
-			SetX = 100;
+			SetX = 1050;
 			SetY += 20;
 		}
 

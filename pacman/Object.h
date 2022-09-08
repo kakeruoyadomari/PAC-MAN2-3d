@@ -1,6 +1,6 @@
 #pragma once
 #include"DxLib.h"
-
+#include"Stage.h"
 
 class Object
 {
@@ -8,6 +8,9 @@ protected:
 	int x;		//ç¿ïWX
 	int y;		//ç¿ïWY
 	int radius;		//îºåa
+
+	Stage* stage;
+
 
 public:
 	virtual void UpDate() = 0;

@@ -2,14 +2,22 @@
 #include"Object.h"
 #include"Player.h"
 #include"Esa.h"
+#include"Stage.h"
 
-Player* player;
 
 GameMain::GameMain()
 {
-    player = new Player();
+
     esacontroll = new EsaControll();
     esa = esacontroll->Getesa();
+    stage = new Stage();
+
+    player = new Player(stage);
+    enemy_red = new Enemy_Red(stage,player);
+
+
+    stage->LoadData();
+    stage->MapInit();
 }
 
 AbstractScene* GameMain::Update(XINPUT_STATE data)
@@ -17,10 +25,10 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
 
     player->Init(data);
     player->UpDate();
-
-    for (int i = 0; i < 245; i++)
+ 
+    for (int i = 0; i < D_ESA_MAX; i++)
     {
-        if (CheckHitPlayer_Esa(player, esa[i]) == TRUE)
+        if (CheckHitPlayer_Esa(player, esa[i]) == true)
         {
             if (esa[i]->GetFlg() == TRUE)
             {
@@ -34,14 +42,20 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
     }
     esacontroll->CreateFruits();
     
+            esa[i]->ChangeFlg();
+        }
+    }
+
+    enemy_red->UpDate();
 
     return this;
 }
 
 void GameMain::Draw() const
 {
-    player->PlayerDisplay();
-    //player->Draw();
     player->Draw();
+    enemy_red->Draw();
     esacontroll->DrawEsa();
+    stage->MapSet();
+
 }

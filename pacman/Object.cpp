@@ -24,9 +24,9 @@ bool CheckHitPlayer_Esa(Object* player, Object* esa)
 
 	if (range <= sum_radius)
 	{
-		return TRUE;
+		return true;
 	}
 
 
-	return FALSE;
+	return false;
 }
