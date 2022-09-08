@@ -10,16 +10,15 @@ protected:
     //全てのエネミーが持つべき変数
     bool animeFlg=false;      //アニメーションフラグ
     int animcount=0;      //アニメーションの秒数
-    bool trackFlg=false;      //追いかけるフラグ
+    static bool trackFlg;      //追いかけるフラグ
     bool ijike=false;     //いじけ状態
     int nowway=0;     //現在の向き
-    int nowdraw=0;
-    int nowselect = 0;
-    int selectrocation[2]{0,0};
-    bool nowflg=false;
-    bool selectflg = false;
+    int nowdraw=0;      //現在の描画
+    bool nowflg=false;      //現在のアニメーションの切り替わり
+    bool HitFlg = false;        //Playerとの当たり判定
 
     Stage* stage;
+    Object* player;
 
     enum Direction
     {
@@ -48,6 +47,11 @@ protected:
     int image4[2]{0,0};      //画像４の差分２枚
 
     bool ToggleFlg(bool flg) {flg = !(flg);return flg;}
+
+    bool CheckHitWall(int ex, int ey,int dir);
+    bool CheckHitPlayer(int ex, int xy);
+
+    void AStar(int ex,int ey,int px,int py);
 
 public:
     Enemy();

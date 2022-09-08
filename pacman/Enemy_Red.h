@@ -8,7 +8,7 @@ private:
 	int BlockY;
 
 public:
-	Enemy_Red();
+	Enemy_Red(Stage*data,Object*data2);
 
 	void UpDate() override;
 	void Animaition() override;

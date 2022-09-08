@@ -1,6 +1,6 @@
 #include "Enemy_Red.h"
 
-Enemy_Red::Enemy_Red()
+Enemy_Red::Enemy_Red(Stage*data,Object*data2)
 {
 	image1[0] = LoadGraph("images/ê‘ìG1.png");
 	image1[1] = LoadGraph("images/ê‘ìG5.png");
@@ -12,6 +12,9 @@ Enemy_Red::Enemy_Red()
 	image4[1] = LoadGraph("images/ê‘ìG8.png");
 
 	nowway = ENEMY_NORMAL_LEFT;
+
+	stage = data;
+	player = data2;
 }
 
 void Enemy_Red::UpDate()
@@ -42,10 +45,18 @@ void Enemy_Red::UpDate()
 
 	GetMousePoint(&x, &y);
 
-	BlockX = x / 23;
-	BlockY = y / 23;
+	BlockX = x / 22;
+	BlockY = y / 22;
 
 	Animaition();
+
+	if (CheckHitWall(x, y, nowway) == true) {
+		nowdraw = medamaimage[0];
+		HitFlg = true;
+	}
+	else {
+		HitFlg = false;
+	}
 }
 
 void Enemy_Red::Animaition()
@@ -113,6 +124,11 @@ void Enemy_Red::Animaition()
 void Enemy_Red::Draw() const
 {
 	DrawRotaGraph(x, y, 0.5,0,nowdraw, TRUE);
+
+	if (HitFlg == true) {
+		DrawString(1000, 300, "Hit", 0x00ffff);
+
+	}
 
 	DrawFormatString(800, 600, 0xff00ff, "%d,%d",BlockX, BlockY);
 	//DrawBox(selectrocation[0] * DOT_SIZE, selectrocation[1] * DOT_SIZE, selectrocation[0] * DOT_SIZE + DOT_SIZE, selectrocation[1] * DOT_SIZE + DOT_SIZE, 0xff0000, TRUE);

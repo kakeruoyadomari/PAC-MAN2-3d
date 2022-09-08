@@ -8,11 +8,13 @@
 GameMain::GameMain()
 {
     player = new Player();
-    enemy_red = new Enemy_Red();
 
     esacontroll = new EsaControll();
     esa = esacontroll->Getesa();
     stage = new Stage();
+
+    enemy_red = new Enemy_Red(stage,player);
+
 
     stage->LoadData();
     stage->MapInit();
