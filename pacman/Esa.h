@@ -35,7 +35,6 @@ public:
 class EsaControll
 {
 private:
-    Player* player;
     ESA* esa[245];
     Stage* stage;
     int EsaImage[2];
@@ -44,18 +43,18 @@ private:
     int CreatePieces;
     int EsaType;
     int EsaSE;
-    int SetX;
-    int SetY;
+    int FruitsX;
+    int FruitsY;
 
     int sx;
     int sy;
 
 public:
-    EsaControll();
+    EsaControll(Stage* data);
     void CreateFruits();
 
     ESA** Getesa() { return esa; }
-    void SetEsa(int x, int y);
+    void SetEsa(int x, int y, Stage stage);
     void DrawEsa();
 
 };

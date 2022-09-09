@@ -8,16 +8,17 @@
 GameMain::GameMain()
 {
 
-    esacontroll = new EsaControll();
-    esa = esacontroll->Getesa();
     stage = new Stage();
-
+    stage->MapInit(); 
+    esacontroll = new EsaControll(stage);
+    esa = esacontroll->Getesa();
     player = new Player(stage);
     enemy_red = new Enemy_Red(stage,player);
 
 
     stage->LoadData();
-    stage->MapInit();
+
+
 }
 
 AbstractScene* GameMain::Update(XINPUT_STATE data)

@@ -1,7 +1,9 @@
 #include"Esa.h"
 #include"Player.h"
-EsaControll::EsaControll()
+EsaControll::EsaControll(Stage*data)
 {
+	stage = data;
+
 	EsaImage[0] = LoadGraph("images/Small.png");
 	EsaImage[1] = LoadGraph("images/Power.png");
 
@@ -17,41 +19,35 @@ EsaControll::EsaControll()
 	CreatePieces = 2;
 	FruitsType = 0;
 
-	SetX = 1050;
-	SetY = 100;
+	FruitsX = 310;
+	FruitsY = 517;
 
 
 	for (sy = 0; sy < STAGE_HEIGHT; sy++) 
 	{
 		for (sx = 0; sx < STAGE_WIDTH * 2; sx++)
 		{
-			SetEsa(sx, sy);
+			SetEsa(sx, sy, *stage);
 		}
 	}
 
 
-	//for (int i = 0; i < 245; i++)
-	//{
-	//	if (i < 240)
-	//	{
-	//		EsaType = 0;
-	//		esa[i] = new ESA(SetX, SetY, EsaType);
-	//	}
-	//	else if (i >= 240 && i < 244)
-	//	{
-	//		EsaType = 1;
-	//		esa[i] = new ESA(SetX, SetY, EsaType);
-	//	}
-	//	else
-	//	{
-			EsaType = 2;
-			esa[244] = new ESA(SetX, SetY, EsaType, FruitsType);
-	//	}
+	EsaType = 2;
+	esa[244] = new ESA(FruitsX, FruitsY, EsaType, FruitsType);
 
-			for (int i = 0; i < 244; i++)
-			{
-				esa[i]->SetImage(EsaImage[EsaType]);
-			}
+	for (int i = 0; i < 244; i++)
+	{
+		if (esa[i]->GetType() == 0)
+		{
+			esa[i]->SetImage(EsaImage[0]);
+		}
+		if (esa[i]->GetType() == 1)
+		{
+			esa[i]->SetImage(EsaImage[1]);
+		}
+	}
+	esa[244]->SetImage(FruitsImage[FruitsType]);
+			
 		//else
 		//{
 		//	//do 現在のステージ数持ってくる
@@ -103,30 +99,24 @@ void  EsaControll::CreateFruits()
 
 }
 
-void EsaControll::SetEsa(int x, int y)
+void EsaControll::SetEsa(int sx, int sy, Stage stage)
 {
 	static int i = 0;
 
 
-	//if (stage->GetStageData(sx, sy) == 0)
-	if (stage->StageTS[x][y] == 0)
+	if (stage.GetStageData(sx, sy) == 0)
 	{	
 		EsaType = 0;
-		esa[i]= new ESA(x * DOT_SIZE + 11, y * DOT_SIZE + 11, EsaType);
+		esa[i]= new ESA(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, EsaType);
 		i++;
 	}
-	//else if (stage->GetStageData(sx, sy) == 4)
-	else if (stage->StageTS[x][y] == 4)
+	else if (stage.GetStageData(sx, sy) == 4)
+	//else if (stage->StageTS[x][y] == 4)
 	{
 		EsaType = 1;
-		esa[i] = new ESA(x * DOT_SIZE + 11, y * DOT_SIZE + 11, EsaType);
+		esa[i] = new ESA(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, EsaType);
 		i++;
 	}
-	else
-	{
-		i++;
-	}
-	//(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, 0x00ff00);
 }
 
 void EsaControll::DrawEsa()
