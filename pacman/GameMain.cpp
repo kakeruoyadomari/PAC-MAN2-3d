@@ -25,14 +25,23 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
 
     player->Init(data);
     player->UpDate();
+ 
     for (int i = 0; i < D_ESA_MAX; i++)
     {
         if (CheckHitPlayer_Esa(player, esa[i]) == true)
         {
-            esa[i]->ChangeFlg();
+            if (esa[i]->GetFlg() == TRUE)
+            {
+                esa[i]->ChangeFlg();
+                if (esa[i]->GetType() != 2)
+                {          
+                    ESA::ResidueEsa--;
+                }
+            }
         }
     }
-
+    esacontroll->CreateFruits();
+    
     enemy_red->UpDate();
 
     return this;

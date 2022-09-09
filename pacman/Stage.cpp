@@ -1,15 +1,16 @@
+#include "Stage.h"
 #include "DxLib.h"
 #include"Stage.h"
 
-// ƒOƒ[ƒoƒ‹•Ï”
-int gPacman[10];			// ƒpƒbƒNƒ}ƒ“‚ÌƒOƒ‰ƒtƒBƒbƒNƒnƒ“ƒhƒ‹
-int gMapChip[10];			// ƒ}ƒbƒvƒ`ƒbƒv‚Ìƒnƒ“ƒhƒ‹
-int gScore;					// “¾“_
+// ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
+int gPacman[10];			// ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½ï¿½ÌƒOï¿½ï¿½ï¿½tï¿½Bï¿½bï¿½Nï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
+int gMapChip[10];			// ï¿½}ï¿½bï¿½vï¿½`ï¿½bï¿½vï¿½Ìƒnï¿½ï¿½ï¿½hï¿½ï¿½
+int gScore;					// ï¿½ï¿½ï¿½_
 
-// ‰æ‘œ‚Ì“Ç‚İ‚İ
+// ï¿½æ‘œï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 int Stage::LoadData()
 {
-	// ‰æ‘œ‚Ì“Ç‚İ‚İ
+	// ï¿½æ‘œï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 	if (LoadDivGraph("images/pacman2.png", 10, 10, 1, 24, 24, gPacman) == -1) {
 		MessageBox(NULL, "images/pacman2.png", "ReadError", MB_OK);
 		return -1;
@@ -22,32 +23,32 @@ int Stage::LoadData()
 	return 0;
 }
 
-// ƒ}ƒbƒv‚Ì“Ç‚İ‚İ
+// ï¿½}ï¿½bï¿½vï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 int Stage::MapInit()
 {
-//	int FileHandle = FileRead_open("dat/stagedata0829.txt");		// ƒtƒ@ƒCƒ‹‚ÌƒI[ƒvƒ“
-//	int FileSize = FileRead_size("dat/stagedata0829.txt");			// ƒtƒ@ƒCƒ‹ƒTƒCƒY‚ğæ“¾‚µ‚Ä
-//	char* FileImage = new char[FileSize];					// ‚»‚Ì‘å‚«‚³‚¾‚¯—ÌˆæŠm•Û
-//	FileRead_read(FileImage, FileSize, FileHandle);			// ˆê‹C“Ç‚İ
-//	FileRead_close(FileHandle);								// ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚ÄI—¹
+//	int FileHandle = FileRead_open("dat/stagedata0829.txt");		// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ÌƒIï¿½[ï¿½vï¿½ï¿½
+//	int FileSize = FileRead_size("dat/stagedata0829.txt");			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
+//	char* FileImage = new char[FileSize];					// ï¿½ï¿½ï¿½Ì‘å‚«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìˆï¿½mï¿½ï¿½
+//	FileRead_read(FileImage, FileSize, FileHandle);			// ï¿½ï¿½Cï¿½Ç‚ï¿½
+//	FileRead_close(FileHandle);								// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ÄIï¿½ï¿½
 //
 //	const char* d = FileImage;
 //	int sx = 0, sy = 0;
 //	int o;
 //
-//	while (*d != '\0') { // NULL•¶šiI’[j‚Å‚Í‚È‚¢ŠÔ
+//	while (*d != '\0') { // NULLï¿½ï¿½ï¿½ï¿½ï¿½iï¿½Iï¿½[ï¿½jï¿½Å‚Í‚È‚ï¿½ï¿½ï¿½
 //		switch (*d) {
 //		case '0':	o = 0; break;
 //		case '1':	o = 3; break;
 //		case '=':	o = 4; break;
 //		case '\n':
-//			sy++;		// ˆês‰º‚ÖA¶’[‚Ö
+//			sy++;		// ï¿½ï¿½sï¿½ï¿½ï¿½ÖAï¿½ï¿½ï¿½[ï¿½ï¿½
 //			sx = 0;		// throw down
 //		default:	o = 5; break;
 //		}
 //		d++;
 //		if (o != 5) {
-//			StagePixel[sy][sx] = o;	// ƒ}ƒbƒvî•ñ‘‚«‚İ
+//			StagePixel[sy][sx] = o;	// ï¿½}ï¿½bï¿½vï¿½ï¿½ñ‘‚ï¿½ï¿½ï¿½ï¿½ï¿½
 //			sx++;
 //		}
 //	}
@@ -56,14 +57,14 @@ int Stage::MapInit()
 
 	fopen_s(&fp, "dat/StageTestCSV1.txt", "r");
 
-	//ƒtƒ@ƒCƒ‹ƒ[ƒh
+	//ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½h
 	for (int i = 0; i < STAGE_HEIGHT; i++) {
 		for (int j = 0; j < STAGE_WIDTH; j++) {
 			fscanf(fp, "%d", &StagePixel[j][i]);
 		}
 	}
 
-	//ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+	//ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y
 	fclose(fp);
 
 	fopen_s(&fp, "dat/StageTestCSV1.txt", "r");
@@ -74,7 +75,7 @@ int Stage::MapInit()
 		}
 	}
 
-	//ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+	//ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y
 	fclose(fp);
 
 	for (int i = 0; i < STAGE_WIDTH; i++) {
@@ -92,13 +93,13 @@ int Stage::MapInit()
 	return 0;
 }
 
-// ‰Šú‰»
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int Stage::Init()
 {
 //	ChangeWindowMode(TRUE);
 //	if (DxLib_Init() == -1) return -1;
 //
-//	SetDrawScreen(DX_SCREEN_BACK);		// — ‰æ–Ê‚É‘‚«‚İ‚Ü‚·‚æéŒ¾
+//	SetDrawScreen(DX_SCREEN_BACK);		// ï¿½ï¿½ï¿½ï¿½Ê‚Éï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚Ü‚ï¿½ï¿½ï¿½éŒ¾
 //
 //	if (LoadData() == -1) {
 //		DxLib_End();
@@ -106,11 +107,11 @@ int Stage::Init()
 //	}
 	MapInit();
 
-	// ƒQ[ƒ€‚Ìİ’è
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½Ìİ’ï¿½
 	gScore = 0;
 	return 0;
 }
-// ƒ}ƒbƒv”z’ui–ˆƒtƒŒ[ƒ€•`‰æj
+// ï¿½}ï¿½bï¿½vï¿½zï¿½uï¿½iï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½`ï¿½ï¿½j
 int Stage::MapSet()
 {
 	int sx, sy, st;
@@ -119,7 +120,7 @@ int Stage::MapSet()
 	for (sy = 0; sy < STAGE_HEIGHT; sy++) {
 		for (sx = 0; sx < STAGE_WIDTH * 2; sx++) {
 			st = StageTS[sy][sx];
-			//DrawGraph(sx * 4, sy * 3.1,gMapChip[st], TRUE);//ƒ}ƒbƒv‚Ì‘å‚«‚³•ÏXx‰¡yc
+			//DrawGraph(sx * 4, sy * 3.1,gMapChip[st], TRUE);//ï¿½}ï¿½bï¿½vï¿½Ì‘å‚«ï¿½ï¿½ï¿½ÏXxï¿½ï¿½yï¿½c
 			if (StageTS[sx][sy] == 1) {
 				DrawBox(sx * DOT_SIZE, sy * DOT_SIZE, sx * DOT_SIZE + DOT_SIZE, sy * DOT_SIZE + DOT_SIZE, 0xff00ff, TRUE);
 			}
@@ -129,20 +130,20 @@ int Stage::MapSet()
 	return 0;
 }
 
-// is•ûŒü‚É•Ç‚ª‚È‚¢‚©ƒ`ƒFƒbƒN‚·‚é
+// ï¿½iï¿½sï¿½ï¿½ï¿½ï¿½ï¿½É•Ç‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 int Stage::CheckWall(int cx, int cy, int mx, int my)
 {
 	int wall = 0;
 	static int dbgx = 0, dbgy = 0;
 	
 
-	if (mx != 0) { //‰¡ˆÚ“®ˆ—
+	if (mx != 0) { //ï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (StageTS[cy - 1][cx + mx * 2] == 1) wall++;
 		if (StageTS[cy][cx + mx * 2] == 1) wall++;
 		if (StageTS[cy + 1][cx + mx * 2] == 1) wall++;
 		//dbgx = mx; dbgy = my;
 	}
-	else if (my != 0) {//cˆÚ“®ˆ—
+	else if (my != 0) {//ï¿½cï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (StageTS[cy + my * 2][cx - 1] == 1) wall++;
 		if (StageTS[cy + my * 2][cx] == 1) wall++;
 		if (StageTS[cy + my * 2][cx + 1] == 1) wall++;
@@ -151,15 +152,15 @@ int Stage::CheckWall(int cx, int cy, int mx, int my)
 
 	return wall;
 }
-// ƒpƒbƒNƒ}ƒ“‚ªˆÚ“®‚·‚éŠÖ”
+// ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½ï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½
 int Stage::PakuMove()
 {
 	static int key;
-	static int s = 0;			// ƒpƒbƒNƒ}ƒ“•\¦—p
-	static int x = 18, y = 21;		// ƒ}ƒbƒvÀ•W
-	static int dx = 0, dy = 0;	// ‰Šú•ûŒü‚Í—^‚¦‚È‚¢
-	static float Angle = 0.0f;	// ‰Šú@¶Œü‚«
-	static int mv = 0;			// ƒpƒbƒNƒ}ƒ“ˆÚ“®’†
+	static int s = 0;			// ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½p
+	static int x = 18, y = 21;		// ï¿½}ï¿½bï¿½vï¿½ï¿½ï¿½W
+	static int dx = 0, dy = 0;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í—^ï¿½ï¿½ï¿½È‚ï¿½
+	static float Angle = 0.0f;	// ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	static int mv = 0;			// ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½
 	int mvx = 0, mvy = 0;
 
 	key = GetJoypadInputState(DX_INPUT_KEY_PAD1);
@@ -167,25 +168,25 @@ int Stage::PakuMove()
 
 	if (mv == 0) {
 		//if (mv == 0) {
-			//		// ‘«Œ³”»’è
+			//		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			//		if (gMap[y][x] == 1) {
-			//			// Soundu‚Ï‚­‚ÁIIv
+			//			// Soundï¿½uï¿½Ï‚ï¿½ï¿½ï¿½ï¿½Iï¿½Iï¿½v
 			//			gScore += 10;
 			//			gMap[y][x] = 0;
 			//		}
 			//		if (gMap[y][x] == 2) {
-			//			// ƒpƒ[‰aH‚×‚é
+			//			// ï¿½pï¿½ï¿½ï¿½[ï¿½aï¿½Hï¿½×‚ï¿½
 			//			gScore += 50;
 			//			gMap[y][x] = 0;
 			//		}
-		// ‘«Œ³”»’è
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (StagePixel[y][x] == 0) {
-			// Soundu‚Ï‚­‚ÁIIv
+			// Soundï¿½uï¿½Ï‚ï¿½ï¿½ï¿½ï¿½Iï¿½Iï¿½v
 			gScore += 10;
-			StagePixel[y][x] = 1;//‰a‚ÅˆÚ“®‚µ‚Ä‚é‚Æ‚±‚ë‚ğ‚İ‚Ä‚¤
+			StagePixel[y][x] = 1;//ï¿½aï¿½ÅˆÚ“ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½İ‚Ä‚ï¿½
 		}
 
-		// ƒ}ƒX–Ú‚É‚¢‚é‚Æ‚«‚¾‚¯ƒL[“ü—Í”»’è
+		// ï¿½}ï¿½Xï¿½Ú‚É‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½[ï¿½ï¿½ï¿½Í”ï¿½ï¿½ï¿½
 		mv = 16;
 		if (key & PAD_INPUT_UP) {
 			if (!CheckWall(x, y, 0, -1)) {
@@ -207,7 +208,7 @@ int Stage::PakuMove()
 				dx = 1; dy = 0; Angle = PI;
 			}
 		}
-		else {	// ƒL[“ü—Í‚ª‚È‚©‚Á‚½‚Æ‚«‚à“–‚½‚è”»’è
+		else {	// ï¿½Lï¿½[ï¿½ï¿½ï¿½Í‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 			if (CheckWall(x, y, dx, dy)) {
 				dx = 0; dy = 0; mv = 0;
 			}
@@ -217,8 +218,8 @@ int Stage::PakuMove()
 		}
 	}
 	else {
-		// ƒpƒbƒNƒ}ƒ“ˆÚ“®’†iƒ}ƒX–Ú‚Ì’†ŠÔ‚É‚¢‚é‚Æ‚«j
-		mv -= 4;//ƒpƒbƒNƒ}ƒ“‚ÌˆÚ“®ˆ—
+		// ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½iï¿½}ï¿½Xï¿½Ú‚Ì’ï¿½ï¿½Ô‚É‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½j
+		mv -= 4;//ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½ï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (mv <= 0) {
 			x += dx;
 			y += dy;
@@ -233,13 +234,13 @@ int Stage::PakuMove()
 			mvy = (16 - mv) * dy;
 		}
 	}
-	if ((dx + dy) != 0) s = (++s) % 7; // “®‚¢‚Ä‚¢‚é‚Æ‚«‚¾‚¯ƒAƒjƒ[ƒVƒ‡ƒ“
+	if ((dx + dy) != 0) s = (++s) % 7; // ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
 
-	DrawRotaGraph((x - 1) * 16 + 24 + mvx, (y - 1) * 16 + 24 + mvy, 1, Angle, gPacman[s], TRUE);//ƒpƒbƒNƒ}ƒ“‚Ì•\¦
+	DrawRotaGraph((x - 1) * 16 + 24 + mvx, (y - 1) * 16 + 24 + mvy, 1, Angle, gPacman[s], TRUE);//ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
 
 	return 0;
 }
-// ƒƒCƒ“ƒ‹[ƒv
+// ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 void Stage::MainLoop()
 {
 
@@ -249,7 +250,7 @@ void Stage::MainLoop()
 		if (MapSet())return;
 		if (PakuMove()) return;
 
-		DrawFormatString(1050, 0, RGB(255, 255, 255), "SCORE:");//ƒXƒRƒA•\¦
+		DrawFormatString(1050, 0, RGB(255, 255, 255), "SCORE:");//ï¿½Xï¿½Rï¿½Aï¿½\ï¿½ï¿½
 		DrawFormatString(1080, 15, RGB(255, 255, 255), "%6d", gScore);
 
 		ScreenFlip();
