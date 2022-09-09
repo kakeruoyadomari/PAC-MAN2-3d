@@ -13,13 +13,14 @@ private:
     int StagePixel[STAGE_WIDTH][STAGE_HEIGHT];
     int StageReverse[STAGE_WIDTH][STAGE_HEIGHT];
 
-    int StageTS[STAGE_WIDTH * 2][STAGE_HEIGHT];
+
 
     int stageselectx;
     int stageselecty;
 
     FILE* fp;
 public:
+    int StageTS[STAGE_WIDTH * 2][STAGE_HEIGHT];
     int MapInit();//datからマップ呼び出し
     int MapSet();//マップ読み込み
     int LoadData();//画像

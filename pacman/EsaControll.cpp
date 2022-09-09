@@ -20,40 +20,52 @@ EsaControll::EsaControll()
 	SetX = 1050;
 	SetY = 100;
 
-	for (int i = 0; i < 245; i++)
+
+	for (sy = 0; sy < STAGE_HEIGHT; sy++) 
 	{
-		if (i < 240)
+		for (sx = 0; sx < STAGE_WIDTH * 2; sx++)
 		{
-			EsaType = 0;
-			esa[i] = new ESA(SetX, SetY, EsaType);
+			SetEsa(sx, sy);
 		}
-		else if (i >= 240 && i < 244)
-		{
-			EsaType = 1;
-			esa[i] = new ESA(SetX, SetY, EsaType);
-		}
-		else
-		{
+	}
+
+
+	//for (int i = 0; i < 245; i++)
+	//{
+	//	if (i < 240)
+	//	{
+	//		EsaType = 0;
+	//		esa[i] = new ESA(SetX, SetY, EsaType);
+	//	}
+	//	else if (i >= 240 && i < 244)
+	//	{
+	//		EsaType = 1;
+	//		esa[i] = new ESA(SetX, SetY, EsaType);
+	//	}
+	//	else
+	//	{
 			EsaType = 2;
-			esa[i] = new ESA(SetX, SetY, EsaType, FruitsType);
-		}
+			esa[244] = new ESA(SetX, SetY, EsaType, FruitsType);
+	//	}
 
-
-		esa[i]->SetImage(EsaImage[EsaType]);
+			for (int i = 0; i < 244; i++)
+			{
+				esa[i]->SetImage(EsaImage[EsaType]);
+			}
 		//else
 		//{
 		//	//do 現在のステージ数持ってくる
 		//	esa[244]->SetImage(FruitsImage[7]);
 		//}
 
-		SetX += 20;
-		if (SetX >= 1250)
-		{
-			SetX = 1050;
-			SetY += 20;
-		}
+		//SetX += 20;
+		//if (SetX >= 1250)
+		//{
+		//	SetX = 1050;
+		//	SetY += 20;
+		//}
 
-	}
+	//}
 }
 
 void  EsaControll::CreateFruits()
@@ -91,9 +103,30 @@ void  EsaControll::CreateFruits()
 
 }
 
-void EsaControll::SetEsa()
+void EsaControll::SetEsa(int x, int y)
 {
+	static int i = 0;
 
+
+	//if (stage->GetStageData(sx, sy) == 0)
+	if (stage->StageTS[x][y] == 0)
+	{	
+		EsaType = 0;
+		esa[i]= new ESA(x * DOT_SIZE + 11, y * DOT_SIZE + 11, EsaType);
+		i++;
+	}
+	//else if (stage->GetStageData(sx, sy) == 4)
+	else if (stage->StageTS[x][y] == 4)
+	{
+		EsaType = 1;
+		esa[i] = new ESA(x * DOT_SIZE + 11, y * DOT_SIZE + 11, EsaType);
+		i++;
+	}
+	else
+	{
+		i++;
+	}
+	//(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, 0x00ff00);
 }
 
 void EsaControll::DrawEsa()
