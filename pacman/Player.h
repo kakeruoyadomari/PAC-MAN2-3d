@@ -2,6 +2,8 @@
 #include "Object.h"
 #include"Player.h"
 #define ACCELERATION 0.05
+#define PLAYER_DRAW_ 11
+
 class Player : public Object
 {
 private:
