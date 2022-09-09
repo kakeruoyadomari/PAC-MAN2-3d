@@ -171,7 +171,7 @@ int Stage::PakuMove()
 			gScore += 10;
 			StagePixel[y][x] = 0;
 		}
-		if (StagePixel[y][x] == 4) {//パワー餌食べた時(スコア50up)
+		if (StagePixel[y][x] == 2) {//パワー餌食べた時(スコア50up)
 			gScore += 50;
 			StagePixel[y][x] = 0;
 		}
