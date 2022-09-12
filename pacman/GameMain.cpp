@@ -2,6 +2,9 @@
 #include"Object.h"
 #include"Player.h"
 
+
+Player* player;
+
 GameMain::GameMain()
 {
     player = new Player();
@@ -9,7 +12,7 @@ GameMain::GameMain()
 
 AbstractScene* GameMain::Update(XINPUT_STATE data)
 {
-
+    player->Init(data);
     player->UpDate();
 
     return this;
@@ -17,5 +20,6 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
 
 void GameMain::Draw() const
 {
+    player->PlayerDisplay();
     player->Draw();
 }
