@@ -45,11 +45,24 @@ protected:
     int image3[2]{0,0};      //‰æ‘œ‚R‚Ì·•ª‚Q–‡
     int image4[2]{0,0};      //‰æ‘œ‚S‚Ì·•ª‚Q–‡
 
+    struct EnemyDrct
+    {
+        int x_direction;
+        int y_direction;
+        int direction;
+    };
+
+    struct EnemyDrct enemydic;
+
     bool ToggleFlg(bool flg) {flg = !(flg);return flg;}
 
     bool CheckHitPlayer(int ex, int xy);
 
     void AStar(int ex,int ey,int px,int py);
+
+    void MoveRocation(int px, int py, int ex, int ey, int* dicX, int* dicY,int* dic);
+
+    int GetDistance(int from_x, int from_y, int to_x, int to_y);
 
 public:
     Enemy();

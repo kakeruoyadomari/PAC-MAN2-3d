@@ -42,3 +42,45 @@ void Enemy::AStar(int ex, int ey, int px, int py)
 
 
 }
+
+
+
+int Enemy::GetDistance(int from_x, int from_y, int to_x, int to_y)
+{
+	int cx = from_x - to_x;
+	int cy = from_y - to_y;
+
+	if (cx < 0) cx *= -1;
+	if (cy < 0) cy *= -1;
+
+	// 推定移動コストを計算
+	return cx + cy;
+}
+
+void Enemy::MoveRocation(int px, int py,int ex,int ey, int* dicX, int* dicY,int* dic)
+{
+	*dicX = 0;
+	*dicY = 0;
+	*dic = 0;
+
+	if (min(abs(px*ex),abs(py*ey))==abs(px*ex)) {
+		if (min(ey, py) == ey) {
+			*dicY = 1;
+			*dic = 3;
+		}
+		else {
+			*dicY = -1;
+			*dic = 1;
+		}
+	}
+	else if(min(py,px)==py) {
+		if (min(ex, px) == ex) {
+			*dicX = 1;
+			*dic = 2;
+		}
+		else {
+			*dicX = -1;
+			*dic = 4;
+		}
+	}
+}
