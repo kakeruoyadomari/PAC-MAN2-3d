@@ -12,14 +12,15 @@ class Stage{
 private:
     int StagePixel[STAGE_WIDTH][STAGE_HEIGHT];
     int StageReverse[STAGE_WIDTH][STAGE_HEIGHT];
-
     int StageTS[STAGE_WIDTH * 2][STAGE_HEIGHT];
+
 
     int stageselectx;
     int stageselecty;
 
     FILE* fp;
 public:
+   
     int MapInit();//datからマップ呼び出し
     int MapSet();//マップ読み込み
     int LoadData();//画像
@@ -30,4 +31,4 @@ public:
     int GetStageData(int i, int j) { return StageTS[i][j]; }
 };
 
-extern Stage stage;
+//extern Stage stage;

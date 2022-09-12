@@ -11,7 +11,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetGraphMode(1280, 720, 16);
 	//SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
 
-	if (stage.Init()) return -1;	// 初期化
+	//if (stage.Init()) return -1;	// 初期化
 
 
 	//SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_MAXIMUM);  

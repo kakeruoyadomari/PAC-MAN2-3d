@@ -1,7 +1,9 @@
 #include"Esa.h"
 #include"Player.h"
-EsaControll::EsaControll()
+EsaControll::EsaControll(Stage*data)
 {
+	stage = data;
+
 	EsaImage[0] = LoadGraph("images/Small.png");
 	EsaImage[1] = LoadGraph("images/Power.png");
 
@@ -17,43 +19,49 @@ EsaControll::EsaControll()
 	CreatePieces = 2;
 	FruitsType = 0;
 
-	SetX = 1050;
-	SetY = 100;
+	FruitsX = 310;
+	FruitsY = 517;
 
-	for (int i = 0; i < 245; i++)
+
+	for (sy = 0; sy < STAGE_HEIGHT; sy++) 
 	{
-		if (i < 240)
+		for (sx = 0; sx < STAGE_WIDTH * 2; sx++)
 		{
-			EsaType = 0;
-			esa[i] = new ESA(SetX, SetY, EsaType);
+			SetEsa(sx, sy, *stage);
 		}
-		else if (i >= 240 && i < 244)
-		{
-			EsaType = 1;
-			esa[i] = new ESA(SetX, SetY, EsaType);
-		}
-		else
-		{
-			EsaType = 2;
-			esa[i] = new ESA(SetX, SetY, EsaType, FruitsType);
-		}
+	}
 
 
-		esa[i]->SetImage(EsaImage[EsaType]);
+	EsaType = 2;
+	esa[244] = new ESA(FruitsX, FruitsY, EsaType, FruitsType);
+
+	for (int i = 0; i < 244; i++)
+	{
+		if (esa[i]->GetType() == 0)
+		{
+			esa[i]->SetImage(EsaImage[0]);
+		}
+		if (esa[i]->GetType() == 1)
+		{
+			esa[i]->SetImage(EsaImage[1]);
+		}
+	}
+	esa[244]->SetImage(FruitsImage[FruitsType]);
+			
 		//else
 		//{
 		//	//do 現在のステージ数持ってくる
 		//	esa[244]->SetImage(FruitsImage[7]);
 		//}
 
-		SetX += 20;
-		if (SetX >= 1250)
-		{
-			SetX = 1050;
-			SetY += 20;
-		}
+		//SetX += 20;
+		//if (SetX >= 1250)
+		//{
+		//	SetX = 1050;
+		//	SetY += 20;
+		//}
 
-	}
+	//}
 }
 
 void  EsaControll::CreateFruits()
@@ -91,9 +99,24 @@ void  EsaControll::CreateFruits()
 
 }
 
-void EsaControll::SetEsa()
+void EsaControll::SetEsa(int sx, int sy, Stage stage)
 {
+	static int i = 0;
 
+
+	if (stage.GetStageData(sx, sy) == 0)
+	{	
+		EsaType = 0;
+		esa[i]= new ESA(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, EsaType);
+		i++;
+	}
+	else if (stage.GetStageData(sx, sy) == 4)
+	//else if (stage->StageTS[x][y] == 4)
+	{
+		EsaType = 1;
+		esa[i] = new ESA(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, EsaType);
+		i++;
+	}
 }
 
 void EsaControll::DrawEsa()

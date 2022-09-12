@@ -8,7 +8,7 @@ ESA::ESA(int X, int Y, int EsaType)
 	x = X;
 	y = Y;
 	Esaflg = TRUE;
-	EsaScore = 10;
+	EsaScore = EsaType * 10;
 	Type = EsaType;
 	radius = 2;
 
@@ -17,11 +17,11 @@ ESA::ESA(int X, int Y, int EsaType)
 	//EsaImg = 0;
 }
 
-ESA::ESA(int X, int Y, int EsaType, int FruitsType)
+ESA::ESA(int FruitsX, int FruitsY, int EsaType, int FruitsType)
 {
-	x = X;
-	y = Y;
-	Esaflg = FALSE;
+	x = FruitsX;
+	y = FruitsY;
+	Esaflg = TRUE;//FALSE;
 	FruitsType = FruitsType;
 	EsaScore = 10;
 	Type = EsaType;

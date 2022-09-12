@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Player.h"
+#include "Stage.h"
 class ESA :public Object
 {
 private:
@@ -34,23 +35,26 @@ public:
 class EsaControll
 {
 private:
-    Player* player;
     ESA* esa[245];
+    Stage* stage;
     int EsaImage[2];
     int FruitsImage[8];
     int FruitsType;
     int CreatePieces;
     int EsaType;
     int EsaSE;
-    int SetX;
-    int SetY;
+    int FruitsX;
+    int FruitsY;
+
+    int sx;
+    int sy;
 
 public:
-    EsaControll();
+    EsaControll(Stage* data);
     void CreateFruits();
 
     ESA** Getesa() { return esa; }
-    void SetEsa();
+    void SetEsa(int x, int y, Stage stage);
     void DrawEsa();
 
 };
