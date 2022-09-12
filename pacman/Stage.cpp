@@ -19,7 +19,7 @@ int Stage::LoadData()
 		MessageBox(NULL, "images/mapchip2.png", "ReadError", MB_OK);
 		return -1;
 	}
-
+	Map = LoadGraph("images/stag.png");
 	return 0;
 }
 
@@ -117,20 +117,22 @@ int Stage::MapSet()
 	int sx, sy, st;
 	int dot = 0;
 
-	for (sy = 0; sy < STAGE_HEIGHT; sy++) {
-		for (sx = 0; sx < STAGE_WIDTH * 2; sx++) {
-			st = StageTS[sy][sx];
-			//DrawGraph(sx * 4, sy * 3.1,gMapChip[st], TRUE);//�}�b�v�̑傫���ύXx��y�c
-			if (StageTS[sx][sy] == 1) {
-				DrawBox(sx * DOT_SIZE, sy * DOT_SIZE, sx * DOT_SIZE + DOT_SIZE, sy * DOT_SIZE + DOT_SIZE, 0xff00ff, TRUE);
-			}
-			//if (StageTS[sx][sy] == 0)
-			//{
-			//	DrawPixel(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, 0x00ff00);
-			//}
-			//if (st == 1 || st == 2) dot++;
-		}
-	}
+	//for (sy = 0; sy < STAGE_HEIGHT; sy++) {
+	//	for (sx = 0; sx < STAGE_WIDTH * 2; sx++) {
+	//		st = StageTS[sy][sx];
+	//		//DrawGraph(sx * 4, sy * 3.1,gMapChip[st], TRUE);//�}�b�v�̑傫���ύXx��y�c
+	//		if (StageTS[sx][sy] == 1) {
+	//			DrawBox(sx * DOT_SIZE, sy * DOT_SIZE, sx * DOT_SIZE + DOT_SIZE, sy * DOT_SIZE + DOT_SIZE, 0xff00ff, TRUE);
+	//		}
+	//		//if (StageTS[sx][sy] == 0)
+	//		//{
+	//		//	DrawPixel(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, 0x00ff00);
+	//		//}
+	//		//if (st == 1 || st == 2) dot++;
+	//	}
+	//}
+
+	DrawGraph(0, 0, Map, TRUE);
 	return 0;
 }
 

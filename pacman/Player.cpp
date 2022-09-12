@@ -274,7 +274,7 @@ void Player::Draw() const
 	DrawFormatString(800, 10, 0xffffff, "x:%d",x);
 	DrawFormatString(800, 50, 0xffffff, "y:%d",y);
 	DrawFormatString(800, 100, 0xffffff, "direction:%d", adovanced_direction);
-	DrawRotaGraph(x, y, 1, nowdirect, nowdraw, TRUE, FALSE);
+	DrawRotaGraph(x, y, 1.8, nowdirect, nowdraw, TRUE, FALSE);
 	DrawPixel(x, y, 0x00ff00);
 }
 

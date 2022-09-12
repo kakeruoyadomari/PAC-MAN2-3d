@@ -10,6 +10,7 @@
 
 class Stage{
 private:
+    int Map;
     int StagePixel[STAGE_WIDTH][STAGE_HEIGHT];
     int StageReverse[STAGE_WIDTH][STAGE_HEIGHT];
     int StageTS[STAGE_WIDTH * 2][STAGE_HEIGHT];
