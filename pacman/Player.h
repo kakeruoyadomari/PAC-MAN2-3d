@@ -14,6 +14,7 @@ private:
     int movepixel;
     int nowdraw;
     float nowdirect;
+    int adovanced_direction;
     int moveX;
     int moveY;
     /*int playerrun;
@@ -27,7 +28,7 @@ private:
     //ÉvÉåÉCÉÑÅ[ÇÃå¸Ç´
     enum Direction
     {
-        PLAYER_NORMAL_UP,
+        PLAYER_NORMAL_UP=1,
         PLAYER_NORMAL_RIGHT,
         PLAYER_NORMAL_DOWN,
         PLAYER_NORMAL_LEFT

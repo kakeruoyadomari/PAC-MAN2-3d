@@ -53,11 +53,7 @@ void Player::PlayerDisplay()
 
 
 void Player::MovePlayer()
-{
-
-	int dx = 0;
-
-	
+{	
 		//if (mv == 0) {
 		//			 //足元判定
 		//			if (gMap[y][x] == 1) {
@@ -77,66 +73,110 @@ void Player::MovePlayer()
 		//	StagePixel[y][x] = 1;//餌で移動してるところをみてう
 		//}
 
-		if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) {
-			if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
-				if (x % DOT_SIZE == 11) {
-					plyrdrct.x_direction = 0;
-					plyrdrct.y_direction = -1;
-					plyrdrct.direction = PLAYER_NORMAL_UP;
-					speed = 1;
-				}
+
+	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000 || (adovanced_direction == PLAYER_NORMAL_UP)) {
+		adovanced_direction = PLAYER_NORMAL_UP;
+		if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
+			if (x % DOT_SIZE == 11) {
+				plyrdrct.x_direction = 0;
+				plyrdrct.y_direction = -1;
+				plyrdrct.direction = PLAYER_NORMAL_UP;
+				speed = 1;
 			}
 		}
+	}
 
-		if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) {
-			if (CheckHitWall(x,y,PLAYER_NORMAL_DOWN)==false) {
-				if (x % DOT_SIZE == 11) {
-					plyrdrct.x_direction = 0;
-					plyrdrct.y_direction = 1;
-					plyrdrct.direction = PLAYER_NORMAL_DOWN;
-					speed = 1;
-				}
+	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000 || (adovanced_direction == PLAYER_NORMAL_DOWN)) {
+		adovanced_direction = PLAYER_NORMAL_DOWN;
+		if (CheckHitWall(x, y, PLAYER_NORMAL_DOWN) == false) {
+			if (x % DOT_SIZE == 11) {
+				plyrdrct.x_direction = 0;
+				plyrdrct.y_direction = 1;
+				plyrdrct.direction = PLAYER_NORMAL_DOWN;
+				speed = 1;
 			}
 		}
+	}
 
-		if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000){
-			if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
-				if (y % DOT_SIZE == 11) {
-					plyrdrct.x_direction = 1;
-					plyrdrct.y_direction = 0;
-					plyrdrct.direction = PLAYER_NORMAL_RIGHT;
-					speed = 1;
-				}
+	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000 || (adovanced_direction == PLAYER_NORMAL_RIGHT)) {
+		adovanced_direction = PLAYER_NORMAL_RIGHT;
+		if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
+			if (y % DOT_SIZE == 11) {
+				plyrdrct.x_direction = 1;
+				plyrdrct.y_direction = 0;
+				plyrdrct.direction = PLAYER_NORMAL_RIGHT;
+				speed = 1;
 			}
 		}
+	}
 
-		if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) {
-			if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
-				if (y % DOT_SIZE == 11) {
-					plyrdrct.x_direction = -1;
-					plyrdrct.y_direction = 0;
-					plyrdrct.direction = PLAYER_NORMAL_LEFT;
-					speed = 1;
-				}
+	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000  || (adovanced_direction == PLAYER_NORMAL_LEFT)) {
+		adovanced_direction = PLAYER_NORMAL_LEFT;
+		if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
+			if (y % DOT_SIZE == 11) {
+				plyrdrct.x_direction = -1;
+				plyrdrct.y_direction = 0;
+				plyrdrct.direction = PLAYER_NORMAL_LEFT;
+				speed = 1;
 			}
 		}
+	}
 
+		//if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) {
+		//	if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
+		//		if (x % DOT_SIZE == 11) {
+		//			plyrdrct.x_direction = 0;
+		//			plyrdrct.y_direction = -1;
+		//			plyrdrct.direction = PLAYER_NORMAL_UP;
+		//			speed = 1;
+		//		}
+		//	}
+		//}
 
+		//if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) {
+		//	if (CheckHitWall(x,y,PLAYER_NORMAL_DOWN)==false) {
+		//		if (x % DOT_SIZE == 11) {
+		//			plyrdrct.x_direction = 0;
+		//			plyrdrct.y_direction = 1;
+		//			plyrdrct.direction = PLAYER_NORMAL_DOWN;
+		//			speed = 1;
+		//		}
+		//	}
+		//}
+
+		//if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000){
+		//	if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
+		//		if (y % DOT_SIZE == 11) {
+		//			plyrdrct.x_direction = 1;
+		//			plyrdrct.y_direction = 0;
+		//			plyrdrct.direction = PLAYER_NORMAL_RIGHT;
+		//			speed = 1;
+		//		}
+		//	}
+		//}
+
+		//if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) {
+		//	if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
+		//		if (y % DOT_SIZE == 11) {
+		//			plyrdrct.x_direction = -1;
+		//			plyrdrct.y_direction = 0;
+		//			plyrdrct.direction = PLAYER_NORMAL_LEFT;
+		//			speed = 1;
+		//		}
+		//	}
+		//}
+
+	
 		// キー入力がなかったときも当たり判定
 		if (CheckHitWall(x, y, plyrdrct.direction) == true) {
 			speed = 0;
 			plyrdrct.x_direction = 0;
 			plyrdrct.y_direction = 0;
 		}
-		
 
-		x += speed*plyrdrct.x_direction;
+
+		x += speed * plyrdrct.x_direction;
 		y += speed * plyrdrct.y_direction;
-
-		if (x % DOT_SIZE==11) {
-			dx = plyrdrct.x_direction;
-		}
-
 
 
 	//if(speed!=0){
@@ -166,7 +206,7 @@ switch (dir)
 	case PLAYER_NORMAL_UP:
 		dx = 0; dy = -1;
 		ex = x / DOT_SIZE;
-		ey = (y+11) / DOT_SIZE;
+		ey = (y+10) / DOT_SIZE;
 		break;
 	case PLAYER_NORMAL_RIGHT:
 		dx = 1; dy = 0;
@@ -180,7 +220,7 @@ switch (dir)
 		break;
 	case PLAYER_NORMAL_LEFT:
 		dx = -1; dy = 0;
-		ex = (x + 11) / DOT_SIZE;
+		ex = (x + 10) / DOT_SIZE;
 		ey = y / DOT_SIZE;
 		break;
 	default:
@@ -231,6 +271,9 @@ void Player::Animaition()
 
 void Player::Draw() const
 {
+	DrawFormatString(800, 10, 0xffffff, "x:%d",x);
+	DrawFormatString(800, 50, 0xffffff, "y:%d",y);
+	DrawFormatString(800, 100, 0xffffff, "direction:%d", adovanced_direction);
 	DrawRotaGraph(x, y, 1, nowdirect, nowdraw, TRUE, FALSE);
 	DrawPixel(x, y, 0x00ff00);
 }
