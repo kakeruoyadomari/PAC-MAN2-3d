@@ -1,130 +1,287 @@
 #include "Player.h"
+#include"Stage.h"
 #include "DxLib.h"
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-Player::Player()
+Stage stage;
+
+Player::Player(Stage* data)
 {
-	speed = 40;     //à⁄ìÆë¨ìx
-	flg = true;      //ÉvÉåÉCÉÑÅ[ï\é¶ÉtÉâÉO
-	ismove = false;//falseÅEÅEÅEé~Ç‹ÇÈ,trueÅEÅEÅEìÆÇ≠
-	playerimg[0] = LoadGraph("images/pac1.png");   //ÉvÉåÉCÉÑÅ[âÊëúópïœêî
-	playerimg[1] = LoadGraph("images/ÉpÉbÉNÉ}Éì2.png");
-	playerimg[2] = LoadGraph("images/ÉpÉbÉNÉ}Éì3.png");
+
+	speed = 1;     //ÔøΩ⁄ìÔøΩÔøΩÔøΩÔøΩx
+	drawflg = true;      //ÔøΩvÔøΩÔøΩÔøΩCÔøΩÔøΩÔøΩ[ÔøΩ\ÔøΩÔøΩÔøΩtÔøΩÔøΩÔøΩO
+	ismove = true;//falseÔøΩEÔøΩEÔøΩEÔøΩ~ÔøΩ‹ÇÔøΩ,trueÔøΩEÔøΩEÔøΩEÔøΩÔøΩÔøΩÔøΩ
+	playerimg[0] = LoadGraph("images/pac1.png");   //ÔøΩvÔøΩÔøΩÔøΩCÔøΩÔøΩÔøΩ[ÔøΩÊëúÔøΩpÔøΩœêÔøΩ
+	playerimg[1] = LoadGraph("images/pac2.png");
+	playerimg[2] = LoadGraph("images/pac3.png");
 	playeranim = 0;
 
-	x = 100.0;
-	y = 100.0;      //ç¿ïWx,y
+	x = 16*DOT_SIZE-11;
+	y = 14*DOT_SIZE-11;      //ÔøΩÔøΩÔøΩWx,y
+	radius = 4;
 
-	playerzanki = 3;
+	plyrdrct.x_direction = 1;
+	plyrdrct.y_direction = 0;
+
+	stage = data;
 }
 
 void Player::PlayerDisplay()
 {
-	//to do Ç´ÇÍÇ¢Ç…Ç∑ÇÈ
-	if (flg == true)
+	if (drawflg == true)
 	{
-		switch (PlayerDirection)
+		switch (plyrdrct.direction)
 		{
-		case 0://è„
-			DrawRotaGraph(x, y, 1.0, 1.5707963267948966, playerimg[playeranim / 3], TRUE, FALSE);
-			Speedflg();
-			y -= movepixel;
-			playeranim++;
-			if (playeranim >= 9)
-			{
-				playeranim = 0;
-			}
+		case PLAYER_NORMAL_UP:
+			nowdirect = PI / 2;
 			break;
-		case 1://âE
-			DrawRotaGraph(x, y, 1.0, 3.141592653589793, playerimg[playeranim / 3], TRUE, FALSE);
-			Speedflg(); 
-			x += movepixel;
-			playeranim++;
-			if (playeranim >= 9)
-			{
-				playeranim = 0;
-			}
+		case PLAYER_NORMAL_RIGHT:
+			nowdirect = PI;
 			break;
-		case 2://â∫
-			DrawRotaGraph(x, y, 1.0, 4.71238898038469, playerimg[playeranim / 3], TRUE, FALSE);
-			Speedflg(); 
-			y += movepixel;
-			playeranim++;
-			if (playeranim >= 9)
-			{
-				playeranim = 0;
-			}
+		case PLAYER_NORMAL_DOWN:
+			nowdirect = PI + PI / 2;
+
 			break;
-		case 3://ç∂
-			DrawRotaGraph(x, y, 1.0, 0, playerimg[playeranim / 3], TRUE, FALSE);
-			Speedflg();
-			x -= movepixel;
-			playeranim++;
-			if (playeranim > 9)
-			{
-				playeranim = 0;
-			}
+		case PLAYER_NORMAL_LEFT:
+			nowdirect = 0;
 			break;
 		}
 	}
-	
 }
 
-void Player::Speedflg()
-{
-	int flamespeed = 16;
-	static int speedflg = 0;
-	movepixel = 0;
 
-	speedflg = speed + speedflg;
-	while (speedflg > flamespeed)
-	{
-		speedflg = speedflg - flamespeed;
-		movepixel++;
-	}
-}
 
 void Player::MovePlayer()
-{
+{	
+		//if (mv == 0) {
+		//			 //Ë∂≥ÂÖÉÂà§ÂÆö
+		//			if (gMap[y][x] == 1) {
+		//				 Sound„Äå„Å±„Åè„Å£ÔºÅÔºÅ„Äç
+		//				gScore += 10;
+		//				gMap[y][x] = 0;
+		//			}
+		//			if (gMap[y][x] == 2) {
+		//				 „Éë„ÉØ„ÉºÈ§åÈ£ü„Åπ„Çã
+		//				gScore += 50;
+		//				gMap[y][x] = 0;
+		//			}
+		// //Ë∂≥ÂÖÉÂà§ÂÆö
+		//if (stage.GetStageData(y,x) == 0) {
+		//	 //Sound„Äå„Å±„Åè„Å£ÔºÅÔºÅ„Äç
+		//	gScore += 10;
+		//	StagePixel[y][x] = 1;//È§å„ÅßÁßªÂãï„Åó„Å¶„Çã„Å®„Åì„Çç„Çí„Åø„Å¶„ÅÜ
+		//}
 
 
+	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000 || (adovanced_direction == PLAYER_NORMAL_UP)) {
+		adovanced_direction = PLAYER_NORMAL_UP;
+		if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
+			if (x % DOT_SIZE == 11) {
+				plyrdrct.x_direction = 0;
+				plyrdrct.y_direction = -1;
+				plyrdrct.direction = PLAYER_NORMAL_UP;
+				speed = 1;
+			}
+		}
+	}
 
-	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) PlayerDirection = 0;   //ÉXÉeÉBÉbÉNÇ∆ï˚å¸ÉLÅ[
-	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000) PlayerDirection = 1;   //ÉXÉeÉBÉbÉNÇ∆ï˚å¸ÉLÅ[
-	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) PlayerDirection = 2;   //ÉXÉeÉBÉbÉNÇ∆ï˚å¸ÉLÅ[
-	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) PlayerDirection = 3;   //ÉXÉeÉBÉbÉNÇ∆ï˚å¸ÉLÅ[
+	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000 || (adovanced_direction == PLAYER_NORMAL_DOWN)) {
+		adovanced_direction = PLAYER_NORMAL_DOWN;
+		if (CheckHitWall(x, y, PLAYER_NORMAL_DOWN) == false) {
+			if (x % DOT_SIZE == 11) {
+				plyrdrct.x_direction = 0;
+				plyrdrct.y_direction = 1;
+				plyrdrct.direction = PLAYER_NORMAL_DOWN;
+				speed = 1;
+			}
+		}
+	}
+
+	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000 || (adovanced_direction == PLAYER_NORMAL_RIGHT)) {
+		adovanced_direction = PLAYER_NORMAL_RIGHT;
+		if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
+			if (y % DOT_SIZE == 11) {
+				plyrdrct.x_direction = 1;
+				plyrdrct.y_direction = 0;
+				plyrdrct.direction = PLAYER_NORMAL_RIGHT;
+				speed = 1;
+			}
+		}
+	}
+
+	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000  || (adovanced_direction == PLAYER_NORMAL_LEFT)) {
+		adovanced_direction = PLAYER_NORMAL_LEFT;
+		if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
+			if (y % DOT_SIZE == 11) {
+				plyrdrct.x_direction = -1;
+				plyrdrct.y_direction = 0;
+				plyrdrct.direction = PLAYER_NORMAL_LEFT;
+				speed = 1;
+			}
+		}
+	}
+
+		//if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) {
+		//	if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
+		//		if (x % DOT_SIZE == 11) {
+		//			plyrdrct.x_direction = 0;
+		//			plyrdrct.y_direction = -1;
+		//			plyrdrct.direction = PLAYER_NORMAL_UP;
+		//			speed = 1;
+		//		}
+		//	}
+		//}
+
+		//if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) {
+		//	if (CheckHitWall(x,y,PLAYER_NORMAL_DOWN)==false) {
+		//		if (x % DOT_SIZE == 11) {
+		//			plyrdrct.x_direction = 0;
+		//			plyrdrct.y_direction = 1;
+		//			plyrdrct.direction = PLAYER_NORMAL_DOWN;
+		//			speed = 1;
+		//		}
+		//	}
+		//}
+
+		//if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000){
+		//	if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
+		//		if (y % DOT_SIZE == 11) {
+		//			plyrdrct.x_direction = 1;
+		//			plyrdrct.y_direction = 0;
+		//			plyrdrct.direction = PLAYER_NORMAL_RIGHT;
+		//			speed = 1;
+		//		}
+		//	}
+		//}
+
+		//if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) {
+		//	if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
+		//		if (y % DOT_SIZE == 11) {
+		//			plyrdrct.x_direction = -1;
+		//			plyrdrct.y_direction = 0;
+		//			plyrdrct.direction = PLAYER_NORMAL_LEFT;
+		//			speed = 1;
+		//		}
+		//	}
+		//}
+
 	
-	
+		// „Ç≠„ÉºÂÖ•Âäõ„Åå„Å™„Åã„Å£„Åü„Å®„Åç„ÇÇÂΩì„Åü„ÇäÂà§ÂÆö
+		if (CheckHitWall(x, y, plyrdrct.direction) == true) {
+			speed = 0;
+			plyrdrct.x_direction = 0;
+			plyrdrct.y_direction = 0;
+		}
 
+
+		x += speed * plyrdrct.x_direction;
+		y += speed * plyrdrct.y_direction;
+
+
+	//if(speed!=0){
+	//	 //„Éë„ÉÉ„ÇØ„Éû„É≥ÁßªÂãï‰∏≠Ôºà„Éû„ÇπÁõÆ„ÅÆ‰∏≠Èñì„Å´„ÅÑ„Çã„Å®„ÅçÔºâ
+	//	speed -= 1;//„Éë„ÉÉ„ÇØ„Éû„É≥„ÅÆÁßªÂãïÂá¶ÁêÜ
+	//	
+	//}
 }
 void Player::Init(XINPUT_STATE data)
 {
 	control = data;
 	
 }
+bool Player::CheckHitWall(int x, int y, int dir)
+{
+
+	int dx = 0;
+	int dy = 0;
+	int wall = 0;
+	int ex = 0;
+	int ey = 0;
+
+	
+
+switch (dir)
+	{
+	case PLAYER_NORMAL_UP:
+		dx = 0; dy = -1;
+		ex = x / DOT_SIZE;
+		ey = (y+10) / DOT_SIZE;
+		break;
+	case PLAYER_NORMAL_RIGHT:
+		dx = 1; dy = 0;
+		ex = (x-11) / DOT_SIZE;
+		ey = y / DOT_SIZE;
+		break;
+	case PLAYER_NORMAL_DOWN:
+		dx = 0; dy = 1;
+		ex = x / DOT_SIZE;
+		ey = (y - 11) / DOT_SIZE;
+		break;
+	case PLAYER_NORMAL_LEFT:
+		dx = -1; dy = 0;
+		ex = (x + 10) / DOT_SIZE;
+		ey = y / DOT_SIZE;
+		break;
+	default:
+		dx = 0; dy = 0;
+		ex = x / DOT_SIZE;
+		ey = y / DOT_SIZE;
+		break;
+	}
+
+	if (ex < STAGE_WIDTH * 2 && ey < STAGE_HEIGHT) {
+		wall = stage->GetStageData(ex + dx, ey + dy);
+	}
+
+	if (wall == 1) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void Player::UpDate()
 {
 	MovePlayer();
+	Animaition();
+	PlayerDisplay();
 	/*this->x++;*/
 	
 }
 
 void Player::Animaition()
 {
-	
+
+
+	if (speed > 0) {
+		playeranim++;
+		if (playeranim >= 9)
+		{
+			playeranim = 0;
+		}
+
+		nowdraw = playerimg[playeranim / 3];
+	}
+	else {
+		nowdraw = playerimg[0];
+	}
 }
 
 void Player::Draw() const
 {
-	DrawFormatString(20, 40, 0xffffff, "%d", this->x);
-	DrawFormatString(580, 450, 0xFFD700, "Å~%d",playerzanki);
-	DrawGraph(550, 460, playerimg[1], false);
-
-	
+	DrawFormatString(800, 10, 0xffffff, "x:%d",x);
+	DrawFormatString(800, 50, 0xffffff, "y:%d",y);
+	DrawFormatString(800, 100, 0xffffff, "direction:%d", adovanced_direction);
+	DrawRotaGraph(x, y, 1.8, nowdirect, nowdraw, TRUE, FALSE);
+	DrawPixel(x, y, 0x00ff00);
 }
 
 int Player::Image()
 {
+	//if ((player = LoadGraph("images/pac1.png")) == -1)return -1;
+	//if ((playerrun = LoadGraph("images/ÔøΩpÔøΩbÔøΩNÔøΩ}ÔøΩÔøΩ2.png")) == -1)return -1;
+	//if ((playerrun2 = LoadGraph("images/ÔøΩpÔøΩbÔøΩNÔøΩ}ÔøΩÔøΩ3.png")) == -1)return -1;
 	return 0;
 }

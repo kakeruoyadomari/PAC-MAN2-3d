@@ -4,7 +4,7 @@
 
 AbstractScene* Title::Update(XINPUT_STATE data) {
 
-    if (data.Buttons[XINPUT_BUTTON_START]) {
+    if (data.Buttons[XINPUT_BUTTON_START]||CheckHitKey(KEY_INPUT_SPACE)) {
         return new GameMain();
     }
 
