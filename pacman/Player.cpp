@@ -4,8 +4,6 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-Stage stage;
-
 Player::Player(Stage* data)
 {
 
@@ -168,7 +166,7 @@ void Player::MovePlayer()
 
 	
 		// キー入力がなかったときも当たり判定
-		if (CheckHitWall(x, y, plyrdrct.direction) == true) {
+		if (CheckHitWall(x, y, plyrdrct.direction) == true&&(x%DOT_SIZE==11||y%DOT_SIZE==11)) {
 			speed = 0;
 			plyrdrct.x_direction = 0;
 			plyrdrct.y_direction = 0;
@@ -177,6 +175,7 @@ void Player::MovePlayer()
 
 		x += speed * plyrdrct.x_direction;
 		y += speed * plyrdrct.y_direction;
+
 
 
 	//if(speed!=0){
@@ -189,57 +188,6 @@ void Player::Init(XINPUT_STATE data)
 {
 	control = data;
 	
-}
-bool Player::CheckHitWall(int x, int y, int dir)
-{
-
-	int dx = 0;
-	int dy = 0;
-	int wall = 0;
-	int ex = 0;
-	int ey = 0;
-
-	
-
-switch (dir)
-	{
-	case PLAYER_NORMAL_UP:
-		dx = 0; dy = -1;
-		ex = x / DOT_SIZE;
-		ey = (y+10) / DOT_SIZE;
-		break;
-	case PLAYER_NORMAL_RIGHT:
-		dx = 1; dy = 0;
-		ex = (x-11) / DOT_SIZE;
-		ey = y / DOT_SIZE;
-		break;
-	case PLAYER_NORMAL_DOWN:
-		dx = 0; dy = 1;
-		ex = x / DOT_SIZE;
-		ey = (y - 11) / DOT_SIZE;
-		break;
-	case PLAYER_NORMAL_LEFT:
-		dx = -1; dy = 0;
-		ex = (x + 10) / DOT_SIZE;
-		ey = y / DOT_SIZE;
-		break;
-	default:
-		dx = 0; dy = 0;
-		ex = x / DOT_SIZE;
-		ey = y / DOT_SIZE;
-		break;
-	}
-
-	if (ex < STAGE_WIDTH * 2 && ey < STAGE_HEIGHT) {
-		wall = stage->GetStageData(ex + dx, ey + dy);
-	}
-
-	if (wall == 1) {
-		return true;
-	}
-	else {
-		return false;
-	}
 }
 
 void Player::UpDate()

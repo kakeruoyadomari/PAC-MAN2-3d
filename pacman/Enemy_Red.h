@@ -7,6 +7,7 @@ private:
 	int BlockX;
 	int BlockY;
 
+
 public:
 	Enemy_Red(Stage*data,Object*data2);
 

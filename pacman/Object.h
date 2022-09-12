@@ -9,16 +9,18 @@ protected:
 	int y;		//ç¿ïWY
 	int radius;		//îºåa
 
-	Stage* stage;
+	static Stage* stage;
 
 
 public:
+
 	virtual void UpDate() = 0;
 	virtual void Animaition() = 0;
 	virtual void Draw() const = 0;
 	int GetX() const { return x; }
 	int GetY() const { return y; }
 	int GetRadius() const { return radius; }
+	bool CheckHitWall(int, int, int);
 };
 
 //float absf(void* num);

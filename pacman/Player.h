@@ -56,7 +56,6 @@ public:
     void MovePlayer();
     void Init(XINPUT_STATE data);
 
-    bool CheckHitWall(int, int, int);
 };
 
 //extern Player;

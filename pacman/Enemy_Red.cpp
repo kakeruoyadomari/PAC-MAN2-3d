@@ -15,6 +15,14 @@ Enemy_Red::Enemy_Red(Stage*data,Object*data2)
 
 	stage = data;
 	player = data2;
+
+	x = 14*DOT_SIZE-11;
+	y = 14*DOT_SIZE-11;
+
+	enemydic.direction = 0;
+	enemydic.x_direction = 0;
+	enemydic.y_direction = 0;
+
 }
 
 void Enemy_Red::UpDate()
@@ -43,20 +51,21 @@ void Enemy_Red::UpDate()
 		ijike = ToggleFlg(ijike);
 	}
 
-	GetMousePoint(&x, &y);
-
 	BlockX = x / 22;
 	BlockY = y / 22;
 
 	Animaition();
 
-	/*if (CheckHitWall(x, y, nowway) == true) {
-		nowdraw = medamaimage[0];
-		HitFlg = true;
+	if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
+		MoveRocation( player->GetX(), player->GetY(), x, y, &enemydic.x_direction, &enemydic.y_direction, &enemydic.direction);
+		x += enemydic.x_direction;
+		y += enemydic.y_direction;
 	}
-	else {
-		HitFlg = false;
-	}*/
+	else
+	{
+		x += enemydic.x_direction;
+		y += enemydic.y_direction;
+	}
 }
 
 void Enemy_Red::Animaition()
@@ -69,7 +78,7 @@ void Enemy_Red::Animaition()
 	}
 
 	if (ijike!=true) {
-		switch (nowway)
+		switch (enemydic.direction)
 		{
 		case ENEMY_NORMAL_UP:
 			if (nowflg != true) {
