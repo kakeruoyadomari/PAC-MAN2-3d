@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="coffee_break.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Enemy_Red.cpp" />
     <ClCompile Include="Esa.cpp" />
@@ -173,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="coffee_break.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enemy_Red.h" />
     <ClInclude Include="Esa.h" />
