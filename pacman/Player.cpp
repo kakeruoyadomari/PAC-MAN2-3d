@@ -78,7 +78,10 @@ void Player::MovePlayer()
 		adovanced_direction = PLAYER_NORMAL_UP;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
 			if (x % DOT_SIZE == 9) {
-				x++;
+				x+= 2;
+			}
+			if (x % DOT_SIZE == 13) {
+				x -= 2;
 			}
 			else if (x% DOT_SIZE == 11){
 				plyrdrct.x_direction = 0;
@@ -92,6 +95,12 @@ void Player::MovePlayer()
 	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000 || (adovanced_direction == PLAYER_NORMAL_DOWN)) {
 		adovanced_direction = PLAYER_NORMAL_DOWN;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_DOWN) == false) {
+			if (x % DOT_SIZE == 9) {
+				x += 2;
+			}
+			if (x % DOT_SIZE == 13) {
+				x -= 2;
+			}
 			if (x % DOT_SIZE == 11) {
 				plyrdrct.x_direction = 0;
 				plyrdrct.y_direction = 1;
@@ -104,6 +113,12 @@ void Player::MovePlayer()
 	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000 || (adovanced_direction == PLAYER_NORMAL_RIGHT)) {
 		adovanced_direction = PLAYER_NORMAL_RIGHT;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
+			if (y % DOT_SIZE == 9) {
+				y += 2;
+			}
+			if (y % DOT_SIZE == 13) {
+				y -= 2;
+			}
 			if (y % DOT_SIZE == 11) {
 				plyrdrct.x_direction = 1;
 				plyrdrct.y_direction = 0;
@@ -116,6 +131,12 @@ void Player::MovePlayer()
 	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000  || (adovanced_direction == PLAYER_NORMAL_LEFT)) {
 		adovanced_direction = PLAYER_NORMAL_LEFT;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
+			if (y % DOT_SIZE == 9) {
+				y += 2;
+			}
+			if (y % DOT_SIZE == 13) {
+				y -= 2;
+			}
 			if (y % DOT_SIZE == 11) {
 				plyrdrct.x_direction = -1;
 				plyrdrct.y_direction = 0;
