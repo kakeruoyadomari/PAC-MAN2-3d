@@ -17,11 +17,11 @@ Player::Player(Stage* data)
 	playerimg[2] = LoadGraph("images/pac3.png");
 	playeranim = 0;
 
-	x = 16*DOT_SIZE-11;
-	y = 14*DOT_SIZE-11;      //���Wx,y
+	x = 14 * DOT_SIZE - 11;
+	y = 18 * DOT_SIZE - 11;      //���Wx,y
 	radius = 4;
 
-	plyrdrct.x_direction = 1;
+	plyrdrct.x_direction = -1;
 	plyrdrct.y_direction = 0;
 
 	stage = data;
@@ -77,7 +77,10 @@ void Player::MovePlayer()
 	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000 || (adovanced_direction == PLAYER_NORMAL_UP)) {
 		adovanced_direction = PLAYER_NORMAL_UP;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
-			if (x % DOT_SIZE == 11) {
+			if (x % DOT_SIZE == 9) {
+				x++;
+			}
+			else if (x% DOT_SIZE == 11){
 				plyrdrct.x_direction = 0;
 				plyrdrct.y_direction = -1;
 				plyrdrct.direction = PLAYER_NORMAL_UP;
