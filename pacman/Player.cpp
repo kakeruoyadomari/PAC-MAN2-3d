@@ -74,6 +74,8 @@ void Player::MovePlayer()
 		//}
 
 
+
+
 	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000 || (adovanced_direction == PLAYER_NORMAL_UP)) {
 		adovanced_direction = PLAYER_NORMAL_UP;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
@@ -189,57 +191,6 @@ void Player::Init(XINPUT_STATE data)
 {
 	control = data;
 	
-}
-bool Player::CheckHitWall(int x, int y, int dir)
-{
-
-	int dx = 0;
-	int dy = 0;
-	int wall = 0;
-	int ex = 0;
-	int ey = 0;
-
-	
-
-switch (dir)
-	{
-	case PLAYER_NORMAL_UP:
-		dx = 0; dy = -1;
-		ex = x / DOT_SIZE;
-		ey = (y+10) / DOT_SIZE;
-		break;
-	case PLAYER_NORMAL_RIGHT:
-		dx = 1; dy = 0;
-		ex = (x-11) / DOT_SIZE;
-		ey = y / DOT_SIZE;
-		break;
-	case PLAYER_NORMAL_DOWN:
-		dx = 0; dy = 1;
-		ex = x / DOT_SIZE;
-		ey = (y - 11) / DOT_SIZE;
-		break;
-	case PLAYER_NORMAL_LEFT:
-		dx = -1; dy = 0;
-		ex = (x + 10) / DOT_SIZE;
-		ey = y / DOT_SIZE;
-		break;
-	default:
-		dx = 0; dy = 0;
-		ex = x / DOT_SIZE;
-		ey = y / DOT_SIZE;
-		break;
-	}
-
-	if (ex < STAGE_WIDTH * 2 && ey < STAGE_HEIGHT) {
-		wall = stage->GetStageData(ex + dx, ey + dy);
-	}
-
-	if (wall == 1) {
-		return true;
-	}
-	else {
-		return false;
-	}
 }
 
 void Player::UpDate()

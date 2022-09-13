@@ -124,11 +124,6 @@ int Stage::MapSet()
 	//		if (StageTS[sx][sy] == 1) {
 	//			DrawBox(sx * DOT_SIZE, sy * DOT_SIZE, sx * DOT_SIZE + DOT_SIZE, sy * DOT_SIZE + DOT_SIZE, 0xff00ff, TRUE);
 	//		}
-	//		//if (StageTS[sx][sy] == 0)
-	//		//{
-	//		//	DrawPixel(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, 0x00ff00);
-	//		//}
-	//		//if (st == 1 || st == 2) dot++;
 	//	}
 	//}
 

@@ -9,7 +9,7 @@ protected:
 	int y;		//À•WY
 	int radius;		//”¼Œa
 
-	Stage* stage;
+	static Stage* stage;
 
 
 public:
@@ -19,6 +19,8 @@ public:
 	int GetX() const { return x; }
 	int GetY() const { return y; }
 	int GetRadius() const { return radius; }
+
+	bool CheckHitWall(int, int, int);
 };
 
 //float absf(void* num);

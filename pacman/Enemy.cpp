@@ -11,6 +11,31 @@ bool Enemy::CheckHitPlayer(int ex, int xy)
 	return false;
 }
 
+void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* dicY)
+{
+	*dicX = 0;
+	*dicY = 0;
+
+	if (min(py, ey) == py && CheckHitWall(ex, ey, 1) == false) {
+		*dic = 1;
+		*dicY = -1;
+	}
+	else if (min(py, ey) == ey && CheckHitWall(ex, ey, 3) == false) {
+		*dic = 3;
+		*dicY = 1;
+	}
+	else if (min(px, ex) == px && CheckHitWall(ex, ey, 4) == false) {
+		*dic = 4;
+		*dicX = -1;
+	}
+	else if (CheckHitWall(ex, ey, 3) == false) {
+		*dic = 2;
+		*dicX = 1;
+	}
+
+
+}
+
 Enemy::Enemy()
 {
 	animeFlg = false;

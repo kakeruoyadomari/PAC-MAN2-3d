@@ -15,6 +15,9 @@ Enemy_Red::Enemy_Red(Stage*data,Object*data2)
 
 	stage = data;
 	player = data2;
+
+	x = 14 * DOT_SIZE-11;
+	y = 12 * DOT_SIZE-11;
 }
 
 void Enemy_Red::UpDate()
@@ -43,20 +46,42 @@ void Enemy_Red::UpDate()
 		ijike = ToggleFlg(ijike);
 	}
 
-	GetMousePoint(&x, &y);
 
 	BlockX = x / 22;
 	BlockY = y / 22;
 
 	Animaition();
+	if (TrackTime++ / 660 == 1) {
+		trackFlg = ToggleFlg(trackFlg);
+		TrackTime = 0;
+	}
 
-	/*if (CheckHitWall(x, y, nowway) == true) {
-		nowdraw = medamaimage[0];
-		HitFlg = true;
+	if (trackFlg==false) {
+
+		if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
+			Rocation(player->GetX(), player->GetY(),
+				x, y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+			x += enemydic.x_direction;
+			y += enemydic.y_direction;
+		}
+		else {
+			x += enemydic.x_direction;
+			y += enemydic.y_direction;
+		}
 	}
 	else {
-		HitFlg = false;
-	}*/
+		if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
+			Rocation(26, 4,
+				x, y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+			x += enemydic.x_direction;
+			y += enemydic.y_direction;
+		}
+		else {
+			x += enemydic.x_direction;
+			y += enemydic.y_direction;
+		}
+	}
+	
 }
 
 void Enemy_Red::Animaition()
@@ -69,7 +94,7 @@ void Enemy_Red::Animaition()
 	}
 
 	if (ijike!=true) {
-		switch (nowway)
+		switch (enemydic.direction)
 		{
 		case ENEMY_NORMAL_UP:
 			if (nowflg != true) {
@@ -123,7 +148,7 @@ void Enemy_Red::Animaition()
 
 void Enemy_Red::Draw() const
 {
-	DrawRotaGraph(x, y, 0.5,0,nowdraw, TRUE);
+	DrawRotaGraph(x, y, 1,0,nowdraw, TRUE);
 
 	if (HitFlg == true) {
 		DrawString(1000, 300, "Hit", 0x00ffff);
