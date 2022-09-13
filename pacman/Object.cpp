@@ -46,22 +46,22 @@ bool Object::CheckHitWall(int x, int y, int dir)
 
 	switch (dir)
 	{
-	case 0:
+	case 1:
 		dx = 0; dy = -1;
 		ex = x / DOT_SIZE;
 		ey = (y + 10) / DOT_SIZE;
 		break;
-	case 1:
+	case 2:
 		dx = 1; dy = 0;
 		ex = (x - 11) / DOT_SIZE;
 		ey = y / DOT_SIZE;
 		break;
-	case 2:
+	case 3:
 		dx = 0; dy = 1;
 		ex = x / DOT_SIZE;
 		ey = (y - 11) / DOT_SIZE;
 		break;
-	case 3:
+	case 4:
 		dx = -1; dy = 0;
 		ex = (x + 10) / DOT_SIZE;
 		ey = y / DOT_SIZE;

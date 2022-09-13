@@ -30,4 +30,4 @@ public:
     int GetStageData(int i, int j) { return StageTS[i][j]; }
 };
 
-extern Stage stage;
+//extern Stage stage;
