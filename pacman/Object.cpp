@@ -68,7 +68,7 @@ bool Object::CheckHitWall(int x, int y, int dir)
 		wall = stage->GetStageData(ex + dx, ey + dy);
 	}
 
-	if (wall == 1) {
+	if ((wall == 1||wall == 6)) {
 		return true;
 	}
 	else {

@@ -117,17 +117,17 @@ int Stage::MapSet()
 	int sx, sy, st;
 	int dot = 0;
 
-	//for (sy = 0; sy < STAGE_HEIGHT; sy++) {
-	//	for (sx = 0; sx < STAGE_WIDTH * 2; sx++) {
-	//		st = StageTS[sy][sx];
-	//		//DrawGraph(sx * 4, sy * 3.1,gMapChip[st], TRUE);//�}�b�v�̑傫���ύXx��y�c
-	//		if (StageTS[sx][sy] == 1) {
-	//			DrawBox(sx * DOT_SIZE, sy * DOT_SIZE, sx * DOT_SIZE + DOT_SIZE, sy * DOT_SIZE + DOT_SIZE, 0xff00ff, TRUE);
-	//		}
-	//	}
-	//}
+	for (sy = 0; sy < STAGE_HEIGHT; sy++) {
+		for (sx = 0; sx < STAGE_WIDTH * 2; sx++) {
+			st = StageTS[sy][sx];
+			//DrawGraph(sx * 4, sy * 3.1,gMapChip[st], TRUE);//�}�b�v�̑傫���ύXx��y�c
+			if (StageTS[sx][sy] == 1) {
+				DrawBox(sx * DOT_SIZE, sy * DOT_SIZE, sx * DOT_SIZE + DOT_SIZE, sy * DOT_SIZE + DOT_SIZE, 0xff00ff, TRUE);
+			}
+		}
+	}
 
-	DrawGraph(0, 0, Map, TRUE);
+	//DrawGraph(STAGE_LEFT_SPACE, 0, Map, TRUE);
 	return 0;
 }
 

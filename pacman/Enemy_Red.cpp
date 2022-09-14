@@ -18,6 +18,10 @@ Enemy_Red::Enemy_Red(Stage*data,Object*data2)
 
 	x = 14 * DOT_SIZE-11;
 	y = 12 * DOT_SIZE-11;
+
+	enemydic.direction = 4;
+	enemydic.x_direction = -1;
+	enemydic.y_direction = 0;
 }
 
 void Enemy_Red::UpDate()
@@ -56,7 +60,7 @@ void Enemy_Red::UpDate()
 		TrackTime = 0;
 	}
 
-	if (trackFlg==false) {
+	//if (trackFlg==false) {
 
 		if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
 			Rocation(player->GetX(), player->GetY(),
@@ -68,19 +72,19 @@ void Enemy_Red::UpDate()
 			x += enemydic.x_direction;
 			y += enemydic.y_direction;
 		}
-	}
-	else {
-		if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
-			Rocation(26, 4,
-				x, y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-			x += enemydic.x_direction;
-			y += enemydic.y_direction;
-		}
-		else {
-			x += enemydic.x_direction;
-			y += enemydic.y_direction;
-		}
-	}
+	//}
+	//else {
+	//	if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
+	//		Rocation(26, 4,
+	//			x, y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+	//		x += enemydic.x_direction;
+	//		y += enemydic.y_direction;
+	//	}
+	//	else {
+	//		x += enemydic.x_direction;
+	//		y += enemydic.y_direction;
+	//	}
+	//}
 	
 }
 
@@ -148,7 +152,7 @@ void Enemy_Red::Animaition()
 
 void Enemy_Red::Draw() const
 {
-	DrawRotaGraph(x, y, 1,0,nowdraw, TRUE);
+	DrawRotaGraph(x+STAGE_LEFT_SPACE, y, 1,0,nowdraw, TRUE);
 
 	if (HitFlg == true) {
 		DrawString(1000, 300, "Hit", 0x00ffff);

@@ -52,7 +52,6 @@ public:
     void UpDate() override;
     void Animaition() override;
     void Draw() const override;
-    int Image();
     void MovePlayer();
     void Init(XINPUT_STATE data);
 

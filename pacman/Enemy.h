@@ -64,7 +64,7 @@ protected:
 
     void Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* dicY);
 
-    int RocationScore(int px,int py,int ex, int ey, int dic);
+    int RocationScore(int px, int py, int ex, int ey, int dic);
 
 public:
     Enemy();

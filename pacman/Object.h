@@ -2,6 +2,7 @@
 #include"DxLib.h"
 #include"Stage.h"
 
+
 class Object
 {
 protected:

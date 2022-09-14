@@ -18,7 +18,7 @@ Player::Player(Stage* data)
 	playeranim = 0;
 
 	x = 16*DOT_SIZE-11;
-	y = 14*DOT_SIZE-11;      //���Wx,y
+	y = 18*DOT_SIZE-11;      //���Wx,y
 	radius = 4;
 
 	plyrdrct.x_direction = 1;
@@ -54,26 +54,6 @@ void Player::PlayerDisplay()
 
 void Player::MovePlayer()
 {	
-		//if (mv == 0) {
-		//			 //足元判定
-		//			if (gMap[y][x] == 1) {
-		//				 Sound「ぱくっ！！」
-		//				gScore += 10;
-		//				gMap[y][x] = 0;
-		//			}
-		//			if (gMap[y][x] == 2) {
-		//				 パワー餌食べる
-		//				gScore += 50;
-		//				gMap[y][x] = 0;
-		//			}
-		// //足元判定
-		//if (stage.GetStageData(y,x) == 0) {
-		//	 //Sound「ぱくっ！！」
-		//	gScore += 10;
-		//	StagePixel[y][x] = 1;//餌で移動してるところをみてう
-		//}
-
-
 
 
 	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000 || (adovanced_direction == PLAYER_NORMAL_UP)) {
@@ -124,50 +104,6 @@ void Player::MovePlayer()
 		}
 	}
 
-		//if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) {
-		//	if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
-		//		if (x % DOT_SIZE == 11) {
-		//			plyrdrct.x_direction = 0;
-		//			plyrdrct.y_direction = -1;
-		//			plyrdrct.direction = PLAYER_NORMAL_UP;
-		//			speed = 1;
-		//		}
-		//	}
-		//}
-
-		//if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) {
-		//	if (CheckHitWall(x,y,PLAYER_NORMAL_DOWN)==false) {
-		//		if (x % DOT_SIZE == 11) {
-		//			plyrdrct.x_direction = 0;
-		//			plyrdrct.y_direction = 1;
-		//			plyrdrct.direction = PLAYER_NORMAL_DOWN;
-		//			speed = 1;
-		//		}
-		//	}
-		//}
-
-		//if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000){
-		//	if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
-		//		if (y % DOT_SIZE == 11) {
-		//			plyrdrct.x_direction = 1;
-		//			plyrdrct.y_direction = 0;
-		//			plyrdrct.direction = PLAYER_NORMAL_RIGHT;
-		//			speed = 1;
-		//		}
-		//	}
-		//}
-
-		//if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) {
-		//	if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
-		//		if (y % DOT_SIZE == 11) {
-		//			plyrdrct.x_direction = -1;
-		//			plyrdrct.y_direction = 0;
-		//			plyrdrct.direction = PLAYER_NORMAL_LEFT;
-		//			speed = 1;
-		//		}
-		//	}
-		//}
-
 	
 		// キー入力がなかったときも当たり判定
 		if (CheckHitWall(x, y, plyrdrct.direction) == true) {
@@ -179,13 +115,6 @@ void Player::MovePlayer()
 
 		x += speed * plyrdrct.x_direction;
 		y += speed * plyrdrct.y_direction;
-
-
-	//if(speed!=0){
-	//	 //パックマン移動中（マス目の中間にいるとき）
-	//	speed -= 1;//パックマンの移動処理
-	//	
-	//}
 }
 void Player::Init(XINPUT_STATE data)
 {
@@ -225,14 +154,6 @@ void Player::Draw() const
 	DrawFormatString(800, 10, 0xffffff, "x:%d",x);
 	DrawFormatString(800, 50, 0xffffff, "y:%d",y);
 	DrawFormatString(800, 100, 0xffffff, "direction:%d", adovanced_direction);
-	DrawRotaGraph(x, y, 1.8, nowdirect, nowdraw, TRUE, FALSE);
-	DrawPixel(x, y, 0x00ff00);
-}
-
-int Player::Image()
-{
-	//if ((player = LoadGraph("images/pac1.png")) == -1)return -1;
-	//if ((playerrun = LoadGraph("images/�p�b�N�}��2.png")) == -1)return -1;
-	//if ((playerrun2 = LoadGraph("images/�p�b�N�}��3.png")) == -1)return -1;
-	return 0;
+	DrawRotaGraph(x+STAGE_LEFT_SPACE, y, 1.8, nowdirect, nowdraw, TRUE, FALSE);
+	DrawPixel(x+STAGE_LEFT_SPACE, y, 0x00ff00);
 }
