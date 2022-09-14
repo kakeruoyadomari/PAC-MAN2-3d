@@ -6,6 +6,7 @@ Stage stage;
 // グローバル変数
 int gPacman[10];			// パックマンのグラフィックハンドル
 int gMapChip[10];			// マップチップのハンドル
+int Pac[11];                //パックマン消滅アニメーションハンドル
 int gScore;					// 得点
 
 // 画像の読み込み
@@ -19,6 +20,11 @@ int Stage::LoadData()
 	//マップチップ
 	if (LoadDivGraph("images/mapchip1.png", 5, 5, 1, 16, 16, gMapChip) == -1) {
 		MessageBox(NULL, "images/mapchip1.png", "ReadError", MB_OK);
+		return -1;
+	}
+	//パックマン消滅アニメーション
+	if (LoadDivGraph("images/pacman11.png", 11, 11, 1, 27, 27, Pac) == -1) {
+		MessageBox(NULL, "images/pacman2.png", "ReadError", MB_OK);
 		return -1;
 	}
 
@@ -109,6 +115,38 @@ int Stage::Init()
 
 	// ゲームの設定
 	gScore = 0;
+
+
+	//パックマン消滅アニメーション↓
+	int i;
+	// ロードしたグラフィックのアニメーション
+	i = 0;
+	// キーが押されるまでループ(キー判定には『CheckHitKeyAll』を使用)
+	while (CheckHitKeyAll() == 0)
+	{
+		// メッセージ処理
+		if (ProcessMessage() == -1) {
+			break;        // エラーが起きたらループから抜ける
+		}
+		// 画面を消す
+		ClearDrawScreen();
+
+		// 更新
+		// グラフィックの描画(『DrawGraph』使用)
+		DrawGraph(500, 300, Pac[i], TRUE);
+
+		// アニメーションパターンナンバーを変更
+		i++;
+		if (i == 11) i = 0;
+
+		// 一定時間待つ(『WaitTimer』使用)
+		WaitTimer(100);
+
+		// 裏画面を表画面に反映
+		ScreenFlip();
+	}
+	//ここまで↑
+
 	return 0;
 }
 
@@ -240,6 +278,7 @@ void Stage::MainLoop()
 
 		if (MapSet())return;
 		if (PakuMove()) return;
+
 
 		DrawFormatString(1000, 0, RGB(255, 255, 255), "SCORE:");//スコア表示
 		DrawFormatString(1000, 16, RGB(255, 255, 255), "%6d", gScore);
