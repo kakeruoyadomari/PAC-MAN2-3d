@@ -27,6 +27,9 @@ public:
     int CheckWall(int cx, int cy, int mx, int my);
     int PakuMove();
     void MainLoop();
+
+    int Rrady;
+    int g_WaitTime = 0;
 };
 
 extern Stage stage;

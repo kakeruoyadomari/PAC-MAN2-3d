@@ -27,6 +27,7 @@ int Stage::LoadData()
 		MessageBox(NULL, "images/pacman2.png", "ReadError", MB_OK);
 		return -1;
 	}
+	if ((Rrady = LoadGraph("images/Ready.png")) == -1) return -1;
 
 	return 0;
 }
@@ -115,7 +116,6 @@ int Stage::Init()
 
 	// ゲームの設定
 	gScore = 0;
-
 
 	//パックマン消滅アニメーション　ここから↓
 	int i;
@@ -278,6 +278,12 @@ void Stage::MainLoop()
 
 		if (MapSet())return;
 		if (PakuMove()) return;
+
+		//Rrady描画　ここから
+		if (++g_WaitTime <= 240) {
+			DrawGraph(270, 392, Rrady, FALSE);//Rradyを8秒描画する
+		}
+		//Rrady描画　ここまで
 
 
 		DrawFormatString(1000, 0, RGB(255, 255, 255), "SCORE:");//スコア表示
