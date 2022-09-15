@@ -22,6 +22,7 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 	int gx = 0;
 	int gy = 0;
 	int gz = 0;
+	int gl = 0;
 
 
 	if (*dic == 1) {
