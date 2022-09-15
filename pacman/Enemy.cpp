@@ -65,213 +65,57 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 
 	if (CheckHitWall(ex, ey, *dic) == false) {
 		if (CheckHitWall(ex, ey, localdic1) == false &&min(gx,gy)==gy&& gz > 0) {
-			switch (localdic1)
-			{
-			case 1:
-				*dicY = -1;
-				break;
-			case 2:
-				*dicX = 1;
-				break;
-			case 3:
-				*dicY = 1;
-				break;
-			case 4:
-				*dicX = -1;
-				break;
-			default:
-				*dicX = 0;
-				*dicY = 0;
-				break;
-			}
+		
 			*dic = localdic1;
 
 		}
 		else if (CheckHitWall(ex, ey, localdic2) == false && min(gx, gy) == gy&&gz<0) {
-			switch (localdic2)
-			{
-			case 1:
-				*dicY = -1;
-				break;
-			case 2:
-				*dicX = 1;
-				break;
-			case 3:
-				*dicY = 1;
-				break;
-			case 4:
-				*dicX = -1;
-				break;
-			default:
-				*dicX = 0;
-				*dicY = 0;
-				break;
-			}
 
 			*dic = localdic2;
 		}
 		else {
-			switch (*dic)
-			{
-			case 1:
-				*dicY = -1;
-				break;
-			case 2:
-				*dicX = 1;
-				break;
-			case 3:
-				*dicY = 1;
-				break;
-			case 4:
-				*dicX = -1;
-				break;
-			default:
-				*dicX = 0;
-				*dicY = 0;
-				break;
-			}
+			*dic = *dic;
 		}
 	}
 	else {
 		if (CheckHitWall(ex, ey, localdic1) == false && min(gx, gy) == gy && gz > 0) {
-			switch (localdic1)
-			{
-			case 1:
-				*dicY = -1;
-				break;
-			case 2:
-				*dicX = 1;
-				break;
-			case 3:
-				*dicY = 1;
-				break;
-			case 4:
-				*dicX = -1;
-				break;
-			default:
-				*dicX = 0;
-				*dicY = 0;
-				break;
-			}
 			*dic = localdic1;
-
 		}
 		else if (CheckHitWall(ex, ey, localdic2) == false && min(gx, gy) == gy && gz < 0) {
-			switch (localdic2)
-			{
-			case 1:
-				*dicY = -1;
-				break;
-			case 2:
-				*dicX = 1;
-				break;
-			case 3:
-				*dicY = 1;
-				break;
-			case 4:
-				*dicX = -1;
-				break;
-			default:
-				*dicX = 0;
-				*dicY = 0;
-				break;
-			}
-
 			*dic = localdic2;
 		}
 		else if (CheckHitWall(ex, ey, localdic1) == false && gz > 0) {
-			switch (localdic1)
-			{
-			case 1:
-				*dicY = -1;
-				break;
-			case 2:
-				*dicX = 1;
-				break;
-			case 3:
-				*dicY = 1;
-				break;
-			case 4:
-				*dicX = -1;
-				break;
-			default:
-				*dicX = 0;
-				*dicY = 0;
-				break;
-			}
-
 			*dic = localdic1;
 		}
 		else if (CheckHitWall(ex, ey, localdic2) == false && gz < 0) {
-			switch (localdic2)
-			{
-			case 1:
-				*dicY = -1;
-				break;
-			case 2:
-				*dicX = 1;
-				break;
-			case 3:
-				*dicY = 1;
-				break;
-			case 4:
-				*dicX = -1;
-				break;
-			default:
-				*dicX = 0;
-				*dicY = 0;
-				break;
-			}
-
 			*dic = localdic2;
-
 		}
 		else if (CheckHitWall(ex, ey, localdic1) == false) {
-			switch (localdic1)
-			{
-			case 1:
-				*dicY = -1;
-				break;
-			case 2:
-				*dicX = 1;
-				break;
-			case 3:
-				*dicY = 1;
-				break;
-			case 4:
-				*dicX = -1;
-				break;
-			default:
-				*dicX = 0;
-				*dicY = 0;
-				break;
-			}
-
 			*dic = localdic1;
 		}
 		else {
-			switch (localdic2)
-			{
-			case 1:
-				*dicY = -1;
-				break;
-			case 2:
-				*dicX = 1;
-				break;
-			case 3:
-				*dicY = 1;
-				break;
-			case 4:
-				*dicX = -1;
-				break;
-			default:
-				*dicX = 0;
-				*dicY = 0;
-				break;
-			}
-
 			*dic = localdic2;
 		}
+	}
+
+	switch (*dic)
+	{
+	case 1:
+		*dicY = -1;
+		break;
+	case 2:
+		*dicX = 1;
+		break;
+	case 3:
+		*dicY = 1;
+		break;
+	case 4:
+		*dicX = -1;
+		break;
+	default:
+		*dicX = 0;
+		*dicY = 0;
+		break;
 	}
 
 }
