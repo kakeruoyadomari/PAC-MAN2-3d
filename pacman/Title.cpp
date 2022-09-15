@@ -10,11 +10,10 @@ AbstractScene* Title::Update(XINPUT_STATE data) {
     if (data.Buttons[XINPUT_BUTTON_A]) {
         return new GameMain();
     }
-    ////エンディング表示
-    //if (++WaitTime < 600) PosY = 300 - WaitTime / 2;
-   
-    ////タイムの加算処理＆終了
-    //if (++WaitTime > 900) GameState = 99;
+    //エンディング表示
+    if (++WaitTime < 100) PosY = 300 - (WaitTime / 2) * 6;
+    
+
      // Ｚキーでメニュー選択
     if (data.Buttons[XINPUT_BUTTON_A]) {
         switch (MenuNumber) {
@@ -39,17 +38,19 @@ AbstractScene* Title::Update(XINPUT_STATE data) {
 
 void Title::Draw() const {
 
-    //メニューカーソル（三角形）の表示
-    DrawTriangle(560, 405 + MenuY, 580, 420 + MenuY, 560, 435 + MenuY, GetColor(255, 0, 0), true);
    
-    SetFontSize(100);
-    DrawFormatString(500, 100, 0xFFFF00, "PACMAN", true); 
-   
-    SetFontSize(50);
-    DrawFormatString(600, 400, 0xffffff, "START", true);
     
-    /*SetFontSize(50);
-    DrawFormatString(600, 450, 0xffffff, "END", true);*/
-    
+    //タイトル画像表示
+    DrawGraph(240, 0 + PosY, TitleImage, FALSE);
+
+    //メニュー(yoko,takasa)
+    DrawGraph(370, 390 + PosY, Menu, TRUE);
+
+    DrawString(420, 80 + PosY, "1UP", 0xFF0000);
+    DrawString(450, 100 + PosY, "00", 0xffffff);
+    DrawString(610, 80 + PosY, "HI-SCORE", 0xFF0000);
+    DrawString(630, 100 + PosY, "10000", 0xffffff);
+    DrawString(830, 80 + PosY, "2UP", 0xFF0000);
+    DrawString(860, 100 + PosY, "00", 0xffffff);
 }
 

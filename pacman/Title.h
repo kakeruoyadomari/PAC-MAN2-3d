@@ -8,9 +8,20 @@ private:
 	int GameState;
 	int MenuNumber;
 	int MenuY;
+
+	int TitleImage;
+	int Menu;
+	int Time;
 public:
 	Title() {
      MenuY = 0;
+	 WaitTime = 0;
+
+	 //タイトル画像
+	 TitleImage = LoadGraph("images/Title.png");
+
+	 //メニュー
+	 Menu = LoadGraph("images/start.png");
 	}
 	
 	// デストラクタ
