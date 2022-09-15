@@ -10,7 +10,7 @@ bool CheckHitPlayer_Esa(Object* player, Object* esa)
 	{
 		return FALSE;
 	}
-	float rangeX = player->GetX() - esa->GetX();
+	float rangeX = player->GetX() - esa->GetX()+STAGE_LEFT_SPACE;
 	float rangeY = player->GetY() - esa->GetY();
 	double range = sqrt(rangeX * rangeX + rangeY * rangeY);
 	double sum_radius = double(player->GetRadius()) + double(esa->GetRadius());

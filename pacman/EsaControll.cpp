@@ -27,13 +27,13 @@ EsaControll::EsaControll(Stage*data)
 	{
 		for (sx = 0; sx < STAGE_WIDTH * 2; sx++)
 		{
-			SetEsa(sx, sy, *stage);
+			SetEsa(sx ,sy, *stage);
 		}
 	}
 
 
 	EsaType = 2;
-	esa[244] = new ESA(FruitsX, FruitsY, EsaType, FruitsType);
+	esa[244] = new ESA(FruitsX+STAGE_LEFT_SPACE, FruitsY, EsaType, FruitsType);
 
 	for (int i = 0; i < 244; i++)
 	{
@@ -107,14 +107,14 @@ void EsaControll::SetEsa(int sx, int sy, Stage stage)
 	if (stage.GetStageData(sx, sy) == 0)
 	{	
 		EsaType = 0;
-		esa[i]= new ESA(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, EsaType);
+		esa[i]= new ESA(sx * DOT_SIZE + 11+STAGE_LEFT_SPACE, sy * DOT_SIZE + 11, EsaType);
 		i++;
 	}
 	else if (stage.GetStageData(sx, sy) == 4)
 	//else if (stage->StageTS[x][y] == 4)
 	{
 		EsaType = 1;
-		esa[i] = new ESA(sx * DOT_SIZE + 11, sy * DOT_SIZE + 11, EsaType);
+		esa[i] = new ESA(sx * DOT_SIZE + 11+STAGE_LEFT_SPACE, sy * DOT_SIZE + 11, EsaType);
 		i++;
 	}
 }

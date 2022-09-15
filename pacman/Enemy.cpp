@@ -40,32 +40,31 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 	switch (*dic)
 	{
 	case 1:
-		gx = abs(px - ex);
-		gy = abs(py - ey);
-		gz = px - ex;
+		gx = abs(px/DOT_SIZE - ex/DOT_SIZE);
+		gy = abs(py/DOT_SIZE - ey/DOT_SIZE);
+		gz = ex / DOT_SIZE - px/DOT_SIZE;
 		break;
 	case 2:
-		gy = abs(px - ex);
-		gx = abs(py - ey);
-		gz = py - ey;
+		gy = abs(px / DOT_SIZE - ex / DOT_SIZE);
+		gx = abs(py / DOT_SIZE - ey / DOT_SIZE);
+		gz = ey / DOT_SIZE - py / DOT_SIZE;
 		break;
 	case 3:
-		gx = abs(px - ex);
-		gy = abs(py - ey);
-		gz = px - ex;
+		gx = abs(px / DOT_SIZE - ex / DOT_SIZE);
+		gy = abs(py / DOT_SIZE - ey / DOT_SIZE);
+		gz = px / DOT_SIZE - ex / DOT_SIZE;
 		break;
 	case 4:
-		gy = abs(px - ex);
-		gx = abs(py - ey);
-		gz = py - ey;
+		gy = abs(px / DOT_SIZE - ex / DOT_SIZE);
+		gx = abs(py / DOT_SIZE - ey / DOT_SIZE);
+		gz = py / DOT_SIZE - ey / DOT_SIZE;
 		break;
 	default:
 		break;
 	}
 
 	if (CheckHitWall(ex, ey, *dic) == false) {
-		
-		if (CheckHitWall(ex, ey, localdic1) == false && min(gx,gy)==gx&&gz>0) {
+		if (CheckHitWall(ex, ey, localdic1) == false &&min(gx,gy)==gy&& gz > 0) {
 			switch (localdic1)
 			{
 			case 1:
@@ -88,7 +87,7 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 			*dic = localdic1;
 
 		}
-		else if (CheckHitWall(ex, ey, localdic2) == false) {
+		else if (CheckHitWall(ex, ey, localdic2) == false && min(gx, gy) == gy&&gz<0) {
 			switch (localdic2)
 			{
 			case 1:
@@ -134,7 +133,7 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 		}
 	}
 	else {
-		if (CheckHitWall(ex, ey, localdic1) == false && min(gx, gy) == gx && gz < 0) {
+		if (CheckHitWall(ex, ey, localdic1) == false && min(gx, gy) == gy && gz > 0) {
 			switch (localdic1)
 			{
 			case 1:
@@ -156,7 +155,8 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 			}
 			*dic = localdic1;
 
-		}else if (CheckHitWall(ex, ey, localdic2) == false && min(gx, gy) == gx && gz > 0) {
+		}
+		else if (CheckHitWall(ex, ey, localdic2) == false && min(gx, gy) == gy && gz < 0) {
 			switch (localdic2)
 			{
 			case 1:
@@ -179,7 +179,7 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 
 			*dic = localdic2;
 		}
-		else if(CheckHitWall(ex, ey, localdic1) == false){
+		else if (CheckHitWall(ex, ey, localdic1) == false && gz > 0) {
 			switch (localdic1)
 			{
 			case 1:
@@ -199,9 +199,10 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 				*dicY = 0;
 				break;
 			}
+
 			*dic = localdic1;
 		}
-		else if(CheckHitWall(ex, ey, localdic2) == false){
+		else if (CheckHitWall(ex, ey, localdic2) == false && gz < 0) {
 			switch (localdic2)
 			{
 			case 1:
@@ -223,10 +224,53 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 			}
 
 			*dic = localdic2;
+
+		}
+		else if (CheckHitWall(ex, ey, localdic1) == false) {
+			switch (localdic1)
+			{
+			case 1:
+				*dicY = -1;
+				break;
+			case 2:
+				*dicX = 1;
+				break;
+			case 3:
+				*dicY = 1;
+				break;
+			case 4:
+				*dicX = -1;
+				break;
+			default:
+				*dicX = 0;
+				*dicY = 0;
+				break;
+			}
+
+			*dic = localdic1;
 		}
 		else {
-			*dic = *dic;
+			switch (localdic2)
+			{
+			case 1:
+				*dicY = -1;
+				break;
+			case 2:
+				*dicX = 1;
+				break;
+			case 3:
+				*dicY = 1;
+				break;
+			case 4:
+				*dicX = -1;
+				break;
+			default:
+				*dicX = 0;
+				*dicY = 0;
+				break;
+			}
 
+			*dic = localdic2;
 		}
 	}
 
