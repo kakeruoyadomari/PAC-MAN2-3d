@@ -233,9 +233,9 @@ switch (dir)
 		break;
 	}
 
-	if (ex < STAGE_WIDTH * 2 && ey < STAGE_HEIGHT) {
+	//if (ex < STAGE_WIDTH * 2 && ey < STAGE_HEIGHT) {
 		wall = stage->GetStageData(ex + dx, ey + dy);
-	}
+	//}
 
 	if (wall == 1) {
 		return true;

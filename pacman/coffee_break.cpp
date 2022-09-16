@@ -4,6 +4,7 @@
 
 Coffee::Coffee()
 {
+    //Pacman
     Pacimg[0] = LoadGraph("images/pac1.png");
     Pacimg[1] = LoadGraph("images/pac2.png");
     Pacimg[2] = LoadGraph("images/pac3.png");
@@ -14,6 +15,26 @@ Coffee::Coffee()
     PacY = 360;
     Nowdirect = 0;
     PDirection = PLAYER_NORMAL_LEFT;
+
+    //Enemy
+    EnemyX = 1400;
+    EnemyY = 360;
+    EnemySpeed = 3;
+    image1[0] = LoadGraph("images/ê‘ìG1.png");
+    image1[1] = LoadGraph("images/ê‘ìG5.png");
+    image2[0] = LoadGraph("images/ê‘ìG2.png");
+    image2[1] = LoadGraph("images/ê‘ìG6.png");
+    image3[0] = LoadGraph("images/ê‘ìG3.png");
+    image3[1] = LoadGraph("images/ê‘ìG7.png");
+    image4[0] = LoadGraph("images/ê‘ìG4.png");
+    image4[1] = LoadGraph("images/ê‘ìG8.png");
+
+    ijikeimage1[0] = LoadGraph("images/çï1.png");
+    ijikeimage1[1] = LoadGraph("images/çï2.png");
+
+    kugi = LoadGraph("images/coffee_enemy.png");
+
+    nowway = ENEMY_NORMAL_LEFT;
 
     CoffeeBreakType = 1;
 }
@@ -66,6 +87,7 @@ void Coffee::CoffeeBreak1()
 {
     PacAnimation();
     PacDirection();
+    EnemyAnimaition();
 
     PacX = PacX - PacSpeed;
     if (PacX < -200)
@@ -74,13 +96,24 @@ void Coffee::CoffeeBreak1()
         PacSize = 3;
         PDirection = PLAYER_NORMAL_RIGHT;
     }
+
+    EnemyX = EnemyX - EnemySpeed;
+    if (EnemyX < -100)
+    {
+        EnemySpeed = -3;
+        nowway = ENEMY_NORMAL_RIGHT;
+        ijike = true;
+    }
     
 
 }
 
 void Coffee::Draw1() const
 {
+    //DrawBox(1300, 600, 1000, 300, 0xff00ff, true);
     DrawRotaGraph(PacX, PacY, PacSize, Nowdirect, Nowdraw, TRUE, FALSE);
+    DrawRotaGraph(EnemyX, EnemyY, 0.5, 0, nowdraw, TRUE);
+    DrawRotaGraph(EnemyX, EnemyY+100, 0.5, 0, kugi, TRUE);
 }
 
 void Coffee::CoffeeBreak2()
@@ -118,6 +151,69 @@ void Coffee::PacAnimation()
     }
     else {
         Nowdraw = Pacimg[0];
+    }
+}
+
+
+void Coffee::EnemyAnimaition()
+{
+    animcount++;
+
+    if (animcount % 10 == 0) {
+        nowflg = ToggleFlg(nowflg);
+        animcount = 1;
+    }
+
+    if (ijike != true) {
+        switch (nowway)
+        {
+        case ENEMY_NORMAL_UP:
+            if (nowflg != true) {
+                nowdraw = image3[0];
+            }
+            else
+            {
+                nowdraw = image3[1];
+            }
+            break;
+        case ENEMY_NORMAL_RIGHT:
+            if (nowflg != true) {
+                nowdraw = image2[0];
+            }
+            else
+            {
+                nowdraw = image2[1];
+            }
+            break;
+        case ENEMY_NORMAL_DOWN:
+            if (nowflg != true) {
+                nowdraw = image4[0];
+            }
+            else
+            {
+                nowdraw = image4[1];
+            }
+            break;
+        case ENEMY_NORMAL_LEFT:
+            if (nowflg != true) {
+                nowdraw = image1[0];
+            }
+            else
+            {
+                nowdraw = image1[1];
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    else if (ijike == true) {
+        if (nowflg != true) {
+            nowdraw = ijikeimage1[0];
+        }
+        else {
+            nowdraw = ijikeimage1[1];
+        }
     }
 }
 
