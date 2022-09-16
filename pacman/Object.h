@@ -12,8 +12,10 @@ protected:
 
 	static Stage* stage;
 
+	static int* stageCount;
 
 public:
+
 	virtual void UpDate() = 0;
 	virtual void Animaition() = 0;
 	virtual void Draw() const = 0;

@@ -1,6 +1,6 @@
 #include "Enemy_Red.h"
 
-Enemy_Red::Enemy_Red(Stage*data,Object*data2)
+Enemy_Red::Enemy_Red(Object* plyr,int*data)
 {
 	image1[0] = LoadGraph("images/Ô“G1.png");
 	image1[1] = LoadGraph("images/Ô“G5.png");
@@ -11,13 +11,11 @@ Enemy_Red::Enemy_Red(Stage*data,Object*data2)
 	image4[0] = LoadGraph("images/Ô“G4.png");
 	image4[1] = LoadGraph("images/Ô“G8.png");
 
+	stageCount = data;
+
 	nowway = ENEMY_NORMAL_LEFT;
-
-	stage = data;
-	player = data2;
-
-	x = 14 * DOT_SIZE-11;
-	y = 12 * DOT_SIZE-11;
+	x = 14 * DOT_SIZE - 11;
+	y = 12 * DOT_SIZE - 11;
 
 	enemydic.direction = 4;
 	enemydic.x_direction = -1;
@@ -60,7 +58,7 @@ void Enemy_Red::UpDate()
 		TrackTime = 0;
 	}
 
-	//if (trackFlg==false) {
+	if (trackFlg==true) {
 
 		if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
 			Rocation(player->GetX(), player->GetY(),
@@ -72,19 +70,19 @@ void Enemy_Red::UpDate()
 			x += enemydic.x_direction;
 			y += enemydic.y_direction;
 		}
-	//}
-	//else {
-	//	if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
-	//		Rocation(26, 4,
-	//			x, y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-	//		x += enemydic.x_direction;
-	//		y += enemydic.y_direction;
-	//	}
-	//	else {
-	//		x += enemydic.x_direction;
-	//		y += enemydic.y_direction;
-	//	}
-	//}
+	}
+	else {
+		if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
+			Rocation(26*DOT_SIZE, 4*DOT_SIZE,
+				x, y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+			x += enemydic.x_direction;
+			y += enemydic.y_direction;
+		}
+		else {
+			x += enemydic.x_direction;
+			y += enemydic.y_direction;
+		}
+	}
 	
 }
 
@@ -164,32 +162,3 @@ void Enemy_Red::Draw() const
 
 	
 }
-
-//void Enemy_Red::SelectRocation()
-//{
-//	int selectx = 0;
-//	int selecty = 0;
-//
-//	if (CheckHitKey(KEY_INPUT_P) == true) {
-//		selectflg = false;
-//	}
-//
-//	while (selectflg!=true)
-//	{
-//		nowselect = GetRand(812)+29;
-//
-//		selecty = nowselect / 28;
-//		selectx = nowselect % 28;
-//
-//		if (stage->GetStageData(selectx, selecty) == 0) 
-//		{
-//			selectrocation[0] = selectx;
-//			selectrocation[1] = selecty;
-//			selectflg = true;
-//
-//		}
-//		else {
-//			continue;
-//		}
-//	}
-//}

@@ -13,7 +13,7 @@ GameMain::GameMain()
     esacontroll = new EsaControll(stage);
     esa = esacontroll->Getesa();
     player = new Player(stage);
-    enemy_red = new Enemy_Red(stage,player);
+    enemy_red = new Enemy_Red(player,stageCount);
 
 
     stage->LoadData();

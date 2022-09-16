@@ -3,6 +3,8 @@
 #include<math.h>
 
 Stage* Object::stage = 0;
+int* Object::stageCount = 0;
+
 
 bool CheckHitPlayer_Esa(Object* player, Object* esa)
 {

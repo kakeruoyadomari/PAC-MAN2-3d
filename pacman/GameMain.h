@@ -19,6 +19,8 @@ private:
     Stage* stage;
     Enemy_Red* enemy_red;
 
+    int* stageCount = 0;
+
 
 public:
 

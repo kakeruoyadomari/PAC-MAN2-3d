@@ -5,6 +5,26 @@
 
 bool Enemy::trackFlg=false;
 
+Enemy::Enemy()
+{
+	animeFlg = false;
+	speed = 0;
+
+	ijikeimage1[0] = LoadGraph("images/•1.png");
+	ijikeimage1[1] = LoadGraph("images/•2.png");
+	ijikeimage2[0] = LoadGraph("images/”’1.png");
+	ijikeimage2[1] = LoadGraph("images/”’2.png");
+
+	medamaimage[0] = LoadGraph("images/–Ú1.png");
+	medamaimage[1] = LoadGraph("images/–Ú2.png");
+	medamaimage[2] = LoadGraph("images/–Ú3.png");
+	medamaimage[3] = LoadGraph("images/–Ú4.png");
+
+	enemydic.direction = 0;
+	enemydic.x_direction = 0;
+	enemydic.y_direction = 0;
+
+}
 
 bool Enemy::CheckHitPlayer(int ex, int xy)
 {
@@ -117,61 +137,5 @@ void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* d
 		*dicY = 0;
 		break;
 	}
-
-}
-
-int Enemy::RocationScore(int ex, int ey, int px, int py, int dic)
-{
-
-	//if (min(py, ey) == py) {
-	//	*dic = 1;
-	//	*dicY = -1;
-	//}
-	//else if (min(py, ey) == ey) {
-	//	*dic = 3;
-	//	*dicY = 1;
-	//}
-	//else if (min(px, ex) == px) {
-	//	*dic = 4;
-	//	*dicX = -1;
-	//}
-	//else {
-	//	*dic = 2;
-	//	*dicX = 1;
-	//}
-
-	return 0;
-}
-
-
-Enemy::Enemy()
-{
-	animeFlg = false;
-	speed = 0;
-
-	ijikeimage1[0] = LoadGraph("images/•1.png");
-	ijikeimage1[1] = LoadGraph("images/•2.png");
-	ijikeimage2[0] = LoadGraph("images/”’1.png");
-	ijikeimage2[1] = LoadGraph("images/”’2.png");
-
-	medamaimage[0] = LoadGraph("images/–Ú1.png");
-	medamaimage[1] = LoadGraph("images/–Ú2.png");
-	medamaimage[2] = LoadGraph("images/–Ú3.png");
-	medamaimage[3] = LoadGraph("images/–Ú4.png");
-
-}
-
-void Enemy::AStar(int ex, int ey, int px, int py)
-{
-	int a = 0;
-	int b = 0;
-	int c = 0;
-	float sq = 0;
-
-
-	a = ex - px;
-	b = ey - py;
-	sq = sqrt(a * a + b * b);
-
 
 }

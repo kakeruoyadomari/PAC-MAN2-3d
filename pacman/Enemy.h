@@ -16,7 +16,7 @@ protected:
     int nowdraw=0;      //現在の描画
     bool nowflg=false;      //現在のアニメーションの切り替わり
     bool HitFlg = false;        //Playerとの当たり判定
-    int TrackTime = 0;
+    int TrackTime = 0;      //追いかける時間
 
     Object* player;
 
@@ -39,7 +39,6 @@ protected:
         int x_direction;
         int y_direction;
         int direction;
-        int old_direction;
     };
 
     struct EnemyDrct enemydic;
@@ -60,13 +59,13 @@ protected:
 
     bool CheckHitPlayer(int ex, int xy);
 
-    void AStar(int ex,int ey,int px,int py);
-
     void Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* dicY);
 
-    int RocationScore(int px, int py, int ex, int ey, int dic);
-
 public:
+
     Enemy();
+
+    void SetStageCount(int* data) { stageCount = data; }
+
 };
 
