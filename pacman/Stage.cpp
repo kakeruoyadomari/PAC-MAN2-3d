@@ -4,21 +4,21 @@
 Stage stage;
 
 // グローバル変数
-int gPacman[10];			// パックマンのグラフィックハンドル
-int gMapChip[10];			// マップチップのハンドル
+int Pacman[10];			// パックマンのグラフィックハンドル
+int MapChip[10];			// マップチップのハンドル
 int Pac[11];                //パックマン消滅アニメーションハンドル
-int gScore;					// 得点
+int Score;					// 得点
 
 // 画像の読み込み
 int Stage::LoadData()
 {
 	// 画像の読み込み
-	if (LoadDivGraph("images/pacman2.png", 10, 10, 1, 24, 24, gPacman) == -1) {
+	if (LoadDivGraph("images/pacman2.png", 10, 10, 1, 24, 24, Pacman) == -1) {
 		MessageBox(NULL, "images/pacman2.png", "ReadError", MB_OK);
 		return -1;
 	}
 	//マップチップ
-	if (LoadDivGraph("images/mapchip1.png", 5, 5, 1, 16, 16, gMapChip) == -1) {
+	if (LoadDivGraph("images/mapchip1.png", 5, 5, 1, 16, 16, MapChip) == -1) {
 		MessageBox(NULL, "images/mapchip1.png", "ReadError", MB_OK);
 		return -1;
 	}
@@ -27,11 +27,9 @@ int Stage::LoadData()
 		MessageBox(NULL, "images/pacman2.png", "ReadError", MB_OK);
 		return -1;
 	}
-	if ((Rrady = LoadGraph("images/Ready.png")) == -1) return -1;
+	if ((Ready = LoadGraph("images/Ready.png")) == -1) return -1;
 
 	if ((GameOver = LoadGraph("images/GameOver.png")) == -1) return -1;
-	
-	if ((Player = LoadGraph("images/Player.png")) == -1) return -1;
 	return 0;
 }
 
@@ -118,7 +116,7 @@ int Stage::Init()
      MapInit();
 
 	// ゲームの設定
-	gScore = 0;
+	Score = 0;
 
 	//パックマン消滅アニメーション　ここから↓
 	int i;
@@ -209,11 +207,11 @@ int Stage::PakuMove()
 	if (mv == 0) {
 		// 足元判定
 		if (StagePixel[y][x] == 1) {//普通の餌を食べたとき(スコア10up)
-			gScore += 10;
+			Score += 10;
 			StagePixel[y][x] = 0;
 		}
 		if (StagePixel[y][x] == 2) {//パワー餌食べた時(スコア50up)
-			gScore += 50;
+			Score += 50;
 			StagePixel[y][x] = 0;
 		}
 
@@ -269,7 +267,7 @@ int Stage::PakuMove()
 	}
 	if ((dx + dy) != 0) s = (++s) % 7; // 動いているときだけアニメーション
 
-	DrawRotaGraph((x - 1) * 14 + 15 + mvx, (y - 1) * 20 + 15 + mvy, 1, Angle, gPacman[s], TRUE);//パックマンの表示
+	DrawRotaGraph((x - 1) * 14 + 15 + mvx, (y - 1) * 20 + 15 + mvy, 1, Angle, Pacman[s], TRUE);//パックマンの表示
 	return 0;
 }
 // メインループ
@@ -284,21 +282,19 @@ void Stage::MainLoop()
 
 		//Rrady描画　ここから
 		if (++g_WaitTime <= 240) {
-			DrawGraph(270, 392, Rrady, FALSE);//Rradyを8秒描画する
-			DrawGraph(263, 254, Player, FALSE);//Player描画する
+			DrawGraph(270, 392, Ready, FALSE);//Rradyを8秒描画する
 		}
 		//Rrady描画　ここまで
 
-		//Player GameOverの描画　ここから
+		//GameOverの描画　ここから
 		if (++g_WaitTime >= 330) {
 			DrawGraph(220, 392, GameOver, FALSE);
-			DrawGraph(263, 254, Player, FALSE);
 		}
 		//Player GameOverの描画　ここまで
 
 
 		DrawFormatString(1000, 0, RGB(255, 255, 255), "SCORE:");//スコア表示
-		DrawFormatString(1000, 16, RGB(255, 255, 255), "%6d", gScore);
+		DrawFormatString(1000, 16, RGB(255, 255, 255), "%6d", Score);
 
 		ScreenFlip();
 	}

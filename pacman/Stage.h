@@ -29,9 +29,8 @@ public:
     void MainLoop();
 
     //‰æ‘œ“Ç‚İ‚İ
-    int Player;
     int GameOver;
-    int Rrady;
+    int Ready;
     //Title‚Ì•\¦
     int g_WaitTime = 0;
 };
