@@ -56,7 +56,7 @@ void Enemy_Red::UpDate()
 
 	Animaition();
 
-	if (x % DOT_SIZE == 11 && y % DOT_SIZE == 11) {
+	if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
 		MoveRocation( player->GetX(), player->GetY(), x, y, &enemydic.x_direction, &enemydic.y_direction, &enemydic.direction);
 		x += enemydic.x_direction;
 		y += enemydic.y_direction;

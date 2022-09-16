@@ -33,8 +33,14 @@ bool CheckHitPlayer_Esa(Object* player, Object* esa)
 	return false;
 }
 
-bool Object::CheckHitWall(int x, int y, int dir)
+bool Object::CheckHitWall(float f_x, float f_y, int dir)
 {
+
+	int x = 0;
+	int y=0;
+
+	x = roundf(f_x);
+	y = roundf(f_y);
 
 	int dx = 0;
 	int dy = 0;

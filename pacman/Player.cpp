@@ -6,7 +6,7 @@ const int SCREEN_HEIGHT = 480;
 
 Player::Player(Stage* data)
 {
-
+	playerzanki = 3;
 	speed = 1;     //�ړ����x
 	drawflg = true;      //�v���C���[�\���t���O
 	ismove = true;//false�E�E�E�~�܂�,true�E�E�E����
@@ -52,30 +52,20 @@ void Player::PlayerDisplay()
 
 void Player::MovePlayer()
 {	
-		//if (mv == 0) {
-		//			 //足元判定
-		//			if (gMap[y][x] == 1) {
-		//				 Sound「ぱくっ！！」
-		//				gScore += 10;
-		//				gMap[y][x] = 0;
-		//			}
-		//			if (gMap[y][x] == 2) {
-		//				 パワー餌食べる
-		//				gScore += 50;
-		//				gMap[y][x] = 0;
-		//			}
-		// //足元判定
-		//if (stage.GetStageData(y,x) == 0) {
-		//	 //Sound「ぱくっ！！」
-		//	gScore += 10;
-		//	StagePixel[y][x] = 1;//餌で移動してるところをみてう
-		//}
 
-
+	if (x > 823-200) {
+		x = 185-200;
+		}
+	if (x < 185 - 200) {
+		x = 823 - 200;
+	}
+	
+	int_x = roundf(x);
+	int_y = roundf(y);
 	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000 || (adovanced_direction == PLAYER_NORMAL_UP)) {
 		adovanced_direction = PLAYER_NORMAL_UP;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
-			if (x % DOT_SIZE == 11) {
+			if (int_x % DOT_SIZE == 11){
 				plyrdrct.x_direction = 0;
 				plyrdrct.y_direction = -1;
 				plyrdrct.direction = PLAYER_NORMAL_UP;
@@ -87,7 +77,7 @@ void Player::MovePlayer()
 	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000 || (adovanced_direction == PLAYER_NORMAL_DOWN)) {
 		adovanced_direction = PLAYER_NORMAL_DOWN;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_DOWN) == false) {
-			if (x % DOT_SIZE == 11) {
+			if (int_x % DOT_SIZE == 11) {
 				plyrdrct.x_direction = 0;
 				plyrdrct.y_direction = 1;
 				plyrdrct.direction = PLAYER_NORMAL_DOWN;
@@ -99,7 +89,7 @@ void Player::MovePlayer()
 	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000 || (adovanced_direction == PLAYER_NORMAL_RIGHT)) {
 		adovanced_direction = PLAYER_NORMAL_RIGHT;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
-			if (y % DOT_SIZE == 11) {
+			if (int_y % DOT_SIZE == 11) {
 				plyrdrct.x_direction = 1;
 				plyrdrct.y_direction = 0;
 				plyrdrct.direction = PLAYER_NORMAL_RIGHT;
@@ -111,7 +101,7 @@ void Player::MovePlayer()
 	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000  || (adovanced_direction == PLAYER_NORMAL_LEFT)) {
 		adovanced_direction = PLAYER_NORMAL_LEFT;
 		if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
-			if (y % DOT_SIZE == 11) {
+			if (int_y % DOT_SIZE == 11) {
 				plyrdrct.x_direction = -1;
 				plyrdrct.y_direction = 0;
 				plyrdrct.direction = PLAYER_NORMAL_LEFT;
@@ -120,53 +110,9 @@ void Player::MovePlayer()
 		}
 	}
 
-		//if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000) {
-		//	if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
-		//		if (x % DOT_SIZE == 11) {
-		//			plyrdrct.x_direction = 0;
-		//			plyrdrct.y_direction = -1;
-		//			plyrdrct.direction = PLAYER_NORMAL_UP;
-		//			speed = 1;
-		//		}
-		//	}
-		//}
-
-		//if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000) {
-		//	if (CheckHitWall(x,y,PLAYER_NORMAL_DOWN)==false) {
-		//		if (x % DOT_SIZE == 11) {
-		//			plyrdrct.x_direction = 0;
-		//			plyrdrct.y_direction = 1;
-		//			plyrdrct.direction = PLAYER_NORMAL_DOWN;
-		//			speed = 1;
-		//		}
-		//	}
-		//}
-
-		//if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000){
-		//	if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
-		//		if (y % DOT_SIZE == 11) {
-		//			plyrdrct.x_direction = 1;
-		//			plyrdrct.y_direction = 0;
-		//			plyrdrct.direction = PLAYER_NORMAL_RIGHT;
-		//			speed = 1;
-		//		}
-		//	}
-		//}
-
-		//if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000) {
-		//	if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
-		//		if (y % DOT_SIZE == 11) {
-		//			plyrdrct.x_direction = -1;
-		//			plyrdrct.y_direction = 0;
-		//			plyrdrct.direction = PLAYER_NORMAL_LEFT;
-		//			speed = 1;
-		//		}
-		//	}
-		//}
-
 	
 		// キー入力がなかったときも当たり判定
-		if (CheckHitWall(x, y, plyrdrct.direction) == true&&(x%DOT_SIZE==11||y%DOT_SIZE==11)) {
+		if (CheckHitWall(x, y, plyrdrct.direction) == true&&(int_x %DOT_SIZE==11|| int_y %DOT_SIZE==11)) {
 			speed = 0;
 			plyrdrct.x_direction = 0;
 			plyrdrct.y_direction = 0;
@@ -224,6 +170,8 @@ void Player::Draw() const
 	DrawFormatString(800, 100, 0xffffff, "direction:%d", adovanced_direction);
 	DrawRotaGraph(x, y, 1, nowdirect, nowdraw, TRUE, FALSE);
 	DrawPixel(x, y, 0x00ff00);
+	DrawFormatString(800, 450, 0xFFD700, "X%d", playerzanki);
+	DrawGraph(770, 460, playerimg[1], false);
 }
 
 int Player::Image()

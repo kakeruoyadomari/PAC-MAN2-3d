@@ -1,14 +1,16 @@
 #pragma once
 #include"DxLib.h"
 #include"Stage.h"
+#include <math.h>
 
 class Object
 {
 protected:
-	int x;		//座標X
-	int y;		//座標Y
+	float x;		//座標X
+	float y;		//座標Y
 	int radius;		//半径
-
+	int int_x;
+	int int_y;
 	static Stage* stage;
 
 
@@ -20,7 +22,7 @@ public:
 	int GetX() const { return x; }
 	int GetY() const { return y; }
 	int GetRadius() const { return radius; }
-	bool CheckHitWall(int, int, int);
+	bool CheckHitWall(float f_x, float f_y, int);
 };
 
 //float absf(void* num);

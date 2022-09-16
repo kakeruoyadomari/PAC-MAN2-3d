@@ -3,14 +3,14 @@
 #include"Player.h"
 #define ACCELERATION 0.05
 #define PLAYER_DRAW_ 11
-
 class Player : public Object
 {
 private:
     int playerimg[3];   //プレイヤー画像用変数
     //int PlayerDirection;    //プレイヤーの向き
     int playeranim;         //画像アニメーション用
-    int speed;
+    float speed;
+    int speed_player;
     int movepixel;
     int nowdraw;
     float nowdirect;
@@ -24,7 +24,7 @@ private:
     XINPUT_STATE control;       //コントローラー
     int playerflg;
     int time;
-
+    int playerzanki;
     //プレイヤーの向き
     enum Direction
     {
