@@ -28,7 +28,11 @@ public:
     int PakuMove();
     void MainLoop();
 
+    //‰æ‘œ“Ç‚İ‚İ
+    int Player;
+    int GameOver;
     int Rrady;
+    //Title‚Ì•\¦
     int g_WaitTime = 0;
 };
 

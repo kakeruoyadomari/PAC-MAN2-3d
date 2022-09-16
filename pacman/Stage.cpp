@@ -29,6 +29,9 @@ int Stage::LoadData()
 	}
 	if ((Rrady = LoadGraph("images/Ready.png")) == -1) return -1;
 
+	if ((GameOver = LoadGraph("images/GameOver.png")) == -1) return -1;
+	
+	if ((Player = LoadGraph("images/Player.png")) == -1) return -1;
 	return 0;
 }
 
@@ -282,8 +285,16 @@ void Stage::MainLoop()
 		//Rradyï`âÊÅ@Ç±Ç±Ç©ÇÁ
 		if (++g_WaitTime <= 240) {
 			DrawGraph(270, 392, Rrady, FALSE);//RradyÇ8ïbï`âÊÇ∑ÇÈ
+			DrawGraph(263, 254, Player, FALSE);//Playerï`âÊÇ∑ÇÈ
 		}
 		//Rradyï`âÊÅ@Ç±Ç±Ç‹Ç≈
+
+		//Player GameOverÇÃï`âÊÅ@Ç±Ç±Ç©ÇÁ
+		if (++g_WaitTime >= 330) {
+			DrawGraph(220, 392, GameOver, FALSE);
+			DrawGraph(263, 254, Player, FALSE);
+		}
+		//Player GameOverÇÃï`âÊÅ@Ç±Ç±Ç‹Ç≈
 
 
 		DrawFormatString(1000, 0, RGB(255, 255, 255), "SCORE:");//ÉXÉRÉAï\é¶
