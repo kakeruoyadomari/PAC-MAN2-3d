@@ -5,6 +5,9 @@
 //ユーザーはこれを継承してシーンを実装すると楽
 class AbstractScene {
 public:
+
+    static int* stageCount;
+
     // デストラクタ
     virtual ~AbstractScene() {};
 
@@ -14,3 +17,4 @@ public:
     //描画に関することを実装する
     virtual void Draw() const = 0;
 };
+

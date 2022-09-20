@@ -3,7 +3,6 @@
 #include"Stage.h"
 #include"Player.h"
 
-
 class Enemy : public Object
 {
     // 座標X,Yと半径はobjectクラスで定義済み
@@ -11,7 +10,6 @@ protected:
     bool animeFlg=false;      //アニメーションフラグ
     int animcount=0;      //アニメーションの秒数
     bool nowflg=false;      //現在のアニメーションの切り替わり
-    int TrackTime = 0;      //追いかける時間
 
     static Player* player;
 
@@ -46,12 +44,20 @@ protected:
     int medamaimage[4]{0,0,0,0};     //目玉状態
     static bool trackFlg;      //追いかけるフラグ
     static bool HitFlg;        //Playerとの当たり判定
-    static int hometimer;
-
+    static int hometimer;       //巣の中の動きに使う時間
+    static bool ijike;      //全体をいじけにする
+    static int ijiketimer;      //いじけの残り時間
+    static int ijikecount;      //いじけの制限時間
+    static float speed;     //全体のスピード
+    static float ijikespeed;        //全体のいじけスピード
+    static float tunnelspeed;       //全体のトンネルスピード
+    static int tracktime;       //全体の追いかける制限時間
+    static int trackcount;      //全体の追いかけている時間
+    static int trackchange;
+    static int trackchangecount;
 
 
     //それぞれで中身が変わる変数
-    int speed;      //スピード
     int image1[2]{0,0};      //画像１の差分２枚
     int image2[2]{0,0};      //画像２の差分２枚   
     int image3[2]{0,0};      //画像３の差分２枚
@@ -59,11 +65,11 @@ protected:
     bool HomeExistFlg = false;
     int nowway = 0;     //現在の向き
     int nowdraw = 0;      //現在の描画
-    bool ijike = false;     //いじけ状態
     bool existhome = false;    
     bool existedanim = false;
     int targetxpoint = 0;
     int targetypoint = 0;
+    bool enemyijike = false;        //個別のいじけ状態
 
     void Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* dicY);
 
@@ -82,6 +88,8 @@ public:
     void SetDirection(int data) { enemydic.direction = data; }
 
    virtual void SetStageCount(int* data) { stageCount = data; }
+
+   void ChangeIjike() { ijike = true; }
 
 };
 

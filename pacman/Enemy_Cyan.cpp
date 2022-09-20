@@ -70,9 +70,9 @@ void Enemy_Cyan::UpDate()
 
 		if (GamePlayFlg == true) {
 			Animaition();
-			if (TrackTime++ / 660 == 1) {
+			if (trackcount++ / 660 == 1) {
 				trackFlg = ToggleFlg(trackFlg);
-				TrackTime = 0;
+				trackcount = 0;
 			}
 
 			if (trackFlg == true) {

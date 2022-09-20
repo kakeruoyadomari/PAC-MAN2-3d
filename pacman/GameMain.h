@@ -24,8 +24,6 @@ private:
     Enemy_Orange* enemy_orange;
     Enemy_Pink* enemy_pink;
 
-    int* stageCount = 0;
-
     int ExistCount1 = 0;
     int ExistCount2 = 0;
 
@@ -33,8 +31,8 @@ private:
     int startTimer = 0;
 
 
-public:
 
+public:
 
     GameMain();
 

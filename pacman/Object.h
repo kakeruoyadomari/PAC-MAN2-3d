@@ -3,6 +3,8 @@
 #include"Stage.h"
 #include<math.h>
 
+#define ONE_SECOND 60
+
 class Object
 {
 protected:

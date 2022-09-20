@@ -7,7 +7,7 @@
 
 GameMain::GameMain()
 {
-    stageCount = new int;
+    *stageCount+=1;
 
     stage = new Stage();
     stage->MapInit(); 
@@ -20,7 +20,6 @@ GameMain::GameMain()
     enemy_pink = new Enemy_Pink();
 
 
-    *stageCount = 1;
 
     startTimer = 450;
 
@@ -52,6 +51,9 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
                     esa[i]->ChangeFlg();
                     if (esa[i]->GetType() != 2)
                     {
+                        if (esa[i]->GetType() == 1) {
+                            enemy_red->ChangeIjike();
+                        }
                         ESA::ResidueEsa--;
                     }
                 }
@@ -122,6 +124,7 @@ void GameMain::Draw() const
 
 void GameMain::ResetMain()
 {
+    ESA::ResidueEsa = 0;
 
     stage = new Stage();
     stage->MapInit();
@@ -136,6 +139,8 @@ void GameMain::ResetMain()
     stage->LoadData();
 
     *stageCount += 1;
+
+    
 
     startTimer = 450;
 

@@ -41,22 +41,22 @@ void Enemy_Red::UpDate()
 
 	if (GamePlayFlg == true) {
 		Animaition();
-		if (TrackTime++ / 660 == 1) {
-			trackFlg = ToggleFlg(trackFlg);
-			TrackTime = 0;
-		}
+		
 
 		if (trackFlg == true) {
-
+			if (trackcount++ / 1200 == 1) {
+				trackFlg = !trackFlg;
+				trackcount = 0;
+			}
 			if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
 				Rocation(player->GetX(), player->GetY(),
 					x, y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-				x += enemydic.x_direction;
-				y += enemydic.y_direction;
+				x += speed * enemydic.x_direction;
+				y += speed *enemydic.y_direction;
 			}
 			else {
-				x += enemydic.x_direction;
-				y += enemydic.y_direction;
+				x += speed * enemydic.x_direction;
+				y += speed * enemydic.y_direction;
 			}
 		}
 		else {
@@ -73,12 +73,20 @@ void Enemy_Red::UpDate()
 			if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
 				Rocation(player->GetX(), player->GetY(),
 					x, y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-				x += enemydic.x_direction;
-				y += enemydic.y_direction;
+				x += speed * enemydic.x_direction;
+				y += speed * enemydic.y_direction;
 			}
 			else {
-				x += enemydic.x_direction;
-				y += enemydic.y_direction;
+				x += speed * enemydic.x_direction;
+				y += speed * enemydic.y_direction;
+			}
+			if (trackcount++ / tracktime == 1) {
+				if (trackchange < trackchangecount && trackchange / 2 <= 1) {
+					tracktime = tracktime - 2 * ONE_SECOND;
+				}
+				trackchange++;
+				trackFlg = !(trackFlg);
+				trackcount = 0;
 			}
 		}
 	}
@@ -86,10 +94,15 @@ void Enemy_Red::UpDate()
 		
 	}
 
-	//if (CheckHitPlayer(player, this) == true) {
-	//	GamePlayFlg = false;
-	//}
+	if (CheckHitPlayer(player, this) == true) {
+		//GamePlayFlg = false;
+	}
 
+
+	if (ijike = true && enemyijike == false) {
+		enemyijike = true;
+
+	}
 
 	
 }
@@ -161,6 +174,9 @@ void Enemy_Red::Draw() const
 	if (GamePlayFlg == true) {
 		DrawRotaGraph(x + STAGE_LEFT_SPACE, y, 1, 0, nowdraw, TRUE);
 	}
+
+	DrawFormatString(1000, 400, 0x00ff00, "%f,%d", speed, tracktime);
+
 }
 
 void Enemy_Red::TargetRocation(float, float, int)

@@ -8,8 +8,16 @@ Player* Enemy::player = 0;
 Enemy* Enemy::enemy_red = 0;
 bool Enemy::HitFlg = false;
 int Enemy::hometimer = hometimer = 22;
-
-
+bool Enemy::ijike = false;
+int Enemy::ijiketimer = 0;
+int Enemy::ijikecount = 0;
+float Enemy::speed = 0;
+float Enemy::ijikespeed = 0;
+float Enemy::tunnelspeed = 0;
+int Enemy::trackcount = 0;
+int Enemy::tracktime = 0;
+int Enemy::trackchange = 0;
+int Enemy::trackchangecount = 0;
 
 Enemy::Enemy()
 {
@@ -29,6 +37,75 @@ Enemy::Enemy()
 	enemydic.direction = 0;
 	enemydic.x_direction = 0;
 	enemydic.y_direction = 0;
+
+	switch (*stageCount)
+	{
+	case 1:
+		ijikecount = 6 * ONE_SECOND;
+		break;
+	case 2:
+	case 6:
+	case 10:
+		ijikecount = 5 * ONE_SECOND;
+		break;
+	case 3:
+		ijikecount = 4 * ONE_SECOND;
+		break;
+	case 4:
+	case 14:
+		ijikecount = 3 * ONE_SECOND;
+		break;
+	case 5:
+	case 7:
+	case 8:
+	case 11:
+		ijikecount = 2 * ONE_SECOND;
+		break;
+	case 9:
+	case 12:
+	case 13:
+	case 15:
+	case 16:
+	case 18:
+		ijikecount = 1 * ONE_SECOND;
+		break;
+	default:
+		ijikecount = 0;
+		break;
+	}
+
+	if (*stageCount == 1) {
+		speed = 15 / 16;
+		ijikespeed = 10 / 16;
+		tunnelspeed = 8 / 16;
+		tracktime = 7 * ONE_SECOND;
+		trackchange = 0;
+		trackchangecount = 3;
+	}
+	else if (*stageCount >= 2 && *stageCount <= 4) {
+		speed = 17 / 16;
+		ijikespeed = 11 / 16;
+		tunnelspeed = 9 / 16;
+		tracktime = 7 * ONE_SECOND;
+		trackchange = 1;
+		trackchangecount = 2;
+	}
+	else if (5 <= *stageCount && *stageCount <= 21) {
+		speed = 19 / 16;
+		ijikespeed = 12 / 16;
+		tunnelspeed = 10 / 16;
+		tracktime = 7 * ONE_SECOND;
+		trackchange = 2;
+		trackchangecount = 2;
+	}
+	else {
+		speed = 19 / 16;
+		ijikespeed = 9 / 16;
+		tunnelspeed = 10 / 16;
+		tracktime = 7 * ONE_SECOND;
+		trackchange = 2;
+		trackchangecount = 2;
+	}
 
 }
 

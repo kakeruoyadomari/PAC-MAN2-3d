@@ -3,9 +3,13 @@
 #include"GameMain.h"
 #include "coffee_break.h"
 
+int* AbstractScene::stageCount = new int;
+
+
 AbstractScene* Title::Update(XINPUT_STATE data) {
 
     if (data.Buttons[XINPUT_BUTTON_START]||CheckHitKey(KEY_INPUT_SPACE)) {
+        stageCount = 0;
         return new GameMain();
     }
     if (data.Buttons[XINPUT_BUTTON_A] || CheckHitKey(KEY_INPUT_Z)) {

@@ -13,8 +13,6 @@ private:
     XINPUT_STATE nowkey;
     XINPUT_STATE oldkey;
     XINPUT_STATE genkey;
-
-
 public:
     // コンストラクタ
     SceneManager(AbstractScene* scene)
