@@ -22,6 +22,8 @@ Enemy_Orange::Enemy_Orange()
 
 	nowdraw = image3[0];
 
+	GamePlayFlg = true;
+
 }
 
 void Enemy_Orange::UpDate()
@@ -73,8 +75,10 @@ void Enemy_Orange::UpDate()
 
 			if (trackFlg == true) {
 
+				TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
+
 				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-					Rocation(player->GetX(), player->GetY(),
+					Rocation(targetxpoint, targetypoint,
 						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
 					x += enemydic.x_direction;
 					y += enemydic.y_direction;
@@ -84,9 +88,22 @@ void Enemy_Orange::UpDate()
 					y += enemydic.y_direction;
 				}
 			}
-			else {
+			else {/*
 				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
 					Rocation(26 * DOT_SIZE, 4 * DOT_SIZE,
+						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+					x += enemydic.x_direction;
+					y += enemydic.y_direction;
+				}
+				else {
+					x += enemydic.x_direction;
+					y += enemydic.y_direction;
+				}*/
+				TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
+
+
+				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
+					Rocation(targetxpoint, targetypoint,
 						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
 					x += enemydic.x_direction;
 					y += enemydic.y_direction;
@@ -180,6 +197,11 @@ void Enemy_Orange::Draw() const
 {
 	if (GamePlayFlg == true) {
 		DrawRotaGraph(x + STAGE_LEFT_SPACE, y, 1, 0, nowdraw, TRUE);
+		if (existhome == true && existedanim == true) {
+			DrawString(800, 400, "ƒIƒŒƒ“ƒWŠO", 0x0f0500);
+		}
+		DrawBox(targetxpoint + STAGE_LEFT_SPACE, targetypoint, targetxpoint + DOT_SIZE + STAGE_LEFT_SPACE, targetypoint + DOT_SIZE, 0x0000ff, true);
+
 	}
 
 	DrawFormatString(900, 600, 0xff0000, "%d", *stageCount);
@@ -190,12 +212,35 @@ void Enemy_Orange::TargetRocation(float px, float py, int dic)
 	int a = px - x;
 	int b = py - y;
 	int c = sqrt(a * a + b * b);
-	int sum_radius = 130;
+	int sum_radius = 3*DOT_SIZE;
+	int dicx = 0;
+	int dicy = 0;
 
-	if (c <= sum_radius) {
+	if (c < sum_radius&&randomflg == false) {
+		if (rand() % 2 == 0) {
+			dicx = 1;
+		}
+		else
+		{
+			dicx = -1;
+		}
 
+		if (rand() % 2 == 0) {
+			dicy = 1;
+		}
+		else {
+			dicy = -1;
+		}
+
+		targetxpoint = px + ((rand() % 3 + 1) * dicx)*DOT_SIZE;
+		targetypoint = py + ((rand() % 3 + 1) * dicy)*DOT_SIZE;
+
+		randomflg = true;
 	}
-	else {
-		targetxpoint = rand() + 1;
+	else if(c > sum_radius){
+		targetxpoint = px;
+		targetypoint = py;
+
+		randomflg = false;
 	}
 }

@@ -2,7 +2,10 @@
 #include "Enemy.h"
 class Enemy_Orange :
     public Enemy
-{public:
+{
+private:
+	bool randomflg;
+public:
 	Enemy_Orange();
 
 	void UpDate() override;

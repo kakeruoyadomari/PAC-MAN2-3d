@@ -137,7 +137,7 @@ void GameMain::ResetMain()
 
     *stageCount += 1;
 
-    startTimer = 900;
+    startTimer = 450;
 
     if (5 > *stageCount && *stageCount > 1) {
         ExistCount1 = 0;

@@ -119,7 +119,7 @@ void Enemy_Cyan::UpDate()
 		}
 
 		if (CheckHitPlayer(player, this) == true) {
-			GamePlayFlg = false;
+			//GamePlayFlg = false;
 		}
 	}
 }
