@@ -196,6 +196,6 @@ void Enemy_Orange::TargetRocation(float px, float py, int dic)
 
 	}
 	else {
-		targetxpoint = rand()+1
+		targetxpoint = rand() + 1;
 	}
 }
