@@ -8,22 +8,15 @@ class Player : public Object
 {
 private:
     int playerimg[3];   //プレイヤー画像用変数
-    //int PlayerDirection;    //プレイヤーの向き
     int playeranim;         //画像アニメーション用
-    int speed;
-    int movepixel;
+    float speed;
     int nowdraw;
     float nowdirect;
     int adovanced_direction;
-    int moveX;
-    int moveY;
-    /*int playerrun;
-    int playerrun2;*/
+
     bool drawflg;       //描画するかのフラグ
     bool ismove;        //現在移動できるかのフラグ
     XINPUT_STATE control;       //コントローラー
-    int playerflg;
-    int time;
 
     //プレイヤーの向き
     enum Direction
@@ -54,6 +47,8 @@ public:
     void Draw() const override;
     void MovePlayer();
     void Init(XINPUT_STATE data);
+    void ResetImage() { nowdraw = playerimg[0]; }
+    int GetDirection() { return plyrdrct.direction; }
 
 };
 

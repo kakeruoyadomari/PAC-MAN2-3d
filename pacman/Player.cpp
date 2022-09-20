@@ -1,15 +1,11 @@
 #include "Player.h"
 #include"Stage.h"
 #include "DxLib.h"
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-
-Stage stage;
 
 Player::Player(Stage* data)
 {
 
-	speed = 1;     //�ړ����x
+	speed = 0.1;     //�ړ����x
 	drawflg = true;      //�v���C���[�\���t���O
 	ismove = true;//false�E�E�E�~�܂�,true�E�E�E����
 	playerimg[0] = LoadGraph("images/pac1.png");   //�v���C���[�摜�p�ϐ�
@@ -21,10 +17,17 @@ Player::Player(Stage* data)
 	y = 18*DOT_SIZE-11;      //���Wx,y
 	radius = 4;
 
-	plyrdrct.x_direction = 1;
+	int_x = 0;
+	int_y = 0;
+
+
+	plyrdrct.direction = 4;
+	plyrdrct.x_direction = -1;
 	plyrdrct.y_direction = 0;
 
 	stage = data;
+
+	nowdraw = playerimg[0];
 }
 
 void Player::PlayerDisplay()
@@ -53,68 +56,75 @@ void Player::PlayerDisplay()
 
 
 void Player::MovePlayer()
-{	
+{
+	int_x = roundf(x);
+	int_y = roundf(y);
 
+	if (x < 4) {
+		x = 630;
+	}
+	else if (x > 630) {
+		x = 4;
+	}
 
 	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000 || (adovanced_direction == PLAYER_NORMAL_UP)) {
 		adovanced_direction = PLAYER_NORMAL_UP;
-		if (CheckHitWall(x, y, PLAYER_NORMAL_UP) == false) {
-			if (x % DOT_SIZE == 11) {
+		if (CheckHitWall(int_x, int_y, PLAYER_NORMAL_UP) == false) {
+			if (int_x % DOT_SIZE == 11) {
 				plyrdrct.x_direction = 0;
 				plyrdrct.y_direction = -1;
 				plyrdrct.direction = PLAYER_NORMAL_UP;
-				speed = 1;
+				speed = RoundSpeed;
 			}
 		}
 	}
 
 	if (control.Buttons[XINPUT_BUTTON_DPAD_DOWN] || control.ThumbLY < -10000 || (adovanced_direction == PLAYER_NORMAL_DOWN)) {
 		adovanced_direction = PLAYER_NORMAL_DOWN;
-		if (CheckHitWall(x, y, PLAYER_NORMAL_DOWN) == false) {
-			if (x % DOT_SIZE == 11) {
+		if (CheckHitWall(int_x, int_y, PLAYER_NORMAL_DOWN) == false) {
+			if (int_x % DOT_SIZE == 11) {
 				plyrdrct.x_direction = 0;
 				plyrdrct.y_direction = 1;
 				plyrdrct.direction = PLAYER_NORMAL_DOWN;
-				speed = 1;
+				speed = RoundSpeed;
 			}
 		}
 	}
 
 	if (control.Buttons[XINPUT_BUTTON_DPAD_RIGHT] || control.ThumbLX > 10000 || (adovanced_direction == PLAYER_NORMAL_RIGHT)) {
 		adovanced_direction = PLAYER_NORMAL_RIGHT;
-		if (CheckHitWall(x, y, PLAYER_NORMAL_RIGHT) == false) {
-			if (y % DOT_SIZE == 11) {
+		if (CheckHitWall(int_x, int_y, PLAYER_NORMAL_RIGHT) == false) {
+			if (int_y % DOT_SIZE == 11) {
 				plyrdrct.x_direction = 1;
 				plyrdrct.y_direction = 0;
 				plyrdrct.direction = PLAYER_NORMAL_RIGHT;
-				speed = 1;
+				speed = RoundSpeed;
 			}
 		}
 	}
 
-	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000  || (adovanced_direction == PLAYER_NORMAL_LEFT)) {
+	if (control.Buttons[XINPUT_BUTTON_DPAD_LEFT] || control.ThumbLX < -10000 || (adovanced_direction == PLAYER_NORMAL_LEFT)) {
 		adovanced_direction = PLAYER_NORMAL_LEFT;
-		if (CheckHitWall(x, y, PLAYER_NORMAL_LEFT) == false) {
-			if (y % DOT_SIZE == 11) {
+		if (CheckHitWall(int_x, int_y, PLAYER_NORMAL_LEFT) == false) {
+			if (int_y % DOT_SIZE == 11) {
 				plyrdrct.x_direction = -1;
 				plyrdrct.y_direction = 0;
 				plyrdrct.direction = PLAYER_NORMAL_LEFT;
-				speed = 1;
+				speed = RoundSpeed;
 			}
 		}
 	}
 
-	
-		// キー入力がなかったときも当たり判定
-		if (CheckHitWall(x, y, plyrdrct.direction) == true) {
-			speed = 0;
-			plyrdrct.x_direction = 0;
-			plyrdrct.y_direction = 0;
-		}
 
+	// キー入力がなかったときも当たり判定
+	if (CheckHitWall(int_x, int_y, plyrdrct.direction) == true) {
+		speed = 0;
+		plyrdrct.x_direction = 0;
+		plyrdrct.y_direction = 0;
+	}
 
-		x += speed * plyrdrct.x_direction;
-		y += speed * plyrdrct.y_direction;
+	x += speed * plyrdrct.x_direction;
+	y += speed * plyrdrct.y_direction;
 }
 void Player::Init(XINPUT_STATE data)
 {
@@ -124,9 +134,18 @@ void Player::Init(XINPUT_STATE data)
 
 void Player::UpDate()
 {
-	MovePlayer();
-	Animaition();
-	PlayerDisplay();
+	if (GamePlayFlg == true) {
+		MovePlayer();
+		Animaition();
+		PlayerDisplay();
+	}
+	else {
+		MovePlayer();
+		Animaition();
+		PlayerDisplay();
+	}
+	
+
 	/*this->x++;*/
 	
 }
@@ -151,8 +170,8 @@ void Player::Animaition()
 
 void Player::Draw() const
 {
-	DrawFormatString(800, 10, 0xffffff, "x:%d",x);
-	DrawFormatString(800, 50, 0xffffff, "y:%d",y);
+	DrawFormatString(800, 10, 0xffffff, "x:%fl",x);
+	DrawFormatString(800, 50, 0xffffff, "y:%fl",y);
 	DrawFormatString(800, 100, 0xffffff, "direction:%d", adovanced_direction);
 	DrawRotaGraph(x+STAGE_LEFT_SPACE, y, 1.8, nowdirect, nowdraw, TRUE, FALSE);
 	DrawPixel(x+STAGE_LEFT_SPACE, y, 0x00ff00);

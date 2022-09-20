@@ -22,6 +22,10 @@ private:
     int stageselectx;
     int stageselecty;
 
+    int animetioncount = 0;
+
+    bool animeflg = false;
+
     FILE* fp;
 public:
    
@@ -33,6 +37,6 @@ public:
     int PakuMove();
     void MainLoop();
     int GetStageData(int i, int j) { return StageTS[i][j]; }
+    void StageAnimetion();
 };
 
-//extern Stage stage;

@@ -2,6 +2,10 @@
 #include "Object.h"
 #include "Player.h"
 #include "Stage.h"
+
+#define ESA_MAX 244
+
+
 class ESA :public Object
 {
 private:
@@ -46,6 +50,8 @@ private:
     int FruitsX;
     int FruitsY;
 
+    static int esacount;
+
     int sx;
     int sy;
 
@@ -53,8 +59,10 @@ public:
     EsaControll(Stage* data);
     void CreateFruits();
 
+    void ResetCount() { esacount = 0; }
+
     ESA** Getesa() { return esa; }
-    void SetEsa(int x, int y, Stage stage);
+    void SetEsa(int x, int y, Stage* stage);
     void DrawEsa();
 
 };

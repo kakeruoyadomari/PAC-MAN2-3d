@@ -1,24 +1,21 @@
 #pragma once
 #include "Object.h"
 #include"Stage.h"
+#include"Player.h"
 
 
 class Enemy : public Object
 {
     // 座標X,Yと半径はobjectクラスで定義済み
 protected:
-    //全てのエネミーが持つべき変数
     bool animeFlg=false;      //アニメーションフラグ
     int animcount=0;      //アニメーションの秒数
-    static bool trackFlg;      //追いかけるフラグ
-    bool ijike=false;     //いじけ状態
-    int nowway=0;     //現在の向き
-    int nowdraw=0;      //現在の描画
     bool nowflg=false;      //現在のアニメーションの切り替わり
-    bool HitFlg = false;        //Playerとの当たり判定
     int TrackTime = 0;      //追いかける時間
 
-    Object* player;
+    static Player* player;
+
+    static Enemy* enemy_red;
 
     enum Direction
     {
@@ -47,6 +44,11 @@ protected:
     int ijikeimage1[2]{0,0};      //いじけ状態黒
     int ijikeimage2[2]{0,0};      //いじけ状態白
     int medamaimage[4]{0,0,0,0};     //目玉状態
+    static bool trackFlg;      //追いかけるフラグ
+    static bool HitFlg;        //Playerとの当たり判定
+    static int hometimer;
+
+
 
     //それぞれで中身が変わる変数
     int speed;      //スピード
@@ -54,18 +56,32 @@ protected:
     int image2[2]{0,0};      //画像２の差分２枚   
     int image3[2]{0,0};      //画像３の差分２枚
     int image4[2]{0,0};      //画像４の差分２枚
-
-    bool ToggleFlg(bool flg) {flg = !(flg);return flg;}
-
-    bool CheckHitPlayer(int ex, int xy);
+    bool HomeExistFlg = false;
+    int nowway = 0;     //現在の向き
+    int nowdraw = 0;      //現在の描画
+    bool ijike = false;     //いじけ状態
+    bool existhome = false;    
+    bool existedanim = false;
+    int targetxpoint = 0;
+    int targetypoint = 0;
 
     void Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* dicY);
+
+    virtual void TargetRocation(float, float, int) =0;
 
 public:
 
     Enemy();
 
-    void SetStageCount(int* data) { stageCount = data; }
+    virtual void GetExistHome(bool data) {  existhome = data; }
+
+    void ExistAnime(Enemy * data);
+
+    virtual void SetXDirection(int data) { enemydic.x_direction = data; }
+    void SetYDirection(int data) { enemydic.y_direction = data; }
+    void SetDirection(int data) { enemydic.direction = data; }
+
+   virtual void SetStageCount(int* data) { stageCount = data; }
 
 };
 

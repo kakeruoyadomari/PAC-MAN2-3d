@@ -160,6 +160,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Enemy_Cyan.cpp" />
+    <ClCompile Include="Enemy_Orange.cpp" />
+    <ClCompile Include="Enemy_Pink.cpp" />
     <ClCompile Include="Enemy_Red.cpp" />
     <ClCompile Include="Esa.cpp" />
     <ClCompile Include="EsaControll.cpp" />
@@ -174,6 +177,9 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy_Cyan.h" />
+    <ClInclude Include="Enemy_Orange.h" />
+    <ClInclude Include="Enemy_Pink.h" />
     <ClInclude Include="Enemy_Red.h" />
     <ClInclude Include="Esa.h" />
     <ClInclude Include="GameMain.h" />

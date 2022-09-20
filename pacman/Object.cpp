@@ -3,7 +3,10 @@
 #include<math.h>
 
 Stage* Object::stage = 0;
-int* Object::stageCount = 0;
+int* Object::stageCount = new int;
+bool Object::GamePlayFlg = true;
+bool Object::GameClearFlg = false;
+const int Object::RoundSpeed = 1;
 
 
 bool CheckHitPlayer_Esa(Object* player, Object* esa)
@@ -25,6 +28,8 @@ bool CheckHitPlayer_Esa(Object* player, Object* esa)
 
 	return false;
 }
+
+
 
 bool Object::CheckHitWall(int x, int y, int dir)
 {
@@ -77,3 +82,20 @@ bool Object::CheckHitWall(int x, int y, int dir)
 		return false;
 	}
 }
+
+bool Object::CheckHitPlayer(Object* player, Object* enemy)
+{
+	
+	float a = player->GetX() - enemy->GetX();
+	float b = player->GetY() - enemy->GetY();
+	float c = sqrt(a * a + b * b);
+	float sum_radius = player->GetRadius() + enemy->GetRadius();
+
+	if (c <= sum_radius)
+	{
+		return true;
+	}
+
+	return false;
+}
+

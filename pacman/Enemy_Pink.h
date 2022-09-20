@@ -1,16 +1,14 @@
 #pragma once
 #include "Enemy.h"
-
-class Enemy_Red : public Enemy
+class Enemy_Pink :
+    public Enemy
 {
-private:
-
 public:
-	Enemy_Red(Player* plyr,int *data);
+	Enemy_Pink();
 
 	void UpDate() override;
 	void Animaition() override;
 	void Draw() const override;
 	void TargetRocation(float, float, int) override;
-
 };
+

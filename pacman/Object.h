@@ -1,29 +1,48 @@
 #pragma once
 #include"DxLib.h"
 #include"Stage.h"
-
+#include<math.h>
 
 class Object
 {
 protected:
-	int x;		//座標X
-	int y;		//座標Y
-	int radius;		//半径
+	float x;		//座標X
+	float y;		//座標Y
+	int int_x;
+	int int_y;
+	int radius=18;		//半径
 
 	static Stage* stage;
 
 	static int* stageCount;
 
+	static bool GamePlayFlg;
+
+	static bool GameClearFlg;
+
+	static const int RoundSpeed;
+
 public:
+
+
 
 	virtual void UpDate() = 0;
 	virtual void Animaition() = 0;
 	virtual void Draw() const = 0;
-	int GetX() const { return x; }
-	int GetY() const { return y; }
-	int GetRadius() const { return radius; }
+	 float GetX() const { return x; }
+	 float GetY() const { return y; }
+	 int GetRadius() const { return radius; }
+
+	 bool GetClearFlg() { return GameClearFlg; }
+
+	bool ToggleFlg(bool flg) { flg = !(flg); return flg; }
+
+	void ToggleClearFlg() { GameClearFlg = !(GameClearFlg); }
+
 
 	bool CheckHitWall(int, int, int);
+	bool CheckHitPlayer(Object* player,Object* enemy);
+
 };
 
 //float absf(void* num);

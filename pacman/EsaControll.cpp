@@ -1,5 +1,8 @@
 #include"Esa.h"
 #include"Player.h"
+
+int EsaControll::esacount = 0;
+
 EsaControll::EsaControll(Stage*data)
 {
 	stage = data;
@@ -27,15 +30,15 @@ EsaControll::EsaControll(Stage*data)
 	{
 		for (sx = 0; sx < STAGE_WIDTH * 2; sx++)
 		{
-			SetEsa(sx ,sy, *stage);
+			SetEsa(sx ,sy, stage);
 		}
 	}
 
 
 	EsaType = 2;
-	esa[244] = new ESA(FruitsX+STAGE_LEFT_SPACE, FruitsY, EsaType, FruitsType);
+	esa[ESA_MAX] = new ESA(FruitsX+STAGE_LEFT_SPACE, FruitsY, EsaType, FruitsType);
 
-	for (int i = 0; i < 244; i++)
+	for (int i = 0; i < ESA_MAX; i++)
 	{
 		if (esa[i]->GetType() == 0)
 		{
@@ -46,7 +49,7 @@ EsaControll::EsaControll(Stage*data)
 			esa[i]->SetImage(EsaImage[1]);
 		}
 	}
-	esa[244]->SetImage(FruitsImage[FruitsType]);
+	esa[ESA_MAX]->SetImage(FruitsImage[FruitsType]);
 			
 		//else
 		//{
@@ -99,23 +102,24 @@ void  EsaControll::CreateFruits()
 
 }
 
-void EsaControll::SetEsa(int sx, int sy, Stage stage)
+
+
+void EsaControll::SetEsa(int sx, int sy, Stage* stage)
 {
-	static int i = 0;
 
 
-	if (stage.GetStageData(sx, sy) == 0)
+	if (stage->GetStageData(sx, sy) == 0)
 	{	
 		EsaType = 0;
-		esa[i]= new ESA(sx * DOT_SIZE + 11+STAGE_LEFT_SPACE, sy * DOT_SIZE + 11, EsaType);
-		i++;
+		esa[esacount]= new ESA(sx * DOT_SIZE + 11+STAGE_LEFT_SPACE, sy * DOT_SIZE + 11, EsaType);
+		esacount++;
 	}
-	else if (stage.GetStageData(sx, sy) == 4)
+	else if (stage->GetStageData(sx, sy) == 4)
 	//else if (stage->StageTS[x][y] == 4)
 	{
 		EsaType = 1;
-		esa[i] = new ESA(sx * DOT_SIZE + 11+STAGE_LEFT_SPACE, sy * DOT_SIZE + 11, EsaType);
-		i++;
+		esa[esacount] = new ESA(sx * DOT_SIZE + 11+STAGE_LEFT_SPACE, sy * DOT_SIZE + 11, EsaType);
+		esacount++;
 	}
 }
 
@@ -123,7 +127,7 @@ void EsaControll::DrawEsa()
 {
 	for (int i = 0; i < 245; i++)
 	{
-		if (esa[i]->GetFlg() == TRUE)
+		if (esa[i]->GetFlg() == true)
 		{
 			esa[i]->Draw();
 		}

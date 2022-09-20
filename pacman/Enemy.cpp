@@ -4,21 +4,27 @@
 #include"math.h"
 
 bool Enemy::trackFlg=false;
+Player* Enemy::player = 0;
+Enemy* Enemy::enemy_red = 0;
+bool Enemy::HitFlg = false;
+int Enemy::hometimer = hometimer = 22;
+
+
 
 Enemy::Enemy()
 {
 	animeFlg = false;
 	speed = 0;
 
-	ijikeimage1[0] = LoadGraph("images/•1.png");
-	ijikeimage1[1] = LoadGraph("images/•2.png");
-	ijikeimage2[0] = LoadGraph("images/”’1.png");
-	ijikeimage2[1] = LoadGraph("images/”’2.png");
+	ijikeimage1[0] = LoadGraph("images/Black1.png");
+	ijikeimage1[1] = LoadGraph("images/Black2.png");
+	ijikeimage2[0] = LoadGraph("images/White1.png");
+	ijikeimage2[1] = LoadGraph("images/White2.png");
 
-	medamaimage[0] = LoadGraph("images/–Ú1.png");
-	medamaimage[1] = LoadGraph("images/–Ú2.png");
-	medamaimage[2] = LoadGraph("images/–Ú3.png");
-	medamaimage[3] = LoadGraph("images/–Ú4.png");
+	medamaimage[0] = LoadGraph("images/Eye1.png");
+	medamaimage[1] = LoadGraph("images/Eye2.png");
+	medamaimage[2] = LoadGraph("images/Eye3.png");
+	medamaimage[3] = LoadGraph("images/Eye4.png");
 
 	enemydic.direction = 0;
 	enemydic.x_direction = 0;
@@ -26,10 +32,28 @@ Enemy::Enemy()
 
 }
 
-bool Enemy::CheckHitPlayer(int ex, int xy)
+void Enemy::ExistAnime(Enemy* data)
 {
-	return false;
+	if (data->GetX() > 14*DOT_SIZE) {
+		data->SetDirection(4);
+		data->SetXDirection(-1);
+		data->SetYDirection(0);
+
+	}
+	else if (data->GetX() < 14 * DOT_SIZE) {
+		data->SetDirection(2);
+		data->SetXDirection(1);
+		data->SetYDirection(0);
+
+	}
+	else {
+		data->SetDirection(1);
+		data->SetXDirection(0);
+		data->SetYDirection(-1);
+	}
+	Animaition();
 }
+
 
 void Enemy::Rocation(int px, int py, int ex, int ey, int* dic, int* dicX, int* dicY)
 {
