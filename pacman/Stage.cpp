@@ -280,17 +280,24 @@ void Stage::MainLoop()
 		if (MapSet())return;
 		if (PakuMove()) return;
 
-		//Rrady•`‰æ@‚±‚±‚©‚ç
-		if (++g_WaitTime <= 240) {
+		//Ready•`‰æ@‚±‚±‚©‚ç
+		if (++g_WaitTime >= 0) {
 			DrawGraph(270, 392, Ready, FALSE);//Rrady‚ğ8•b•`‰æ‚·‚é
 		}
-		//Rrady•`‰æ@‚±‚±‚Ü‚Å
+		//Ready•`‰æ@‚±‚±‚Ü‚Å
 
 		//GameOver‚Ì•`‰æ@‚±‚±‚©‚ç
-		if (++g_WaitTime >= 330) {
+		if (++g_WaitTime >= 360) {
 			DrawGraph(220, 392, GameOver, FALSE);
 		}
-		//Player GameOver‚Ì•`‰æ@‚±‚±‚Ü‚Å
+		//GameOver‚Ì•`‰æ@‚±‚±‚Ü‚Å
+
+		//GameOver‚Ì•`‰æ5•bŒã‚ÉÅ‰‚Ì‰æ–Ê‚É–ß‚é@‚±‚±‚©‚ç
+		if (++g_WaitTime >= 660) {
+			if (Init())return;
+			g_WaitTime = 0;
+		}
+		//GameOver‚Ì•`‰æ5•bŒã‚ÉÅ‰‚Ì‰æ–Ê‚É–ß‚é@‚±‚±‚Ü‚Å
 
 
 		DrawFormatString(1000, 0, RGB(255, 255, 255), "SCORE:");//ƒXƒRƒA•\¦
