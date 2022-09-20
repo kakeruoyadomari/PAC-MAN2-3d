@@ -3,6 +3,9 @@
 #include"Player.h"
 #define ACCELERATION 0.05
 #define PLAYER_DRAW_ 11
+#define PLAYER_NORMAL_SPEED 1
+#define PLAYER_ESA_SPEED 0.3
+
 class Player : public Object
 {
 private:
@@ -25,13 +28,16 @@ private:
     int playerflg;
     int time;
     int playerzanki;
+    bool GetEsaflg;
     //ÉvÉåÉCÉÑÅ[ÇÃå¸Ç´
     enum Direction
     {
         PLAYER_NORMAL_UP=1,
         PLAYER_NORMAL_RIGHT,
         PLAYER_NORMAL_DOWN,
-        PLAYER_NORMAL_LEFT
+        PLAYER_NORMAL_LEFT,
+
+        PLAYER_SPEED
     };
 
 
@@ -40,6 +46,8 @@ private:
         int x_direction;
         int y_direction;
         int direction;
+
+        
     };
 
     struct PlyrDrct plyrdrct;
@@ -54,6 +62,8 @@ public:
     void Draw() const override;
     int Image();
     void MovePlayer();
+    void GetEsaFlg() { GetEsaflg = !GetEsaflg; }
+    void ChangeSpeed();
     void Init(XINPUT_STATE data);
 
 };

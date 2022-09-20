@@ -1,6 +1,7 @@
 #include "Player.h"
 #include"Stage.h"
 #include "DxLib.h"
+#include"Esa.h"
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
@@ -46,20 +47,39 @@ void Player::PlayerDisplay()
 			break;
 		}
 	}
+	
 }
 
-
+void Player::ChangeSpeed()
+{
+	static int ChangeTime = 0;
+	if (GetEsaflg == true)
+	{
+		speed = PLAYER_ESA_SPEED;
+		ChangeTime++;
+		if (ChangeTime >= 30)
+		{
+			GetEsaflg = false;
+			ChangeTime = 0;
+			speed = PLAYER_NORMAL_SPEED;
+		}
+	}
+	else
+	{
+		speed = PLAYER_NORMAL_SPEED;
+	}
+}
 
 void Player::MovePlayer()
 {	
 
-	if (x > 823-200) {
+	/*if (x > 823-200) {
 		x = 185-200;
 		}
 	if (x < 185 - 200) {
 		x = 823 - 200;
-	}
-	
+	}*/
+
 	int_x = roundf(x);
 	int_y = roundf(y);
 	if (control.Buttons[XINPUT_BUTTON_DPAD_UP] || control.ThumbLY > 10000 || (adovanced_direction == PLAYER_NORMAL_UP)) {
@@ -167,6 +187,7 @@ void Player::Draw() const
 {
 	DrawFormatString(800, 10, 0xffffff, "x:%d",x);
 	DrawFormatString(800, 50, 0xffffff, "y:%d",y);
+	DrawFormatString(800, 150, 0xffffff, "speed:%d",speed);
 	DrawFormatString(800, 100, 0xffffff, "direction:%d", adovanced_direction);
 	DrawRotaGraph(x, y, 1, nowdirect, nowdraw, TRUE, FALSE);
 	DrawPixel(x, y, 0x00ff00);

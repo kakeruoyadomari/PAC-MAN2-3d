@@ -1,7 +1,7 @@
 #include"DxLib.h"
 #include "Object.h"
 #include<math.h>
-
+#include"Player.h"
 Stage* Object::stage = 0;
 
 //float absf(void* num)
@@ -23,7 +23,7 @@ bool CheckHitPlayer_Esa(Object* player, Object* esa)
 	float rangeY = player->GetY() - esa->GetY();
 	double range = sqrt(rangeX * rangeX + rangeY * rangeY);
 	double sum_radius = double(player->GetRadius()) + double(esa->GetRadius());
-
+	
 	if (range <= sum_radius)
 	{
 		return true;

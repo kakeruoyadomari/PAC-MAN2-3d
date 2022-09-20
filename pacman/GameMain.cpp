@@ -30,6 +30,7 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
     {
         if (CheckHitPlayer_Esa(player, esa[i]) == true)
         {
+            player->GetEsaFlg();
             if (esa[i]->GetFlg() == TRUE)
             {
                 esa[i]->ChangeFlg();
