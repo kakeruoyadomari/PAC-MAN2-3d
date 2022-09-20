@@ -40,6 +40,7 @@ private:
     float y;*/
     // 座標X,Yと半径はobjectクラスで定義済み
 public:
+    Player();
     Player(Stage*data);
     void PlayerDisplay(void);
     void UpDate() override;
