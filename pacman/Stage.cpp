@@ -27,8 +27,10 @@ int Stage::LoadData()
 		MessageBox(NULL, "images/pacman2.png", "ReadError", MB_OK);
 		return -1;
 	}
+	//Readyの文字
 	if ((Ready = LoadGraph("images/Ready.png")) == -1) return -1;
 
+	//GameOverの文字
 	if ((GameOver = LoadGraph("images/GameOver.png")) == -1) return -1;
 	return 0;
 }
@@ -122,7 +124,7 @@ int Stage::Init()
 	int i;
 	// ロードしたグラフィックのアニメーション
 	i = 0;
-	// キーが押されるまでループ(キー判定には『CheckHitKeyAll』を使用)
+	// キーが押されるまでループ
 	while (CheckHitKeyAll() == 0)
 	{
 		// メッセージ処理
@@ -133,14 +135,14 @@ int Stage::Init()
 		ClearDrawScreen();
 
 		// 更新
-		// グラフィックの描画(『DrawGraph』使用)
+		// グラフィックの描画
 		DrawGraph(500, 300, Pac[i], TRUE);
 
 		// アニメーションパターンナンバーを変更
 		i++;
 		if (i == 11) i = 0;
 
-		// 一定時間待つ(『WaitTimer』使用)
+		// 一定時間待つ
 		WaitTimer(100);
 
 		// 裏画面を表画面に反映
@@ -300,8 +302,11 @@ void Stage::MainLoop()
 		//GameOverの描画5秒後に最初の画面に戻る　ここまで
 
 
-		DrawFormatString(1000, 0, RGB(255, 255, 255), "SCORE:");//スコア表示
-		DrawFormatString(1000, 16, RGB(255, 255, 255), "%6d", Score);
+		DrawFormatString(1000, 0, RGB(0, 0, 255), "HI-SCORE");
+		DrawFormatString(1019, 16, RGB(255, 255, 255), "10000");
+
+		DrawFormatString(1000, 100, RGB(0, 0, 255), "1UP");//スコア表示
+		DrawFormatString(1006, 116, RGB(255, 255, 255), "%6d", Score);
 
 		ScreenFlip();
 	}
