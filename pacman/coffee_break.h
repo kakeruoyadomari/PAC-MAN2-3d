@@ -8,7 +8,7 @@ private:
 	int Pacanim;
 	int PacSize;
 	int PacSpeed;
-	int Nowdraw;
+	int PNowdraw;
 	int PacX;
 	int PacY;
 	float Nowdirect;
@@ -29,9 +29,10 @@ private:
 	static bool trackFlg;      //追いかけるフラグ
 	bool ijike = false;     //いじけ状態
 	int nowway = 0;     //現在の向き
-	int nowdraw = 0;      //現在の描画
+	int Enowdraw = 0;      //現在の描画
+	int E3draw = 0;
 	bool nowflg = false;      //現在のアニメーションの切り替わり
-	int EnemySpeed;			//スピード
+	float EnemySpeed;			//スピード
 
 	int ijikeimage1[2]{ 0,0 };      //いじけ状態白
 	int image1[2]{ 0,0 };      //画像１の差分２枚
@@ -40,6 +41,11 @@ private:
 	int image4[2]{ 0,0 };      //画像４の差分２枚
 
 	int kugi;
+	int billibilli[4];
+	int naki[2];
+
+	int kega[2];
+	int nige[2];
 
 	enum EDirection
 	{
@@ -55,7 +61,8 @@ private:
 		ENEMY_MEDAMA_LEFT
 	};
 
-	int CoffeeBreakType = 0;
+	int CoffeeBreakType;
+	int PlayTime;
 
 public:
 	Coffee();
