@@ -62,7 +62,10 @@ public:
     void ResetCount() { esacount = 0; }
 
     ESA** Getesa() { return esa; }
+    bool CheckHitPlayer_Esa(Object* player, ESA* esa);
+
     void SetEsa(int x, int y, Stage* stage);
     void DrawEsa();
 
 };
+

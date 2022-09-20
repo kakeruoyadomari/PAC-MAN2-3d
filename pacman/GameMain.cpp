@@ -45,13 +45,17 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
 
         for (int i = 0; i < D_ESA_MAX; i++)
         {
-            if (CheckHitPlayer_Esa(player, esa[i]) == true)
+            if (esacontroll->CheckHitPlayer_Esa(player, esa[i]) == true)
             {
                 if (esa[i]->GetFlg() == TRUE)
                 {
                     esa[i]->ChangeFlg();
                     if (esa[i]->GetType() != 2)
                     {
+                        if (esa[i]->GetType() == 1)
+                        {
+                            //ÇœÇÌÅ[Ç¶Ç≥ÇµÇ„Ç∆Ç≠
+                        }
                         ESA::ResidueEsa--;
                     }
                 }

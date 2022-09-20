@@ -9,25 +9,7 @@ bool Object::GameClearFlg = false;
 const int Object::RoundSpeed = 1;
 
 
-bool CheckHitPlayer_Esa(Object* player, Object* esa)
-{
-	if (esa == nullptr)
-	{
-		return FALSE;
-	}
-	float rangeX = player->GetX() - esa->GetX()+STAGE_LEFT_SPACE;
-	float rangeY = player->GetY() - esa->GetY();
-	double range = sqrt(rangeX * rangeX + rangeY * rangeY);
-	double sum_radius = double(player->GetRadius()) + double(esa->GetRadius());
 
-	if (range <= sum_radius)
-	{
-		return true;
-	}
-
-
-	return false;
-}
 
 
 
