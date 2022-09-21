@@ -11,6 +11,7 @@ class ESA :public Object
 private:
     //do ƒGƒT‚Ìc‚è‚Ì”‚ğ“ü‚ê‚é•Ï”‚Æget’Ç‰Á
     bool Esaflg;    //flg iranai?
+    bool Flashflg;
     int EsaImg;
     int EsaScore;
 
@@ -20,7 +21,7 @@ private:
     int FruitsScore;
 public:
     ESA(int X, int Y, int EsaType);
-    ESA(int X, int Y, int EsaType, int FruitsType);
+    ESA(int X, int Y, int EsaType, int FruitsType, int FruitsScore);
     ~ESA();
     static int ResidueEsa;
 
@@ -28,6 +29,8 @@ public:
     void SetImage(int i) { EsaImg = i; }
     void ChangeFlg() { Esaflg = !(Esaflg); }
     bool GetFlg() { return Esaflg; }
+    bool GetFlashFlg() { return Flashflg; }
+    void ChangeFlashFlg() { Flashflg = !(Flashflg); }
     int GetType() { return Type; }
 
     void UpDate() override;
@@ -44,6 +47,7 @@ private:
     int EsaImage[2];
     int FruitsImage[8];
     int FruitsType;
+    int FruitsScore;
     int CreatePieces;
     int EsaType;
     int EsaSE;
@@ -56,11 +60,11 @@ private:
     int sy;
 
 public:
-    EsaControll(Stage* data);
+    EsaControll(Stage* data, int stageCount);
     void CreateFruits();
 
     void ResetCount() { esacount = 0; }
-
+    void FlashEsa();
     ESA** Getesa() { return esa; }
     void SetEsa(int x, int y, Stage* stage);
     void DrawEsa();

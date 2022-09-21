@@ -1,9 +1,10 @@
 #include"Esa.h"
 #include"Player.h"
+#include "Object.h"
 
 int EsaControll::esacount = 0;
 
-EsaControll::EsaControll(Stage*data)
+EsaControll::EsaControll(Stage*data, int stageCount)
 {
 	stage = data;
 
@@ -21,7 +22,7 @@ EsaControll::EsaControll(Stage*data)
 
 	CreatePieces = 2;
 	FruitsType = 0;
-
+	FruitsScore = 100;
 	FruitsX = 310;
 	FruitsY = 517;
 
@@ -36,7 +37,49 @@ EsaControll::EsaControll(Stage*data)
 
 
 	EsaType = 2;
-	esa[ESA_MAX] = new ESA(FruitsX+STAGE_LEFT_SPACE, FruitsY, EsaType, FruitsType);
+
+	if (stageCount == 1)
+	{
+		FruitsType = 0;
+		FruitsScore = 100;
+	}
+	else if (stageCount == 2)
+	{
+		FruitsType = 1;
+		FruitsScore = 300;
+	}
+	else if (stageCount == 3 || stageCount == 4)
+	{
+		FruitsType = 2;
+		FruitsScore = 500;
+	}
+	else if (stageCount == 5 || stageCount == 6)
+	{
+		FruitsType = 3;
+		FruitsScore = 700;
+	}
+	else if (stageCount == 7 || stageCount == 8)
+	{
+		FruitsType = 4;
+		FruitsScore = 1000;
+	}
+	else if (stageCount == 9 || stageCount == 10)
+	{
+		FruitsType = 5;
+		FruitsScore = 2000;
+	}
+	else if (stageCount == 11 || stageCount == 12)
+	{
+		FruitsType = 6;
+		FruitsScore = 3000;
+	}
+	else
+	{
+		FruitsType = 7;
+		FruitsScore = 5000;
+	}
+	esa[ESA_MAX] = new ESA(FruitsX + STAGE_LEFT_SPACE, FruitsY, EsaType, FruitsType, FruitsScore);
+
 
 	for (int i = 0; i < ESA_MAX; i++)
 	{
@@ -51,20 +94,6 @@ EsaControll::EsaControll(Stage*data)
 	}
 	esa[ESA_MAX]->SetImage(FruitsImage[FruitsType]);
 			
-		//else
-		//{
-		//	//do 現在のステージ数持ってくる
-		//	esa[244]->SetImage(FruitsImage[7]);
-		//}
-
-		//SetX += 20;
-		//if (SetX >= 1250)
-		//{
-		//	SetX = 1050;
-		//	SetY += 20;
-		//}
-
-	//}
 }
 
 void  EsaControll::CreateFruits()
@@ -75,7 +104,6 @@ void  EsaControll::CreateFruits()
 	int FruitsType = 0;
 	static int FruitsTimer = 0;
 
-	//do 現在のステージ数持ってくる
 	if (CreatePieces == 2 && (ESA::ResidueEsa == /*174*/240))
 	{
 		esa[244]->ChangeFlg();
@@ -93,7 +121,6 @@ void  EsaControll::CreateFruits()
 		FruitsTimer++;
 		if (FruitsTimer > 600)
 		{
-			//flgで管理するか？
 			esa[244]->ChangeFlg();
 			FruitsTimer = 0;
 		}
@@ -132,4 +159,24 @@ void EsaControll::DrawEsa()
 			esa[i]->Draw();
 		}
 	}
+}
+
+void EsaControll::FlashEsa()
+{
+	static int FlashTime = 0;
+	for (int i = 0; i < ESA_MAX; i++)
+	{
+		if (esa[i]->GetType() == 1)
+		{
+			if (FlashTime > 30)
+			{
+				esa[i]->ChangeFlashFlg();
+			}
+		}
+	}
+	if (FlashTime > 30)
+	{
+		FlashTime = 0;
+	}
+	FlashTime++;
 }

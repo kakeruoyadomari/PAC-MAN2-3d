@@ -11,7 +11,7 @@ GameMain::GameMain()
 
     stage = new Stage();
     stage->MapInit(); 
-    esacontroll = new EsaControll(stage);
+    esacontroll = new EsaControll(stage,*stageCount);
     esa = esacontroll->Getesa();
     player = new Player(stage);
     enemy_red = new Enemy_Red(player,stageCount);
@@ -63,7 +63,7 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
         }
 
         esacontroll->CreateFruits();
-
+        esacontroll->FlashEsa();
         enemy_red->UpDate();
         enemy_cyan->UpDate();
         enemy_orange->UpDate();
@@ -126,7 +126,7 @@ void GameMain::ResetMain()
     stage = new Stage();
     stage->MapInit();
     esacontroll->ResetCount();
-    esacontroll = new EsaControll(stage);
+    esacontroll = new EsaControll(stage, *stageCount);
     esa = esacontroll->Getesa();
     player = new Player(stage);
     enemy_red = new Enemy_Red(player, stageCount);
