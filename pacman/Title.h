@@ -6,15 +6,12 @@ private:
 	int WaitTime;
 	int PosY;
 	int GameState;
-	int MenuNumber;
-	int MenuY;
 
 	int TitleImage;
 	int Menu;
-	int Time;
 public:
 	Title() {
-     MenuY = 0;
+
 	 WaitTime = 0;
 
 	 //ƒ^ƒCƒgƒ‹‰æ‘œ
