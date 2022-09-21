@@ -63,9 +63,11 @@ private:
 
 	int CoffeeBreakType;
 	int PlayTime;
+	int* stageCount;
+
 
 public:
-	Coffee();
+	Coffee(int*);
 
 
 	void CoffeeBreak1();

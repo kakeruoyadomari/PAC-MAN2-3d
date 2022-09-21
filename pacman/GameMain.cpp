@@ -5,9 +5,10 @@
 #include"Stage.h"
 
 
-GameMain::GameMain()
+GameMain::GameMain(int data)
 {
-    *stageCount+=1;
+    stageCount = new int;
+    *stageCount = data + 1;
 
     stage = new Stage();
     stage->MapInit(); 
@@ -52,13 +53,20 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
                     if (esa[i]->GetType() != 2)
                     {
                         if (esa[i]->GetType() == 1) {
-                            enemy_red->ChangeIjike();
+                            enemy_red->ChangeAllIjike();
+                            if(enemy_red->GetExistFlg() == true) enemy_red->ChangeIjike();
+                            if(enemy_pink->GetExistFlg() == true) enemy_pink->ChangeIjike();
+                            if(enemy_cyan->GetExistFlg() == true) enemy_cyan->ChangeIjike();
+                            if(enemy_orange->GetExistFlg() == true) enemy_orange->ChangeIjike();
                         }
                         ESA::ResidueEsa--;
                     }
                 }
             }
         }
+
+        enemy_red->EnemyTrackCounter(enemy_red->GetIjikeFlg(), enemy_pink->GetIjikeFlg(),
+            enemy_cyan->GetIjikeFlg(), enemy_orange->GetIjikeFlg());
 
         if (data.Buttons[XINPUT_BUTTON_B]) {
             player->ToggleClearFlg();

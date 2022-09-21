@@ -4,7 +4,7 @@
 
 Stage* Object::stage = 0;
 int* Object::stageCount = new int;
-bool Object::GamePlayFlg = true;
+bool Object::NowGameFlg = true;
 bool Object::GameClearFlg = false;
 const int Object::RoundSpeed = 1;
 

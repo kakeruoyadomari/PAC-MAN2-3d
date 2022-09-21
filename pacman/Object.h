@@ -18,7 +18,7 @@ protected:
 
 	static int* stageCount;
 
-	static bool GamePlayFlg;
+	static bool NowGameFlg;
 
 	static bool GameClearFlg;
 

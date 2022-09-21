@@ -22,7 +22,7 @@ Enemy_Orange::Enemy_Orange()
 
 	nowdraw = image3[0];
 
-	GamePlayFlg = true;
+	NowGameFlg = true;
 
 }
 
@@ -32,7 +32,13 @@ void Enemy_Orange::UpDate()
 	int_x = roundf(x);
 	int_y = roundf(y);
 
-	
+	if (x < 11) {
+		x = 615;
+	}
+	else if (x > 615) {
+		x = 11;
+	}
+
 	if (existhome == false && existedanim == false) {
 
 		if (hometimer == 0) {
@@ -66,61 +72,78 @@ void Enemy_Orange::UpDate()
 	}
 	else if (existedanim == true) {
 
-		if (GamePlayFlg == true) {
+		if (NowGameFlg == true) {
 			Animaition();
-			if (trackcount++ / 660 == 1) {
-				trackFlg = ToggleFlg(trackFlg);
-				trackcount = 0;
+
+			TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
+
+			if (enemyijike == false) {
+
+				if (trackFlg == true) {
+
+					if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
+						Rocation(targetxpoint, targetypoint,
+							int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+						x = int_x;
+						y = int_y;
+						x += speed * enemydic.x_direction;
+						y += speed * enemydic.y_direction;
+					}
+					else {
+						x += speed * enemydic.x_direction;
+						y += speed * enemydic.y_direction;
+					}
+				}
+				else {
+					if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
+
+						Rocation(targetxpoint, targetypoint,
+							int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+						x = int_x;
+						y = int_y;
+						x += speed * enemydic.x_direction;
+						y += speed * enemydic.y_direction;
+					}
+					else {
+						x += speed * enemydic.x_direction;
+						y += speed * enemydic.y_direction;
+					}
+
+				}
+
+				if (CheckHitPlayer(player, this) == true && NowGameFlg == true) {
+					//NowGameFlg = false;
+				}
 			}
-
-			if (trackFlg == true) {
-
-				TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
-
+			else if (enemyijike == true) {
 				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-					Rocation(targetxpoint, targetypoint,
-						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
+					RunAway(roundf(player->GetX()), roundf(player->GetY()),
+						roundf(x), roundf(y), &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+					x += ijikespeed * enemydic.x_direction;
+					y += ijikespeed * enemydic.y_direction;
 				}
 				else {
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
+					x += ijikespeed * enemydic.x_direction;
+					y += ijikespeed * enemydic.y_direction;
 				}
-			}
-			else {/*
-				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-					Rocation(26 * DOT_SIZE, 4 * DOT_SIZE,
-						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
-				}
-				else {
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
-				}*/
-				TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
 
+				ijiketimer++;
 
-				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-					Rocation(targetxpoint, targetypoint,
-						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
+				if (ijiketimer == ijikecount) {
+					enemyijike = false;
+					ijiketimer = 0;
 				}
-				else {
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
+
+				if (CheckHitPlayer(player, this) == true && NowGameFlg == true) {
+
 				}
+
 			}
 		}
 		else {
 
 		}
 
-		if (CheckHitPlayer(player, this) == true) {
-			//GamePlayFlg = false;
-		}
 	}
 }
 
@@ -140,7 +163,7 @@ void Enemy_Orange::Animaition()
 		animcount = 1;
 	}
 
-	if (ijike != true) {
+	if (enemyijike != true) {
 		switch (enemydic.direction)
 		{
 		case ENEMY_NORMAL_UP:
@@ -183,7 +206,7 @@ void Enemy_Orange::Animaition()
 			break;
 		}
 	}
-	else if (ijike == true) {
+	else if (enemyijike == true) {
 		if (nowflg != true) {
 			nowdraw = ijikeimage1[0];
 		}
@@ -195,7 +218,7 @@ void Enemy_Orange::Animaition()
 
 void Enemy_Orange::Draw() const
 {
-	if (GamePlayFlg == true) {
+	if (NowGameFlg == true) {
 		DrawRotaGraph(x + STAGE_LEFT_SPACE, y, 1, 0, nowdraw, TRUE);
 		if (existhome == true && existedanim == true) {
 			DrawString(800, 400, "ƒIƒŒƒ“ƒWŠO", 0x0f0500);
@@ -216,31 +239,40 @@ void Enemy_Orange::TargetRocation(float px, float py, int dic)
 	int dicx = 0;
 	int dicy = 0;
 
-	if (c < sum_radius&&randomflg == false) {
-		if (rand() % 2 == 0) {
-			dicx = 1;
-		}
-		else
-		{
-			dicx = -1;
-		}
+	if (trackFlg == false) {
 
-		if (rand() % 2 == 0) {
-			dicy = 1;
-		}
-		else {
-			dicy = -1;
-		}
-
-		targetxpoint = px + ((rand() % 3 + 1) * dicx)*DOT_SIZE;
-		targetypoint = py + ((rand() % 3 + 1) * dicy)*DOT_SIZE;
-
-		randomflg = true;
+		targetxpoint = 4 * DOT_SIZE;
+		targetypoint = 26 * DOT_SIZE;
 	}
-	else if(c > sum_radius){
-		targetxpoint = px;
-		targetypoint = py;
+	else {
+		if (c < sum_radius && randomflg == false) {
+			if (rand() % 2 == 0) {
+				dicx = 1;
+			}
+			else
+			{
+				dicx = -1;
+			}
 
-		randomflg = false;
+			if (rand() % 2 == 0) {
+				dicy = 1;
+			}
+			else {
+				dicy = -1;
+			}
+
+			targetxpoint = px + ((rand() % 3 + 1) * dicx) * DOT_SIZE;
+			targetypoint = py + ((rand() % 3 + 1) * dicy) * DOT_SIZE;
+
+			randomflg = true;
+		}
+		else if (c > sum_radius) {
+			targetxpoint = px;
+			targetypoint = py;
+
+			randomflg = false;
+		}
 	}
+
+	
 }

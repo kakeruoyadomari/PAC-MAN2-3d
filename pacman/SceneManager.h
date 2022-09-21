@@ -13,6 +13,9 @@ private:
     XINPUT_STATE nowkey;
     XINPUT_STATE oldkey;
     XINPUT_STATE genkey;
+
+    int* stageCount;
+
 public:
     // コンストラクタ
     SceneManager(AbstractScene* scene)

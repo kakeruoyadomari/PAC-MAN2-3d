@@ -2,10 +2,10 @@
 #include "coffee_break.h"
 #include"GameMain.h"
 
-Coffee::Coffee()
+Coffee::Coffee(int* data)
 {
+    stageCount = data;
     CoffeeBreakType = 1;
-
 
     //Pacman
     Pacimg[0] = LoadGraph("images/pac1.png");
@@ -64,7 +64,7 @@ Coffee::Coffee()
 AbstractScene* Coffee::Update(XINPUT_STATE data) {
 
     if (data.Buttons[XINPUT_BUTTON_START] || CheckHitKey(KEY_INPUT_SPACE)) {
-        return new GameMain();
+        return new GameMain(*stageCount);
     }
 
     if (PlayTime < 540)

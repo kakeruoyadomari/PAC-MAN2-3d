@@ -30,11 +30,12 @@ private:
     int AnimeTimer = 0;
     int startTimer = 0;
 
+    int* stageCount;
 
 
 public:
 
-    GameMain();
+    GameMain(int);
 
 
     virtual ~GameMain() {};

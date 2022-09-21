@@ -167,6 +167,7 @@
     <ClCompile Include="Enemy_Red.cpp" />
     <ClCompile Include="Esa.cpp" />
     <ClCompile Include="EsaControll.cpp" />
+    <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Enemy_Pink.h" />
     <ClInclude Include="Enemy_Red.h" />
     <ClInclude Include="Esa.h" />
+    <ClInclude Include="FPS.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />

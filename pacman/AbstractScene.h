@@ -5,9 +5,6 @@
 //ユーザーはこれを継承してシーンを実装すると楽
 class AbstractScene {
 public:
-
-    static int* stageCount;
-
     // デストラクタ
     virtual ~AbstractScene() {};
 
