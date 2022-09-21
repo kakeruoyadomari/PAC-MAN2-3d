@@ -139,9 +139,42 @@ void Enemy_Orange::UpDate()
 				}
 
 			}
-		}
-		else {
+			else if (backflg == true) {
+				if ((int_x != 14 * DOT_SIZE - 11 || int_y != 12 * DOT_SIZE - 11) && enemyijike == true) {
+					if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
+						Rocation(14 * DOT_SIZE, 12 * DOT_SIZE,
+							int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+						x = int_x;
+						y = int_y;
+						x += backspeed * enemydic.x_direction;
+						y += backspeed * enemydic.y_direction;
+					}
+					else {
+						x += backspeed * enemydic.x_direction;
+						y += backspeed * enemydic.y_direction;
+					}
+				}
+				else if (enemyijike == true) {
 
+					x = 14 * DOT_SIZE;
+					y = 15 * DOT_SIZE;
+					enemyijike = false;
+
+					enemydic.direction = 1;
+				}
+				else if (backflg == true && enemyijike == false && enemydic.direction == 1) {
+					ExistAnime(this);
+
+					x += 0.5 * enemydic.x_direction;
+					y += 0.5 * enemydic.y_direction;
+
+					if (int_y == 12 * DOT_SIZE - 11) {
+						backflg = false;
+						y += 0.5;
+						x -= 11;
+					}
+				}
+			}
 		}
 
 	}
@@ -150,13 +183,6 @@ void Enemy_Orange::UpDate()
 void Enemy_Orange::Animaition()
 {
 	animcount++;
-
-	if (x < 4) {
-		x = 630;
-	}
-	else if (x > 630) {
-		x = 4;
-	}
 
 	if (animcount % 10 == 0) {
 		nowflg = ToggleFlg(nowflg);
@@ -205,13 +231,49 @@ void Enemy_Orange::Animaition()
 		default:
 			break;
 		}
+
+
 	}
-	else if (enemyijike == true) {
-		if (nowflg != true) {
-			nowdraw = ijikeimage1[0];
+	else if (enemyijike == true && backflg == false) {
+		if (nowflg2 == false) {
+			if (nowflg != true) {
+				nowdraw = ijikeimage1[0];
+			}
+			else {
+				nowdraw = ijikeimage1[1];
+			}
 		}
 		else {
-			nowdraw = ijikeimage1[1];
+			if (nowflg != true) {
+				nowdraw = ijikeimage2[0];
+			}
+			else {
+				nowdraw = ijikeimage2[1];
+			}
+		}
+
+		if (ijiketimer >= ijikecount - ONE_SECOND - 20 && ijiketimer % 10 == 0) {
+			nowflg2 = !(nowflg2);
+		}
+
+	}
+	else if (backflg == true) {
+		switch (enemydic.direction)
+		{
+		case ENEMY_NORMAL_UP:
+			nowdraw = medamaimage[2];
+			break;
+		case ENEMY_NORMAL_RIGHT:
+			nowdraw = medamaimage[1];
+			break;
+		case ENEMY_NORMAL_DOWN:
+			nowdraw = medamaimage[3];
+			break;
+		case ENEMY_NORMAL_LEFT:
+			nowdraw = medamaimage[0];
+			break;
+		default:
+			break;
 		}
 	}
 }
