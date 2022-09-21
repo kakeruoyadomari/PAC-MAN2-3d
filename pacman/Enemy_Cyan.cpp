@@ -30,11 +30,11 @@ void Enemy_Cyan::UpDate()
 	int_y = roundf(y);
 
 
-	if (x < 4) {
-		x = 630;
+	if (x < 11) {
+		x = 615;
 	}
-	else if (x > 630) {
-		x = 4;
+	else if (x > 615) {
+		x = 11;
 	}
 
 	if (existhome == false && existedanim == false) {
@@ -68,59 +68,112 @@ void Enemy_Cyan::UpDate()
 	}
 	else if (existedanim == true) {
 
-		if (GamePlayFlg == true) {
+		if (NowGameFlg == true) {
 			Animaition();
-			if (TrackTime++ / 660 == 1) {
-				trackFlg = ToggleFlg(trackFlg);
-				TrackTime = 0;
+
+			TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
+
+			if (enemyijike == false) {
+
+				if (trackFlg == true) {
+
+					if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
+						Rocation(player->GetX(), player->GetY(),
+							int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+						x = int_x;
+						y = int_y;
+						x += speed * enemydic.x_direction;
+						y += speed * enemydic.y_direction;
+					}
+					else {
+						x += speed * enemydic.x_direction;
+						y += speed * enemydic.y_direction;
+					}
+				}
+				else {
+					if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
+
+						Rocation(targetxpoint, targetypoint,
+							int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+						x = int_x;
+						y = int_y;
+						x += speed * enemydic.x_direction;
+						y += speed * enemydic.y_direction;
+					}
+					else {
+						x += speed * enemydic.x_direction;
+						y += speed * enemydic.y_direction;
+					}
+
+				}
+
+				if (CheckHitPlayer(player, this) == true && NowGameFlg == true) {
+					//NowGameFlg = false;
+				}
 			}
-
-			if (trackFlg == true) {
-				TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
-
+			else if (enemyijike == true) {
 				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-					Rocation(targetxpoint, targetypoint,
-						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
+					RunAway(roundf(player->GetX()), roundf(player->GetY()),
+						roundf(x), roundf(y), &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+					x += ijikespeed * enemydic.x_direction;
+					y += ijikespeed * enemydic.y_direction;
 				}
 				else {
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
+					x += ijikespeed * enemydic.x_direction;
+					y += ijikespeed * enemydic.y_direction;
 				}
+
+				ijiketimer++;
+
+				if (ijiketimer == ijikecount) {
+					enemyijike = false;
+					ijiketimer = 0;
+				}
+
+				if (CheckHitPlayer(player, this) == true && NowGameFlg == true) {
+					backflg = true;
+
+				}
+
 			}
-			else {/*
-				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-					Rocation(26 * DOT_SIZE, 4 * DOT_SIZE,
-						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
+			else if (backflg == true) {
+				if ((int_x != 14 * DOT_SIZE - 11 || int_y != 12 * DOT_SIZE - 11) && enemyijike == true) {
+					if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
+						Rocation(14 * DOT_SIZE, 12 * DOT_SIZE,
+							int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+						x = int_x;
+						y = int_y;
+						x += backspeed * enemydic.x_direction;
+						y += backspeed * enemydic.y_direction;
+					}
+					else {
+						x += backspeed * enemydic.x_direction;
+						y += backspeed * enemydic.y_direction;
+					}
 				}
-				else {
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
-				}*/
-				TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
+				else if (enemyijike == true) {
 
-				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-					Rocation(targetxpoint, targetypoint,
-						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
+					x = 14 * DOT_SIZE;
+					y = 15 * DOT_SIZE;
+					enemyijike = false;
+
+					enemydic.direction = 1;
 				}
-				else {
-					x += enemydic.x_direction;
-					y += enemydic.y_direction;
+				else if (backflg == true && enemyijike == false && enemydic.direction == 1) {
+					ExistAnime(this);
+
+					x += 0.5 * enemydic.x_direction;
+					y += 0.5 * enemydic.y_direction;
+
+					if (int_y == 12 * DOT_SIZE - 11) {
+						backflg = false;
+						y += 0.5;
+						x -= 11;
+					}
 				}
 			}
 		}
-		else {
 
-		}
-
-		if (CheckHitPlayer(player, this) == true) {
-			//GamePlayFlg = false;
-		}
 	}
 }
 
@@ -133,7 +186,7 @@ void Enemy_Cyan::Animaition()
 		animcount = 1;
 	}
 
-	if (ijike != true) {
+	if (enemyijike != true) {
 		switch (enemydic.direction)
 		{
 		case ENEMY_NORMAL_UP:
@@ -175,20 +228,56 @@ void Enemy_Cyan::Animaition()
 		default:
 			break;
 		}
+
+
 	}
-	else if (ijike == true) {
-		if (nowflg != true) {
-			nowdraw = ijikeimage1[0];
+	else if (enemyijike == true && backflg == false) {
+		if (nowflg2 == false) {
+			if (nowflg != true) {
+				nowdraw = ijikeimage1[0];
+			}
+			else {
+				nowdraw = ijikeimage1[1];
+			}
 		}
 		else {
-			nowdraw = ijikeimage1[1];
+			if (nowflg != true) {
+				nowdraw = ijikeimage2[0];
+			}
+			else {
+				nowdraw = ijikeimage2[1];
+			}
+		}
+
+		if (ijiketimer >= ijikecount - ONE_SECOND - 20 && ijiketimer % 10 == 0) {
+			nowflg2 = !(nowflg2);
+		}
+
+	}
+	else if (backflg == true) {
+		switch (enemydic.direction)
+		{
+		case ENEMY_NORMAL_UP:
+			nowdraw = medamaimage[2];
+			break;
+		case ENEMY_NORMAL_RIGHT:
+			nowdraw = medamaimage[1];
+			break;
+		case ENEMY_NORMAL_DOWN:
+			nowdraw = medamaimage[3];
+			break;
+		case ENEMY_NORMAL_LEFT:
+			nowdraw = medamaimage[0];
+			break;
+		default:
+			break;
 		}
 	}
 }
 
 void Enemy_Cyan::Draw() const
 {
-	if (GamePlayFlg == true) {
+	if (NowGameFlg == true) {
 		DrawRotaGraph(x + STAGE_LEFT_SPACE, y, 1, 0, nowdraw, TRUE);
 		if (existhome == true && existedanim == true) {
 			DrawString(800, 400, "ƒVƒAƒ“ŠO", 0x00050f);
@@ -202,7 +291,16 @@ void Enemy_Cyan::TargetRocation(float x, float y, int dic)
 	float EX = enemy_red->GetX();
 	float EY = enemy_red->GetY();
 
-	targetxpoint = roundf( x + (x - EX)*2);
-	targetypoint = roundf( y + (y -EY)*2);
+	if (trackFlg == false) {
+
+		targetxpoint = 24 * DOT_SIZE;
+		targetypoint = 26 * DOT_SIZE;
+	}
+	else {
+		targetxpoint = roundf(x + (x - EX) * 2);
+		targetypoint = roundf(y + (y - EY) * 2);
+	}
+
+
 }
 

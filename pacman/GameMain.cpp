@@ -5,9 +5,10 @@
 #include"Stage.h"
 
 
-GameMain::GameMain()
+GameMain::GameMain(int data)
 {
     stageCount = new int;
+    *stageCount = data + 1;
 
     stage = new Stage();
     stage->MapInit(); 
@@ -20,7 +21,6 @@ GameMain::GameMain()
     enemy_pink = new Enemy_Pink();
 
 
-    *stageCount = 1;
 
     startTimer = 450;
 
@@ -52,11 +52,21 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
                     esa[i]->ChangeFlg();
                     if (esa[i]->GetType() != 2)
                     {
+                        if (esa[i]->GetType() == 1) {
+                            enemy_red->ChangeAllIjike();
+                            if(enemy_red->GetExistFlg() == true) enemy_red->ChangeIjike();
+                            if(enemy_pink->GetExistFlg() == true) enemy_pink->ChangeIjike();
+                            if(enemy_cyan->GetExistFlg() == true) enemy_cyan->ChangeIjike();
+                            if(enemy_orange->GetExistFlg() == true) enemy_orange->ChangeIjike();
+                        }
                         ESA::ResidueEsa--;
                     }
                 }
             }
         }
+
+        enemy_red->EnemyTrackCounter(enemy_red->GetIjikeFlg(), enemy_pink->GetIjikeFlg(),
+            enemy_cyan->GetIjikeFlg(), enemy_orange->GetIjikeFlg());
 
         if (data.Buttons[XINPUT_BUTTON_B]) {
             player->ToggleClearFlg();
@@ -122,6 +132,7 @@ void GameMain::Draw() const
 
 void GameMain::ResetMain()
 {
+    ESA::ResidueEsa = 0;
 
     stage = new Stage();
     stage->MapInit();
@@ -136,6 +147,8 @@ void GameMain::ResetMain()
     stage->LoadData();
 
     *stageCount += 1;
+
+    
 
     startTimer = 450;
 

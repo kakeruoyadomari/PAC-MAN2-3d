@@ -14,6 +14,7 @@ private:
     XINPUT_STATE oldkey;
     XINPUT_STATE genkey;
 
+    int* stageCount;
 
 public:
     // コンストラクタ

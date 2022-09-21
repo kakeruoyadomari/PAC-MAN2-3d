@@ -2,6 +2,7 @@
 #include"SceneManager.h"
 #include"Title.h"
 #include"Stage.h"
+#include"FPS.h"
 
 
 
@@ -13,6 +14,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//if (stage.Init()) return -1;	// 初期化
 
+	FPS fps;
 
 	//SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_MAXIMUM);  
 
@@ -23,15 +25,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
-
 	SceneManager scene(new Title());
 
 	while (scene.Update(scene.ControllerUpdate()) != nullptr)
 	{
+
+		fps.Update();
 		ClearDrawScreen();		//��ʂ̏�����
 		scene.Draw();
+		fps.Draw();
 		ScreenFlip();				//����ʂ̓��e��\��ʂɔ��f
+		fps.Wait();
 	}
+
 
 	DxLib_End();				// �c�w���C�u�����g�p�̏I������
 

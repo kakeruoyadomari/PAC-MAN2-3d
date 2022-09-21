@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 
+
 // メンバ変数の値を書き換えるのがアップデート関数
 AbstractScene* SceneManager::Update(XINPUT_STATE data) {
 

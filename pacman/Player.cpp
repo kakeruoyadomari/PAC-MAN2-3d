@@ -134,13 +134,12 @@ void Player::Init(XINPUT_STATE data)
 
 void Player::UpDate()
 {
-	if (GamePlayFlg == true) {
-		MovePlayer();
+	if (NowGameFlg == true) {
 		Animaition();
 		PlayerDisplay();
+		MovePlayer();
 	}
 	else {
-		MovePlayer();
 		Animaition();
 		PlayerDisplay();
 	}
@@ -152,19 +151,23 @@ void Player::UpDate()
 
 void Player::Animaition()
 {
+	if (NowGameFlg == true) {
 
+		if (speed > 0) {
+			playeranim++;
+			if (playeranim >= 9)
+			{
+				playeranim = 0;
+			}
 
-	if (speed > 0) {
-		playeranim++;
-		if (playeranim >= 9)
-		{
-			playeranim = 0;
+			nowdraw = playerimg[playeranim / 3];
 		}
-
-		nowdraw = playerimg[playeranim / 3];
+		else {
+			nowdraw = playerimg[0];
+		}
 	}
 	else {
-		nowdraw = playerimg[0];
+		//ゲームオーバーアニメーション
 	}
 }
 

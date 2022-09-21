@@ -3,6 +3,8 @@
 #include"Stage.h"
 #include<math.h>
 
+#define ONE_SECOND 60
+
 class Object
 {
 protected:
@@ -16,7 +18,7 @@ protected:
 
 	static int* stageCount;
 
-	static bool GamePlayFlg;
+	static bool NowGameFlg;
 
 	static bool GameClearFlg;
 

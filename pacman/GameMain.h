@@ -24,19 +24,18 @@ private:
     Enemy_Orange* enemy_orange;
     Enemy_Pink* enemy_pink;
 
-    int* stageCount = 0;
-
     int ExistCount1 = 0;
     int ExistCount2 = 0;
 
     int AnimeTimer = 0;
     int startTimer = 0;
 
+    int* stageCount;
+
 
 public:
 
-
-    GameMain();
+    GameMain(int);
 
 
     virtual ~GameMain() {};
