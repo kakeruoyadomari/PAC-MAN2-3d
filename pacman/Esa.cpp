@@ -23,7 +23,7 @@ ESA::ESA(int FruitsX, int FruitsY, int EsaType, int FruitsType, int FruitsScore)
 	x = FruitsX;
 	y = FruitsY;
 	Flashflg = true;
-	Esaflg = false;//FALSE;
+	Esaflg = false;
 	FruitsType = FruitsType;
 	EsaScore = 10;
 	Type = EsaType;
