@@ -100,6 +100,8 @@ public:
 
     void EnemyTrackCounter(bool, bool, bool, bool);
 
+    void ResetPosition(int x, int y);
+
    virtual void SetStageCount(int* data) { stageCount = data; }
 
 };

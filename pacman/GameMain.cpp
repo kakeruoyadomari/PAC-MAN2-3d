@@ -92,6 +92,14 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
         else if (ESA::ResidueEsa == 0) {
             player->ToggleClearFlg();
         }
+
+        if (ESA::ResidueEsa == enemy_red->GetSpart()) {
+            enemy_red->ChangeSpartSpeed();
+        }
+        else if (ESA::ResidueEsa == enemy_red->GetSpart2()) {
+            enemy_red->ChangeSpartSpeed();
+        }
+
     }
     else if(player->GetClearFlg() == true){
         player->ResetImage();
