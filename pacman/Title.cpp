@@ -11,7 +11,7 @@ AbstractScene* Title::Update(XINPUT_STATE data) {
         return new GameMain();
     }
     //エンディング表示
-    if (++WaitTime < 100) PosY = 300 - (WaitTime / 2) * 6;
+    if (++Time < 100) PosY = 300 - (Time / 2) * 6;
 
     // 自分自身のポインタ
     return this;

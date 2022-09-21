@@ -3,7 +3,7 @@
 
 class Title : public AbstractScene {
 private:
-	int WaitTime;
+	int Time;
 	int PosY;
 	int GameState;
 
@@ -12,7 +12,7 @@ private:
 public:
 	Title() {
 
-	 WaitTime = 0;
+	 Time = 0;
 
 	 //ƒ^ƒCƒgƒ‹‰æ‘œ
 	 TitleImage = LoadGraph("images/Title.png");
