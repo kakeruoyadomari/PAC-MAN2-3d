@@ -5,7 +5,6 @@ Stage stage;
 
 // グローバル変数
 int Pacman[10];			// パックマンのグラフィックハンドル
-int MapChip[10];			// マップチップのハンドル
 int Pac[11];                //パックマン消滅アニメーションハンドル
 int Score;					// 得点
 
@@ -15,11 +14,6 @@ int Stage::LoadData()
 	// 画像の読み込み
 	if (LoadDivGraph("images/pacman2.png", 10, 10, 1, 24, 24, Pacman) == -1) {
 		MessageBox(NULL, "images/pacman2.png", "ReadError", MB_OK);
-		return -1;
-	}
-	//マップチップ
-	if (LoadDivGraph("images/mapchip1.png", 5, 5, 1, 16, 16, MapChip) == -1) {
-		MessageBox(NULL, "images/mapchip1.png", "ReadError", MB_OK);
 		return -1;
 	}
 	//パックマン消滅アニメーション
@@ -38,34 +32,6 @@ int Stage::LoadData()
 // マップの読み込み
 int Stage::MapInit()
 {
-	//	int FileHandle = FileRead_open("dat/stagedata0829.txt");		// ファイルのオープン
-	//	int FileSize = FileRead_size("dat/stagedata0829.txt");			// ファイルサイズを取得して
-	//	char* FileImage = new char[FileSize];					// その大きさだけ領域確保
-	//	FileRead_read(FileImage, FileSize, FileHandle);			// 一気読み
-	//	FileRead_close(FileHandle);								// ファイルを閉じて終了
-	//
-	//	const char* d = FileImage;
-	//	int sx = 0, sy = 0;
-	//	int o;
-	//
-	//	while (*d != '\0') { // NULL文字（終端）ではない間
-	//		switch (*d) {
-	//		case '0':	o = 0; break;
-	//		case '1':	o = 3; break;
-	//		case '=':	o = 4; break;
-	//		case '\n':
-	//			sy++;		// 一行下へ、左端へ
-	//			sx = 0;		// throw down
-	//		default:	o = 5; break;
-	//		}
-	//		d++;
-	//		if (o != 5) {
-	//			StagePixel[sy][sx] = o;	// マップ情報書き込み
-	//			sx++;
-	//		}
-	//	}
-	//
-	//	return 0;
 
 	fopen_s(&fp, "dat/StageTestCSV1.txt", "r");
 
@@ -162,11 +128,9 @@ int Stage::MapSet()
 	for (sy = 0; sy < STAGE_HEIGHT; sy++) {
 		for (sx = 0; sx < STAGE_WIDTH * 2; sx++) {
 			st = StageTS[sy][sx];
-			//DrawGraph(sx * 4, sy * 3.1,gMapChip[st], TRUE);//マップの大きさ変更x横y縦
 			if (StageTS[sx][sy] == 1) {
 				DrawBox(sx * DOT_SIZE, sy * DOT_SIZE, sx * DOT_SIZE + DOT_SIZE, sy * DOT_SIZE + DOT_SIZE, 0xff00ff, TRUE);
 			}
-			//if (st == 1 || st == 2) dot++;
 		}
 	}
 	return 0;
@@ -278,7 +242,7 @@ void Stage::MainLoop()
 
 	while (ProcessMessage() == 0) {
 		ClsDrawScreen();
-
+		
 		if (MapSet())return;
 		if (PakuMove()) return;
 
