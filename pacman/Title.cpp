@@ -6,10 +6,10 @@
 AbstractScene* Title::Update(XINPUT_STATE data) {
 
     if (data.Buttons[XINPUT_BUTTON_START]||CheckHitKey(KEY_INPUT_SPACE)) {
-        return new GameMain(0);
+        return new GameMain(0, 3);
     }
     if (data.Buttons[XINPUT_BUTTON_A] || CheckHitKey(KEY_INPUT_Z)) {
-        return new Coffee(0);
+        return new Coffee(0,3);
     }
 
     // 自分自身のポインタ

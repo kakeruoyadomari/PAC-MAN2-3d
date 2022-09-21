@@ -65,9 +65,9 @@ private:
 	int PlayTime;
 	int* stageCount;
 
-
+	int* PlayerLife;
 public:
-	Coffee(int*);
+	Coffee(int,int);
 
 
 	void CoffeeBreak1();

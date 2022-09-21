@@ -81,7 +81,7 @@ void Enemy_Red::UpDate()
 			}
 
 			if (CheckHitPlayer(player, this) == true && NowGameFlg == true) {
-				//NowGameFlg = false;
+				NowGameFlg = false;
 			}
 		}
 		else if (enemyijike == true&&backflg == false) {

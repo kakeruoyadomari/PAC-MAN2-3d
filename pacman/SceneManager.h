@@ -15,6 +15,7 @@ private:
     XINPUT_STATE genkey;
 
     int* stageCount;
+    int* PlayerLife;
 
 public:
     // コンストラクタ

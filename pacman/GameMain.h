@@ -31,11 +31,16 @@ private:
     int startTimer = 0;
 
     int* stageCount;
+    int* PlayerLife;
 
+    bool GameOverFlg = false;
+    bool GameoverAnim = false;
+
+    int animcount = 0;
 
 public:
 
-    GameMain(int);
+    GameMain(int, int);
 
 
     virtual ~GameMain() {};

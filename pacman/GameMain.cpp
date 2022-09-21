@@ -5,16 +5,19 @@
 #include"Stage.h"
 
 
-GameMain::GameMain(int data)
+GameMain::GameMain(int data, int life)
 {
     stageCount = new int;
     *stageCount = data + 1;
+
+    PlayerLife = new int;
+    *PlayerLife = life;
 
     stage = new Stage();
     stage->MapInit(); 
     esacontroll = new EsaControll(stage,*stageCount);
     esa = esacontroll->Getesa();
-    player = new Player(stage);
+    player = new Player(stage, *PlayerLife);
     enemy_red = new Enemy_Red(player,stageCount);
     enemy_cyan = new Enemy_Cyan();
     enemy_orange = new Enemy_Orange();
@@ -38,7 +41,7 @@ GameMain::GameMain(int data)
 AbstractScene* GameMain::Update(XINPUT_STATE data)
 {
 
-    if (player->GetClearFlg() == false&&startTimer <= 0) {
+    if (player->GetClearFlg() == false&&startTimer <= 0&&GameOverFlg == false) {
 
         player->Init(data);
         player->UpDate();
@@ -102,6 +105,32 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
         startTimer--;
     }
 
+    if (player->GetNowGameFlg() == false)
+    {
+        GameoverAnim = true;
+
+        if (*PlayerLife > 0)
+        {
+            GameOverFlg = true;
+            if (GameoverAnim == true && animcount++ < 180) {
+                player->UpDate();
+            }
+            else {
+                player = new Player(stage, *PlayerLife);
+                enemy_red = new Enemy_Red(player, stageCount);
+                enemy_cyan = new Enemy_Cyan();
+                enemy_orange = new Enemy_Orange();
+                enemy_pink = new Enemy_Pink();
+                *PlayerLife -= 1;
+            }
+        }
+        else
+        {
+       
+        }
+    }
+
+
     return this;
 }
 
@@ -120,12 +149,16 @@ void GameMain::Draw() const
         player->Draw();
         stage->MapSet();
     }
-    else {
+    else if(startTimer > 300){
         stage->MapSet();
         esacontroll->DrawEsa();
         SetFontSize(35);
         DrawString(11 * DOT_SIZE+STAGE_LEFT_SPACE, 11 * DOT_SIZE, "PLAYER", 0x000ff0);
         DrawString(12 * DOT_SIZE+STAGE_LEFT_SPACE, 17 * DOT_SIZE, "READY", 0xff0000);
+    }
+    else if (GameOverFlg == true) {
+        stage->MapSet();
+        player->Draw();
     }
 
 }
@@ -139,7 +172,7 @@ void GameMain::ResetMain()
     esacontroll->ResetCount();
     esacontroll = new EsaControll(stage, *stageCount);
     esa = esacontroll->Getesa();
-    player = new Player(stage);
+    player = new Player(stage,*PlayerLife);
     enemy_red = new Enemy_Red(player, stageCount);
     enemy_cyan = new Enemy_Cyan();
     enemy_orange = new Enemy_Orange();

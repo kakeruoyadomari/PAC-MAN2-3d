@@ -14,6 +14,11 @@ private:
     float nowdirect;
     int adovanced_direction;
 
+    int* Playerlife;
+
+    int Pacman[10];			// パックマンのグラフィックハンドル
+    int Pac[11];                //パックマン消滅アニメーションハンドル
+
     bool drawflg;       //描画するかのフラグ
     bool ismove;        //現在移動できるかのフラグ
     XINPUT_STATE control;       //コントローラー
@@ -41,13 +46,14 @@ private:
     // 座標X,Yと半径はobjectクラスで定義済み
 public:
     Player();
-    Player(Stage*data);
+    Player(Stage* data, int &PlayerLife);
     void PlayerDisplay(void);
     void UpDate() override;
     void Animaition() override;
     void Draw() const override;
     void MovePlayer();
     void Init(XINPUT_STATE data);
+    bool GetNowGameFlg() { return NowGameFlg; }
     void ResetImage() { nowdraw = playerimg[0]; }
     int GetDirection() { return plyrdrct.direction; }
 

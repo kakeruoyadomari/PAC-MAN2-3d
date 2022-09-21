@@ -2,7 +2,7 @@
 #include"Stage.h"
 #include "DxLib.h"
 
-Player::Player(Stage* data)
+Player::Player(Stage* data, int &PlayerLife)
 {
 
 	speed = 0.1;     //�ړ����x
@@ -11,7 +11,10 @@ Player::Player(Stage* data)
 	playerimg[0] = LoadGraph("images/pac1.png");   //�v���C���[�摜�p�ϐ�
 	playerimg[1] = LoadGraph("images/pac2.png");
 	playerimg[2] = LoadGraph("images/pac3.png");
+
+	LoadDivGraph("images/pacman11.png", 11, 11, 1, 27, 27, Pac);
 	playeranim = 0;
+	Playerlife = &PlayerLife;
 
 	x = 16*DOT_SIZE-11;
 	y = 18*DOT_SIZE-11;      //���Wx,y
@@ -168,6 +171,15 @@ void Player::Animaition()
 	}
 	else {
 		//ゲームオーバーアニメーション
+		playeranim++;
+		if (playeranim < 330)
+		{
+			nowdraw = Pac[playeranim / 30];
+		}
+		else
+		{
+			playeranim = 0;
+		}
 	}
 }
 
