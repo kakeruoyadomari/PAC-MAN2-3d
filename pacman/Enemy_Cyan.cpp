@@ -28,8 +28,6 @@ void Enemy_Cyan::UpDate()
 
 	int_x = roundf(x);
 	int_y = roundf(y);
-
-
 	if (x < 11) {
 		x = 615;
 	}
@@ -73,7 +71,7 @@ void Enemy_Cyan::UpDate()
 
 			TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
 
-			if (enemyijike == false) {
+			if (enemyijike == false && backflg == false) {
 
 				if (trackFlg == true) {
 
@@ -111,14 +109,17 @@ void Enemy_Cyan::UpDate()
 					//NowGameFlg = false;
 				}
 			}
-			else if (enemyijike == true) {
+			else if (enemyijike == true && backflg == false) {
 				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-					RunAway(roundf(player->GetX()), roundf(player->GetY()),
-						roundf(x), roundf(y), &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+					RunAway(player->GetX(), player->GetY(),
+						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
 					x += ijikespeed * enemydic.x_direction;
 					y += ijikespeed * enemydic.y_direction;
 				}
 				else {
+
+					x = int_x;
+					y = int_y;
 					x += ijikespeed * enemydic.x_direction;
 					y += ijikespeed * enemydic.y_direction;
 				}
@@ -132,7 +133,6 @@ void Enemy_Cyan::UpDate()
 
 				if (CheckHitPlayer(player, this) == true && NowGameFlg == true) {
 					backflg = true;
-
 				}
 
 			}
@@ -172,6 +172,9 @@ void Enemy_Cyan::UpDate()
 					}
 				}
 			}
+		}
+		else {
+
 		}
 
 	}

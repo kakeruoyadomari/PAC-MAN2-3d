@@ -71,7 +71,7 @@ void Enemy_Pink::UpDate()
 
 			TargetRocation(player->GetX(), player->GetY(), player->GetDirection());
 
-			if (enemyijike == false&&backflg == false) {
+			if (enemyijike == false && backflg == false) {
 
 				if (trackFlg == true) {
 
@@ -111,12 +111,15 @@ void Enemy_Pink::UpDate()
 			}
 			else if (enemyijike == true && backflg == false) {
 				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-					RunAway(roundf(player->GetX()), roundf(player->GetY()),
-						roundf(x), roundf(y), &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
+					RunAway(player->GetX(), player->GetY(),
+						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
 					x += ijikespeed * enemydic.x_direction;
 					y += ijikespeed * enemydic.y_direction;
 				}
 				else {
+
+					x = int_x;
+					y = int_y;
 					x += ijikespeed * enemydic.x_direction;
 					y += ijikespeed * enemydic.y_direction;
 				}
@@ -136,10 +139,11 @@ void Enemy_Pink::UpDate()
 			else if (backflg == true) {
 				if ((int_x != 14 * DOT_SIZE - 11 || int_y != 12 * DOT_SIZE - 11) && enemyijike == true) {
 					if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
-						Rocation(14 * DOT_SIZE, 12 * DOT_SIZE,
+						Rocation(14 * DOT_SIZE-11, 12 * DOT_SIZE-11,
 							int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-						x = int_x;
-						y = int_y;
+
+						x = int_x + 1*enemydic.x_direction;
+						y = int_y + 1*enemydic.y_direction;
 						x += backspeed * enemydic.x_direction;
 						y += backspeed * enemydic.y_direction;
 					}
@@ -170,7 +174,10 @@ void Enemy_Pink::UpDate()
 				}
 			}
 		}
-		
+		else {
+
+		}
+
 	}
 }
 void Enemy_Pink::Animaition()
