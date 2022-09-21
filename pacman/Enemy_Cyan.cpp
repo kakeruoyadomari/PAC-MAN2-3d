@@ -141,12 +141,13 @@ void Enemy_Cyan::UpDate()
 					if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
 						Rocation(14 * DOT_SIZE, 12 * DOT_SIZE,
 							int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-						x = int_x;
-						y = int_y;
 						x += backspeed * enemydic.x_direction;
 						y += backspeed * enemydic.y_direction;
 					}
 					else {
+
+						x = int_x - 1 * enemydic.x_direction;
+						y = int_y - 1 * enemydic.y_direction;
 						x += backspeed * enemydic.x_direction;
 						y += backspeed * enemydic.y_direction;
 					}

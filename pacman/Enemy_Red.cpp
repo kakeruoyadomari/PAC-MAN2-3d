@@ -27,6 +27,39 @@ Enemy_Red::Enemy_Red(Player* plyr,int*data)
 
 	existedanim = true;
 
+	if (*stageCount == 1) {
+		spart1 = 20;
+		spart2 = 10;
+	}
+	else if(*stageCount ==2){
+		spart1 = 30;
+		spart2 = 15;
+	}
+	else if(*stageCount >= 3 && *stageCount <= 5){
+		spart1 = 40;
+		spart2 = 20;
+	}
+	else if (*stageCount >= 6 && *stageCount <= 8) {
+		spart1 = 50;
+		spart2 = 25;
+	}
+	else if (*stageCount >= 9 && *stageCount <= 11) {
+		spart1 = 60;
+		spart2 = 30;
+	}
+	else if (*stageCount >= 12 && *stageCount <= 14) {
+		spart1 = 80;
+		spart2 = 40;
+	}
+	else if(*stageCount >= 15 && *stageCount <= 17){
+		spart1 = 100;
+		spart2 = 50;
+	}
+	else {
+		spart1 = 0;
+		spart2 = 0;
+	}
+
 }
 
 void Enemy_Red::UpDate()
@@ -55,12 +88,12 @@ void Enemy_Red::UpDate()
 						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
 					x = int_x;
 					y = int_y;
-					x += speed * enemydic.x_direction;
-					y += speed * enemydic.y_direction;
+					x += (speed+SpartSpeed) * enemydic.x_direction;
+					y += (speed + SpartSpeed) * enemydic.y_direction;
 				}
 				else {
-					x += speed * enemydic.x_direction;
-					y += speed * enemydic.y_direction;
+					x += (speed + SpartSpeed) * enemydic.x_direction;
+					y += (speed + SpartSpeed) * enemydic.y_direction;
 				}
 			}
 			else {
@@ -70,12 +103,12 @@ void Enemy_Red::UpDate()
 						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
 					x = int_x;
 					y = int_y;
-					x += speed* enemydic.x_direction;
-					y += speed * enemydic.y_direction;
+					x += (speed + SpartSpeed) * enemydic.x_direction;
+					y += (speed + SpartSpeed) * enemydic.y_direction;
 				}
 				else {
-					x += speed * enemydic.x_direction;
-					y += speed * enemydic.y_direction;
+					x += (speed + SpartSpeed) * enemydic.x_direction;
+					y += (speed + SpartSpeed) * enemydic.y_direction;
 				}
 				
 			}
@@ -107,6 +140,9 @@ void Enemy_Red::UpDate()
 			}
 
 			if (CheckHitPlayer(player, this) == true && NowGameFlg == true) {
+				int_x = int_x / DOT_SIZE * DOT_SIZE - 11;
+				int_y = int_y / DOT_SIZE * DOT_SIZE - 11;
+
 				backflg = true;
 			}
 			
@@ -116,12 +152,13 @@ void Enemy_Red::UpDate()
 				if (int_x % DOT_SIZE == 11 && int_y % DOT_SIZE == 11) {
 					Rocation(14 * DOT_SIZE-11, 12 * DOT_SIZE-11,
 						int_x, int_y, &enemydic.direction, &enemydic.x_direction, &enemydic.y_direction);
-					x = int_x-1;
-					y = int_y-1;
+		
 					x += backspeed * enemydic.x_direction;
 					y += backspeed * enemydic.y_direction;
 				}
 				else {
+					x = int_x - 1 * enemydic.x_direction;
+					y = int_y - 1 * enemydic.y_direction;
 					x += backspeed * enemydic.x_direction;
 					y += backspeed * enemydic.y_direction;
 				}

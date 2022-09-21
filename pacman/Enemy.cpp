@@ -107,7 +107,7 @@ Enemy::Enemy()
 		trackchangecount = 4;
 	}
 	trackFlg = false;
-	backspeed = float(32) / float(16);
+	backspeed = float(64) / float(16);
 }
 
 void Enemy::ExistAnime(Enemy* data)
@@ -143,7 +143,7 @@ void Enemy::EnemyTrackCounter(bool red, bool pink, bool cyan, bool orange)
 			}
 		}
 		else {
-			if (trackcount++ / tracktime == 1) {
+			if (trackcount++ / tracktime == 1&&tracktime != 0) {
 				if (trackchange++ < trackchangecount && trackchange >= 2) {
 					tracktime =  5 * ONE_SECOND;
 					trackFlg = true;
@@ -159,12 +159,26 @@ void Enemy::EnemyTrackCounter(bool red, bool pink, bool cyan, bool orange)
 					trackcount = 0;
 				}
 			}
+			else {
+				trackFlg = true;
+			}
 			
 		}
 	}
 	else if(red == false &&pink == false &&cyan == false &&orange == false){
 		allenemyijike = false;
 	}
+}
+
+void Enemy::ResetPosition(int x, int y)
+{
+	int lx = x / DOT_SIZE;
+	int ly = y / DOT_SIZE;
+
+	x = lx * DOT_SIZE - 11;
+	y = ly * DOT_SIZE - 11;
+
+
 }
 
 
