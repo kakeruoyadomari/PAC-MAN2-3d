@@ -112,7 +112,7 @@ void Enemy_Orange::UpDate()
 				}
 
 				if (CheckHitPlayer(player, this) == true && NowGameFlg == true) {
-					//NowGameFlg = false;
+					NowGameFlg = false;
 				}
 			}
 			else if (enemyijike == true && backflg == false) {
@@ -291,11 +291,7 @@ void Enemy_Orange::Draw() const
 		if (existhome == true && existedanim == true) {
 			DrawString(800, 400, "ƒIƒŒƒ“ƒWŠO", 0x0f0500);
 		}
-		DrawBox(targetxpoint + STAGE_LEFT_SPACE, targetypoint, targetxpoint + DOT_SIZE + STAGE_LEFT_SPACE, targetypoint + DOT_SIZE, 0x0000ff, true);
-
-	}
-
-	DrawFormatString(900, 600, 0xff0000, "%d", *stageCount);
+		}
 }
 
 void Enemy_Orange::TargetRocation(float px, float py, int dic)

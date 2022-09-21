@@ -186,9 +186,5 @@ void Player::Animaition()
 
 void Player::Draw() const
 {
-	DrawFormatString(800, 10, 0xffffff, "x:%fl",x);
-	DrawFormatString(800, 50, 0xffffff, "y:%fl",y);
-	DrawFormatString(800, 100, 0xffffff, "direction:%d", adovanced_direction);
 	DrawRotaGraph(x+STAGE_LEFT_SPACE, y, 1.8, nowdirect, nowdraw, TRUE, FALSE);
-	DrawPixel(x+STAGE_LEFT_SPACE, y, 0x00ff00);
 }

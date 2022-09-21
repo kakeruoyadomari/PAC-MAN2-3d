@@ -165,11 +165,11 @@ void GameMain::Draw() const
         esacontroll->DrawEsa();
         stage->MapSet();
     }
-    else if (player->GetClearFlg() == true&&GameOverFlg == false) {
+    if (player->GetClearFlg() == true&&GameOverFlg == false) {
         player->Draw();
         stage->MapSet();
     }
-    else if(startTimer > 300 && GameOverFlg == false){
+    if(startTimer > 300 && GameOverFlg == false){
         stage->MapSet();
         esacontroll->DrawEsa();
         SetFontSize(35);
@@ -177,13 +177,13 @@ void GameMain::Draw() const
         //DrawString(12 * DOT_SIZE+STAGE_LEFT_SPACE, 17 * DOT_SIZE, "READY", 0xff0000);
         DrawGraph(12 * DOT_SIZE+STAGE_LEFT_SPACE, 17 * DOT_SIZE, Ready, true);
     }
-    else if (DeadFlg == true&&GameOverFlg == false) {
+    if (DeadFlg == true&&GameOverFlg == false) {
         stage->MapSet();
         player->Draw();
     }
-    else if (GameOverFlg == true) {
+    if (GameOverFlg == true) {
         stage->MapSet();
-        DrawGraph(12 * DOT_SIZE + STAGE_LEFT_SPACE, 17 * DOT_SIZE, GameOver, true);
+        DrawGraph(10 * DOT_SIZE + STAGE_LEFT_SPACE, 17 * DOT_SIZE, GameOver, true);
     }
 
 }

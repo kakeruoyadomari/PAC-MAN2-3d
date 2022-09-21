@@ -294,10 +294,6 @@ void Enemy_Red::Draw() const
 	if (NowGameFlg == true) {
 		DrawRotaGraph(x + STAGE_LEFT_SPACE, y, 1, 0, nowdraw, TRUE);
 	}
-
-	DrawBox(targetxpoint + STAGE_LEFT_SPACE, targetypoint, targetxpoint + DOT_SIZE + STAGE_LEFT_SPACE, targetypoint + DOT_SIZE, 0x0000ff, true);
-	DrawFormatString(1000, 400, 0x00ff00, "%d", tracktime);
-
 }
 
 void Enemy_Red::TargetRocation(float x, float y, int dic)

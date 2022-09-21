@@ -54,6 +54,5 @@ void ESA::Draw() const
 	{
 		DrawRotaGraph(x, y, 1, 0, EsaImg, TRUE);
 	}
-	DrawFormatString(0, 0, 0xffffff, "residue:%d", ResidueEsa);
 }
 

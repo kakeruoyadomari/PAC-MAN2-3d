@@ -106,7 +106,7 @@ void Enemy_Cyan::UpDate()
 				}
 
 				if (CheckHitPlayer(player, this) == true && NowGameFlg == true) {
-					//NowGameFlg = false;
+					NowGameFlg = false;
 				}
 			}
 			else if (enemyijike == true && backflg == false) {
@@ -286,7 +286,6 @@ void Enemy_Cyan::Draw() const
 		if (existhome == true && existedanim == true) {
 			DrawString(800, 400, "ƒVƒAƒ“ŠO", 0x00050f);
 		}
-		DrawBox(targetxpoint + STAGE_LEFT_SPACE, targetypoint, targetxpoint + DOT_SIZE + STAGE_LEFT_SPACE, targetypoint + DOT_SIZE, 0x0000ff, true);
 	}
 }
 
