@@ -23,7 +23,8 @@ GameMain::GameMain(int data, int life)
     enemy_orange = new Enemy_Orange();
     enemy_pink = new Enemy_Pink();
 
-
+    GameOver = LoadGraph("images/GameOver.png");
+    Ready = LoadGraph("images/Ready.png");
 
     startTimer = 450;
 
@@ -112,7 +113,7 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
 
         if (*PlayerLife > 0)
         {
-            if (GameoverAnim == true && animcount++ < 80) {
+            if (GameoverAnim == true && animcount++ < 80&&GameOverFlg == false) {
                 player->UpDate();
             }
             else {
@@ -130,6 +131,14 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
         else if(*PlayerLife == 0)
         {
             GameOverFlg = true;
+            DeadFlg = true;
+
+        }
+        else if (GameOverFlg == true) {
+            animcount = 0;
+            if (animcount++ > 100) {
+                return nullptr;
+            }
         }
     }
 
@@ -148,23 +157,25 @@ void GameMain::Draw() const
         esacontroll->DrawEsa();
         stage->MapSet();
     }
-    else if (player->GetClearFlg() == true) {
+    else if (player->GetClearFlg() == true&&GameOverFlg == false) {
         player->Draw();
         stage->MapSet();
     }
-    else if(startTimer > 300){
+    else if(startTimer > 300 && GameOverFlg == false){
         stage->MapSet();
         esacontroll->DrawEsa();
         SetFontSize(35);
-        DrawString(11 * DOT_SIZE+STAGE_LEFT_SPACE, 11 * DOT_SIZE, "PLAYER", 0x000ff0);
-        DrawString(12 * DOT_SIZE+STAGE_LEFT_SPACE, 17 * DOT_SIZE, "READY", 0xff0000);
+        //DrawString(11 * DOT_SIZE+STAGE_LEFT_SPACE, 11 * DOT_SIZE, "PLAYER", 0x000ff0);
+        //DrawString(12 * DOT_SIZE+STAGE_LEFT_SPACE, 17 * DOT_SIZE, "READY", 0xff0000);
+        DrawGraph(12 * DOT_SIZE+STAGE_LEFT_SPACE, 17 * DOT_SIZE, Ready, true);
     }
     else if (DeadFlg == true&&GameOverFlg == false) {
         stage->MapSet();
         player->Draw();
     }
     else if (GameOverFlg == true) {
-
+        stage->MapSet();
+        DrawGraph(12 * DOT_SIZE + STAGE_LEFT_SPACE, 17 * DOT_SIZE, GameOver, true);
     }
 
 }

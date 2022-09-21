@@ -39,6 +39,9 @@ private:
 
     int animcount = 0;
 
+    int GameOver;
+    int Ready;
+
 public:
 
     GameMain(int, int);
