@@ -108,14 +108,17 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
     if (player->GetNowGameFlg() == false)
     {
         GameoverAnim = true;
+        DeadFlg = true;
 
         if (*PlayerLife > 0)
         {
-            GameOverFlg = true;
-            if (GameoverAnim == true && animcount++ < 180) {
+            if (GameoverAnim == true && animcount++ < 80) {
                 player->UpDate();
             }
             else {
+                DeadFlg = false;
+                animcount = 0;
+
                 player = new Player(stage, *PlayerLife);
                 enemy_red = new Enemy_Red(player, stageCount);
                 enemy_cyan = new Enemy_Cyan();
@@ -124,9 +127,9 @@ AbstractScene* GameMain::Update(XINPUT_STATE data)
                 *PlayerLife -= 1;
             }
         }
-        else
+        else if(*PlayerLife == 0)
         {
-       
+            GameOverFlg = true;
         }
     }
 
@@ -156,9 +159,12 @@ void GameMain::Draw() const
         DrawString(11 * DOT_SIZE+STAGE_LEFT_SPACE, 11 * DOT_SIZE, "PLAYER", 0x000ff0);
         DrawString(12 * DOT_SIZE+STAGE_LEFT_SPACE, 17 * DOT_SIZE, "READY", 0xff0000);
     }
-    else if (GameOverFlg == true) {
+    else if (DeadFlg == true&&GameOverFlg == false) {
         stage->MapSet();
         player->Draw();
+    }
+    else if (GameOverFlg == true) {
+
     }
 
 }

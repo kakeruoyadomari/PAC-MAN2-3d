@@ -34,6 +34,7 @@ private:
     int* PlayerLife;
 
     bool GameOverFlg = false;
+    bool DeadFlg = false;
     bool GameoverAnim = false;
 
     int animcount = 0;

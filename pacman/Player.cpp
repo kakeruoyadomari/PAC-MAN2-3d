@@ -170,11 +170,12 @@ void Player::Animaition()
 		}
 	}
 	else {
+		plyrdrct.direction = 4;
 		//ゲームオーバーアニメーション
 		playeranim++;
-		if (playeranim < 330)
+		if (playeranim < 180)
 		{
-			nowdraw = Pac[playeranim / 30];
+			nowdraw = Pac[playeranim / 11];
 		}
 		else
 		{
