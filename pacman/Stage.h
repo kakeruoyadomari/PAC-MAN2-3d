@@ -31,7 +31,7 @@ public:
     //‰æ‘œ“Ç‚İ‚İ
     int GameOver;
     int Ready;
-    //Title‚Ì•\¦
+    //Title‚Ì•\¦—p•Ï”
     int g_WaitTime = 0;
 };
 

@@ -18,7 +18,7 @@ int Stage::LoadData()
 	}
 	//パックマン消滅アニメーション
 	if (LoadDivGraph("images/pacman11.png", 11, 11, 1, 27, 27, Pac) == -1) {
-		MessageBox(NULL, "images/pacman2.png", "ReadError", MB_OK);
+		MessageBox(NULL, "images/pacma11.png", "ReadError", MB_OK);
 		return -1;
 	}
 	//Readyの文字
@@ -269,8 +269,9 @@ void Stage::MainLoop()
 		DrawFormatString(1000, 0, RGB(0, 0, 255), "HI-SCORE");
 		DrawFormatString(1019, 16, RGB(255, 255, 255), "10000");
 
-		DrawFormatString(1000, 100, RGB(0, 0, 255), "1UP");//スコア表示
+
 		DrawFormatString(1006, 116, RGB(255, 255, 255), "%6d", Score);
+		DrawFormatString(1000, 100, RGB(255, 255, 255), "1UP");//スコア表示
 
 		ScreenFlip();
 	}
